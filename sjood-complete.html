@@ -1,0 +1,2183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>Sjood — سُجود</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --deep-green:#1a3a2a; --dark-green:#2d5a3f; --mid-green:#3d7a55;
+  --accent-green:#4CAF50; --light-green:#7bc67e; --pale-green:#e8f5e9;
+  --gold:#d4a843; --gold-light:#f0d78c; --gold-dark:#b8922e;
+  --cream:#f5f2eb; --cream-dark:#e8e2d5;
+  --text-primary:#1a2e1f; --text-secondary:#5a6e5f; --text-muted:#8a9a8e;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;font-family:'Poppins',sans-serif;overflow:hidden;}
+#app{width:100%;max-width:420px;height:100vh;position:relative;overflow:hidden;background:var(--cream);}
+
+/* ── Screen system ── */
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;opacity:0;pointer-events:none;transition:opacity .35s ease, transform .35s cubic-bezier(.22,.68,0,1.2);}
+.screen.active{opacity:1;pointer-events:all;transform:translateX(0);}
+.screen.from-right{transform:translateX(60px);}
+.screen.from-left{transform:translateX(-60px);}
+
+/* ── Dark screens ── */
+.dark-screen{background:linear-gradient(170deg,#0a1a10 0%,#1a3a2a 40%,#2d5a3f 75%,#1a3a2a 100%);}
+.light-screen{background:var(--cream);}
+.white-screen{background:#fff;}
+
+/* ── Shared components ── */
+.progress-bar{padding:52px 28px 0;}
+.progress-track{width:100%;height:5px;background:#e8e2d5;border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:3px;transition:width .5s ease;}
+
+.btn-gold{width:100%;padding:17px;border-radius:14px;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark));color:var(--deep-green);font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;border:none;cursor:pointer;box-shadow:0 6px 24px rgba(212,168,67,.35);transition:transform .15s,box-shadow .15s;letter-spacing:.2px;}
+.btn-gold:active{transform:scale(.97);}
+.btn-white{width:100%;padding:17px;border-radius:14px;background:white;color:var(--gold);font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.1);transition:transform .15s;}
+.btn-white:active{transform:scale(.97);}
+.btn-outline-white{width:100%;padding:17px;border-radius:14px;background:transparent;color:white;font-family:'Poppins',sans-serif;font-size:16px;font-weight:600;border:2px solid rgba(255,255,255,.3);cursor:pointer;transition:all .2s;}
+
+.bottom-pad{padding:20px 24px 52px;}
+.content-pad{padding:0 28px;}
+.sign-in-link{text-align:center;font-size:12px;color:rgba(255,255,255,.35);margin-top:10px;}
+.sign-in-link a{color:var(--gold);text-decoration:none;font-weight:600;}
+
+/* Stars */
+.stars-wrap .star{position:absolute;border-radius:50%;background:var(--gold);animation:twinkle 2.5s ease-in-out infinite;pointer-events:none;}
+@keyframes twinkle{0%,100%{opacity:.15;transform:scale(1);}50%{opacity:.9;transform:scale(1.4);}}
+
+/* Mosque bg */
+.mosque-silhouette{position:absolute;bottom:0;left:0;right:0;width:100%;opacity:.06;pointer-events:none;}
+
+/* Gold glow */
+.gold-glow{position:absolute;border-radius:50%;pointer-events:none;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes pop{0%{transform:scale(1);}50%{transform:scale(1.1);}100%{transform:scale(1);}}
+@keyframes breathe{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+@keyframes shimmer{0%{background-position:-200% center;}100%{background-position:200% center;}}
+
+.fu{animation:fadeUp .5s cubic-bezier(.22,.68,0,1.2) both;}
+.d1{animation-delay:.05s;}.d2{animation-delay:.12s;}.d3{animation-delay:.2s;}.d4{animation-delay:.28s;}.d5{animation-delay:.36s;}.d6{animation-delay:.44s;}
+
+/* ── Option cards (multi-select / single-select) ── */
+.options-list{display:flex;flex-direction:column;gap:10px;}
+.option-card{background:white;border:2px solid #e8e2d5;border-radius:14px;padding:15px 18px;cursor:pointer;font-size:14px;font-weight:500;color:var(--text-primary);transition:all .2s;display:flex;align-items:center;gap:10px;line-height:1.4;}
+.option-card:active{transform:scale(.98);}
+.option-card.selected{border-color:var(--gold);background:rgba(212,168,67,.07);}
+.option-card .check{width:22px;height:22px;border-radius:50%;border:2px solid #d1d5db;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-left:auto;}
+.option-card.selected .check{background:var(--gold);border-color:var(--gold);}
+.option-card.selected .check::after{content:'✓';color:white;font-size:12px;font-weight:700;}
+
+/* ── Slider ── */
+.slider-custom{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;outline:none;cursor:pointer;background:linear-gradient(to right,var(--gold) var(--pct,50%),#e8e2d5 var(--pct,50%));}
+.slider-custom::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:white;border:3px solid var(--gold);box-shadow:0 3px 10px rgba(212,168,67,.35);cursor:pointer;transition:transform .15s;}
+.slider-custom::-webkit-slider-thumb:active{transform:scale(1.2);}
+
+/* ── Toggle ── */
+.toggle-wrap{display:flex;align-items:center;justify-content:space-between;}
+.toggle-track{width:48px;height:26px;border-radius:13px;background:#e8e2d5;position:relative;cursor:pointer;transition:background .3s;flex-shrink:0;}
+.toggle-track.on{background:var(--accent-green);}
+.toggle-thumb{width:22px;height:22px;border-radius:50%;background:white;position:absolute;top:2px;left:2px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.toggle-track.on .toggle-thumb{transform:translateX(22px);}
+
+/* ── Signature pad ── */
+#sigCanvas{width:100%;height:140px;background:white;border-radius:12px;cursor:crosshair;touch-action:none;}
+
+/* ── Bottom nav ── */
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;height:72px;background:white;border-top:1px solid #e8e2d5;display:flex;align-items:center;justify-content:space-around;padding:0 8px;z-index:100;box-shadow:0 -4px 20px rgba(26,58,42,.08);}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:8px 16px;border-radius:12px;transition:all .2s;flex:1;}
+.nav-item svg{width:22px;height:22px;stroke:var(--text-muted);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s;}
+.nav-item span{font-size:10px;color:var(--text-muted);font-weight:500;transition:color .2s;}
+.nav-item.active svg{stroke:var(--gold);}
+.nav-item.active span{color:var(--gold);}
+
+/* ── Main app screens ── */
+.main-screen{padding-bottom:80px;}
+
+/* Streak card */
+.streak-card{margin:20px 20px 0;border-radius:20px;background:linear-gradient(135deg,var(--deep-green),var(--dark-green));padding:20px;color:white;box-shadow:0 8px 32px rgba(26,58,42,.2);}
+
+/* Feed card */
+.feed-card{margin:14px 20px 0;background:white;border-radius:18px;padding:18px;box-shadow:0 4px 16px rgba(26,58,42,.08);cursor:pointer;}
+
+/* Vision stat cards */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 20px;margin-top:16px;}
+.stat-card-v{border-radius:18px;padding:20px;color:white;}
+
+/* Lock list */
+.category-row{display:flex;align-items:center;padding:16px 20px;background:white;border-bottom:1px solid #f0ebe0;cursor:pointer;gap:14px;}
+.cat-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;}
+
+/* Prayer time row */
+.prayer-time-row{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #f0ebe0;}
+.prayer-time-row .time{font-size:28px;font-weight:700;color:var(--text-primary);}
+.prayer-time-row .time sup{font-size:14px;font-weight:400;color:var(--text-muted);}
+
+/* ── Daily check-in screens (dark with emoji slider) ── */
+.checkin-screen{justify-content:space-between;}
+.emoji-display{font-size:80px;text-align:center;line-height:1;transition:all .3s cubic-bezier(.34,1.56,.64,1);}
+.emoji-label{text-align:center;font-size:18px;font-weight:600;margin-top:8px;transition:color .3s;}
+
+/* ── Loading circle ── */
+.circle-progress{position:relative;width:180px;height:180px;margin:0 auto;}
+.circle-progress svg{transform:rotate(-90deg);}
+.circle-bg{fill:none;stroke:#e8e2d5;stroke-width:12;}
+.circle-fill{fill:none;stroke:var(--gold);stroke-width:12;stroke-linecap:round;transition:stroke-dashoffset .4s ease;}
+.circle-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:var(--text-primary);}
+
+/* ── 90 day grid ── */
+.grid-90{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;}
+.gc{aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.08);transition:all .3s;}
+.gc.done{background:linear-gradient(135deg,var(--accent-green),var(--dark-green));border:none;}
+.gc.today{background:linear-gradient(135deg,var(--gold),var(--gold-dark));border:none;box-shadow:0 2px 8px rgba(212,168,67,.5);}
+
+/* Verse card */
+.verse-card{margin:0 20px;border-radius:20px;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.2);padding:28px 24px;text-align:center;backdrop-filter:blur(10px);}
+
+/* Commitment bullet */
+.commit-bullet{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.commit-dot{width:8px;height:8px;border-radius:50%;background:white;flex-shrink:0;}
+
+/* Notification preview */
+.notif-preview{background:#f2f2f7;border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin:0 28px;}
+.notif-icon{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--deep-green),var(--mid-green));display:flex;align-items:center;justify-content:center;}
+.notif-text p{font-size:13px;font-weight:600;color:#1c1c1e;}
+.notif-text span{font-size:12px;color:#8e8e93;}
+
+/* Reviews */
+.review-card{background:white;border-radius:16px;padding:18px;margin:0 0 12px;box-shadow:0 2px 12px rgba(26,58,42,.06);}
+.stars{color:var(--gold);font-size:16px;margin-bottom:6px;}
+
+/* Plan card */
+.plan-card{border:2px solid #e8e2d5;border-radius:16px;padding:18px 20px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:space-between;}
+.plan-card.selected{border-color:var(--gold);background:rgba(212,168,67,.06);}
+.plan-radio{width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.plan-card.selected .plan-radio{background:var(--gold);border-color:var(--gold);}
+.plan-card.selected .plan-radio::after{content:'✓';color:white;font-size:12px;font-weight:700;}
+
+/* Congrats screen */
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<div id="app">
+
+
+<!-- ════════════════════════════════════════
+     STEP 5 · REALITY CHECK
+════════════════════════════════════════ -->
+<div class="screen light-screen active" id="s-reality">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:60px 32px 0;">
+    <div class="fu d1" id="reality-content">
+      <p style="font-size:15px;color:var(--text-muted);margin-bottom:32px;">Based on your answer...</p>
+    </div>
+  </div>
+  <div class="bottom-pad fu d5">
+    <p style="text-align:right;font-size:14px;color:var(--text-muted);margin-bottom:20px;cursor:pointer;" onclick="go('s-age')">tap to continue →</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STEP 6 · AGE
+════════════════════════════════════════ -->
+<div class="screen light-screen" id="s-age">
+  <div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:20%"></div></div></div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:32px 28px 0;gap:24px;">
+    <div class="fu d1"><h1 style="font-size:28px;font-weight:800;color:var(--text-primary);">how old are you?</h1></div>
+    <div class="options-list fu d2" id="age-options">
+      <div class="option-card" onclick="selectSingle(this,'age')">Under 18 <div class="check"></div></div>
+      <div class="option-card" onclick="selectSingle(this,'age')">18 – 24 <div class="check"></div></div>
+      <div class="option-card" onclick="selectSingle(this,'age')">25 – 34 <div class="check"></div></div>
+      <div class="option-card" onclick="selectSingle(this,'age')">35 – 44 <div class="check"></div></div>
+      <div class="option-card" onclick="selectSingle(this,'age')">45 – 54 <div class="check"></div></div>
+      <div class="option-card" onclick="selectSingle(this,'age')">55+ <div class="check"></div></div>
+    </div>
+  </div>
+  <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-goals')">continue</button></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STEP 7 · GOALS
+════════════════════════════════════════ -->
+<div class="screen light-screen" id="s-goals">
+  <div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:30%"></div></div></div>
+  <div style="flex:1;display:flex;flex-direction:column;padding:28px 28px 0;gap:20px;overflow-y:auto;">
+    <div class="fu d1">
+      <h1 style="font-size:24px;font-weight:800;color:var(--text-primary);">what do you want to <span style="color:var(--gold);">achieve</span> with Sjood?</h1>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:6px;">choose up to 3</p>
+    </div>
+    <div class="options-list fu d2">
+      <div class="option-card" onclick="selectMulti(this,'goals',3)">🤲 put Allah first, before my phone <div class="check"></div></div>
+      <div class="option-card" onclick="selectMulti(this,'goals',3)">🔄 build a consistent prayer habit <div class="check"></div></div>
+      <div class="option-card" onclick="selectMulti(this,'goals',3)">❤️ deepen my relationship with Allah <div class="check"></div></div>
+      <div class="option-card" onclick="selectMulti(this,'goals',3)">☮️ find peace in a chaotic world <div class="check"></div></div>
+      <div class="option-card" onclick="selectMulti(this,'goals',3)">🎯 start my day with intention, not distraction <div class="check"></div></div>
+      <div class="option-card" onclick="selectMulti(this,'goals',3)">👂 hear Allah's guidance more clearly <div class="check"></div></div>
+      <div class="option-card" onclick="selectMulti(this,'goals',3)">💪 finally conquer inconsistency <div class="check"></div></div>
+      <div class="option-card" onclick="selectMulti(this,'goals',3)">✨ surrender my plans and anxieties <div class="check"></div></div>
+    </div>
+  </div>
+  <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-faith')">continue</button></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STEP 8 · THRIVING FAITH
+════════════════════════════════════════ -->
+<div class="screen light-screen" id="s-faith">
+  <div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:40%"></div></div></div>
+  <div style="flex:1;display:flex;flex-direction:column;padding:28px 28px 0;gap:20px;">
+    <div class="fu d1">
+      <h1 style="font-size:24px;font-weight:800;color:var(--text-primary);">what does a <span style="color:var(--gold);">thriving iman</span> look like to you?</h1>
+    </div>
+    <div class="options-list fu d2">
+      <div class="option-card" onclick="selectSingle(this,'faith')">🤝 trusting Allah's plan, even when it's hard <div class="check"></div></div>
+      <div class="option-card" onclick="selectSingle(this,'faith')">💯 living out my deen with integrity <div class="check"></div></div>
+      <div class="option-card" onclick="selectSingle(this,'faith')">🙌 using my gifts to serve the ummah <div class="check"></div></div>
+      <div class="option-card" onclick="selectSingle(this,'faith')">📖 building my life on the Quran and Sunnah <div class="check"></div></div>
+    </div>
+  </div>
+  <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-confirm')">continue</button></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STEP 9 · YOU'RE IN THE RIGHT PLACE
+════════════════════════════════════════ -->
+<div class="screen" id="s-confirm" style="background:var(--gold);">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:48px 28px;gap:20px;">
+    <div class="fu d1" style="background:white;border-radius:20px;padding:22px;">
+      <p style="font-size:22px;font-weight:800;color:var(--text-primary);margin-bottom:8px;">❤️ deepening your relationship with Allah</p>
+      <p style="font-size:13px;color:var(--text-muted);line-height:1.6;">This is about connection, not just checking a box. Sjood will help you discover heartfelt duas designed to draw you closer to Allah every single day.</p>
+    </div>
+    <div class="fu d2" style="background:white;border-radius:20px;padding:22px;text-align:center;">
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">where you're headed</p>
+      <p style="font-size:18px;font-weight:700;color:var(--text-primary);">🤝 trusting Allah's plan</p>
+      <p style="font-size:13px;color:var(--gold);margin-top:8px;font-weight:600;">87% of Sjood users built a daily salah habit</p>
+    </div>
+    <div class="fu d3" style="padding:0 4px;">
+      <p style="font-size:28px;font-weight:800;color:white;margin-bottom:8px;">you're in the right place.</p>
+      <p style="font-size:14px;color:rgba(255,255,255,.8);line-height:1.6;">Thousands have started this journey and Sjood walked with them every step of the way.</p>
+    </div>
+  </div>
+  <div class="bottom-pad fu d4"><button class="btn-white" onclick="go('s-prayer-freq')">continue</button></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STEP 10 · PRAYER FREQUENCY
+════════════════════════════════════════ -->
+<div class="screen light-screen" id="s-prayer-freq">
+  <div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:50%"></div></div></div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:28px;gap:40px;">
+    <div class="fu d1">
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">be honest</p>
+      <h1 style="font-size:26px;font-weight:800;color:var(--text-primary);">how many prayers do you complete daily?</h1>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:24px;" class="fu d2">
+      <div style="text-align:center;">
+        <span id="pfreq-num" style="font-size:88px;font-weight:800;color:var(--text-primary);line-height:1;">2</span>
+        <p style="font-size:15px;color:var(--text-muted);margin-top:4px;">prayers / day</p>
+      </div>
+      <div style="font-size:14px;color:var(--gold);font-weight:600;text-align:center;" id="pfreq-label">Fajr + Dhuhr</div>
+      <input type="range" class="slider-custom" min="0" max="5" value="2" step="1" style="--pct:40%"
+        oninput="updatePFreq(this.value)"/>
+      <div style="display:flex;justify-content:space-between;width:100%;font-size:12px;color:var(--text-muted);">
+        <span>0</span><span>5 prayers</span>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-relationship')">continue</button></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STEP 11 · RELATIONSHIP WITH ALLAH
+════════════════════════════════════════ -->
+<div class="screen light-screen" id="s-relationship">
+  <div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:58%"></div></div></div>
+  <div style="flex:1;display:flex;flex-direction:column;padding:28px 28px 0;gap:20px;">
+    <div class="fu d1">
+      <h1 style="font-size:24px;font-weight:800;color:var(--text-primary);">how would you describe your relationship with <span style="color:var(--gold);">Allah</span> right now?</h1>
+    </div>
+    <div class="options-list fu d2">
+      <div class="option-card" onclick="selectSingle(this,'rel')">📊 it has its ups and downs <div class="check"></div></div>
+      <div class="option-card" onclick="selectSingle(this,'rel')">😔 feeling a bit distant lately <div class="check"></div></div>
+      <div class="option-card" onclick="selectSingle(this,'rel')">🌱 just starting or rebuilding <div class="check"></div></div>
+      <div class="option-card" onclick="selectSingle(this,'rel')">🤲 close and consistent, alhamdulillah <div class="check"></div></div>
+    </div>
+  </div>
+  <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-obstacles')">continue</button></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STEP 12 · OBSTACLES
+════════════════════════════════════════ -->
+<div class="screen light-screen" id="s-obstacles">
+  <div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:65%"></div></div></div>
+  <div style="flex:1;display:flex;flex-direction:column;padding:28px 28px 0;gap:20px;overflow-y:auto;">
+    <div class="fu d1">
+      <h1 style="font-size:24px;font-weight:800;color:var(--text-primary);">what gets in the way of your <span style="color:var(--gold);">salah?</span></h1>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:6px;">choose any that apply</p>
+    </div>
+    <div class="options-list fu d2">
+      <div class="option-card" onclick="selectMulti(this,'obs',3)">📱 phone & social media distraction <div class="check"></div></div>
+      <div class="option-card" onclick="selectMulti(this,'obs',3)">🧠 lack of focus or wandering thoughts <div class="check"></div></div>
+      <div class="option-card" onclick="selectMulti(this,'obs',3)">😢 lack of motivation or feeling dry <div class="check"></div></div>
+      <div class="option-card" onclick="selectMulti(this,'obs',3)">⏰ busyness and lack of time <div class="check"></div></div>
+      <div class="option-card" onclick="selectMulti(this,'obs',3)">🤔 not knowing what to say in dua <div class="check"></div></div>
+      <div class="option-card" onclick="selectMulti(this,'obs',3)">😰 constant worry or anxiety <div class="check"></div></div>
+      <div class="option-card" onclick="selectMulti(this,'obs',3)">😔 feelings of loneliness or emptiness <div class="check"></div></div>
+      <div class="option-card" onclick="selectMulti(this,'obs',3)">🤷 none of these feel like a struggle <div class="check"></div></div>
+    </div>
+  </div>
+  <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-gender')">continue</button></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STEP 13 · GENDER
+════════════════════════════════════════ -->
+<div class="screen light-screen" id="s-gender">
+  <div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:72%"></div></div></div>
+  <div style="flex:1;display:flex;flex-direction:column;padding:28px 28px 0;gap:24px;">
+    <div class="fu d1">
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">to make sure duas feel right for you</p>
+      <h1 style="font-size:28px;font-weight:800;color:var(--text-primary);">what's your gender?</h1>
+    </div>
+    <div class="options-list fu d2">
+      <div class="option-card" onclick="selectSingle(this,'gender')">👨 Brother <div class="check"></div></div>
+      <div class="option-card" onclick="selectSingle(this,'gender')">👩 Sister <div class="check"></div></div>
+      <div class="option-card" style="justify-content:center;color:var(--text-muted);font-size:13px;" onclick="go('s-commitment')">prefer not to say</div>
+    </div>
+  </div>
+  <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-commitment')">continue</button></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STEP 14 · COMMITMENT LEVEL
+════════════════════════════════════════ -->
+<div class="screen light-screen" id="s-commitment">
+  <div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:80%"></div></div></div>
+  <div style="flex:1;display:flex;flex-direction:column;padding:28px 28px 0;gap:20px;">
+    <div class="fu d1">
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">so,</p>
+      <h1 style="font-size:26px;font-weight:800;color:var(--text-primary);">how committed are you to making this change?</h1>
+    </div>
+    <div class="options-list fu d2">
+      <div class="option-card" onclick="selectSingle(this,'commit')">🔥 Extremely committed <div class="check"></div></div>
+      <div class="option-card" onclick="selectSingle(this,'commit')">💪 Very committed <div class="check"></div></div>
+      <div class="option-card" onclick="selectSingle(this,'commit')">🤔 Somewhat committed <div class="check"></div></div>
+      <div class="option-card" onclick="selectSingle(this,'commit')">🌱 A little committed <div class="check"></div></div>
+      <div class="option-card" onclick="selectSingle(this,'commit')">✨ Just exploring <div class="check"></div></div>
+    </div>
+  </div>
+  <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-generating')">continue</button></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STEP 15 · GENERATING
+════════════════════════════════════════ -->
+<div class="screen white-screen" id="s-generating" style="justify-content:center;align-items:center;gap:32px;">
+  <div class="circle-progress fu d1">
+    <svg width="180" height="180" viewBox="0 0 180 180">
+      <circle class="circle-bg" cx="90" cy="90" r="80"/>
+      <circle class="circle-fill" id="gen-circle" cx="90" cy="90" r="80"
+        stroke-dasharray="502" stroke-dashoffset="502"/>
+    </svg>
+    <div class="circle-pct"><span id="gen-pct">0%</span></div>
+  </div>
+  <div style="display:flex;gap:10px;justify-content:center;" id="gen-dots">
+    <div style="width:20px;height:20px;border-radius:50%;background:#e8e2d5;" class="gdot"></div>
+    <div style="width:20px;height:20px;border-radius:50%;background:#e8e2d5;" class="gdot"></div>
+    <div style="width:20px;height:20px;border-radius:50%;background:#e8e2d5;" class="gdot"></div>
+    <div style="width:20px;height:20px;border-radius:50%;background:#e8e2d5;" class="gdot"></div>
+    <div style="width:20px;height:20px;border-radius:50%;background:#e8e2d5;" class="gdot"></div>
+    <div style="width:20px;height:20px;border-radius:50%;background:#e8e2d5;" class="gdot"></div>
+    <div style="width:20px;height:20px;border-radius:50%;background:#e8e2d5;" class="gdot"></div>
+  </div>
+  <p style="font-size:18px;font-weight:700;color:var(--text-primary);" id="gen-label">personalising your journey...</p>
+</div>
+
+<!-- ════════════════════════════════════════
+     STEP 16 · THANK YOU / HOW IT WORKS
+════════════════════════════════════════ -->
+<div class="screen" id="s-thankyou" style="background:var(--gold);">
+  <div style="flex:1;display:flex;flex-direction:column;padding:60px 32px 0;gap:28px;">
+    <div class="fu d1" style="text-align:center;font-size:72px;">🌙</div>
+    <div class="fu d2">
+      <h1 style="font-size:30px;font-weight:800;color:white;margin-bottom:10px;" id="thankyou-name">Jazakallah khair for your honesty.</h1>
+      <p style="font-size:15px;color:rgba(255,255,255,.8);line-height:1.7;">Sjood is here to walk with you. Here's how it works:</p>
+    </div>
+    <div class="fu d3" style="display:flex;flex-direction:column;gap:16px;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:white;flex-shrink:0;">1</div>
+        <p style="font-size:15px;color:white;">Share how you're feeling today</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:white;flex-shrink:0;">2</div>
+        <p style="font-size:15px;color:white;">Recite your personalised dua</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:white;flex-shrink:0;">3</div>
+        <p style="font-size:15px;color:white;">Unlock your apps & build your streak</p>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-pad fu d4"><button class="btn-white" onclick="go('s-social-proof')">let's go →</button></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STEP 17 · SOCIAL PROOF
+════════════════════════════════════════ -->
+<div class="screen light-screen" id="s-social-proof" style="overflow-y:auto;">
+  <div style="padding:52px 24px 0;display:flex;flex-direction:column;gap:20px;">
+    <div class="fu d1" style="text-align:center;">
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:6px;">join the community</p>
+      <h1 style="font-size:26px;font-weight:800;color:var(--text-primary);">Sjood was built for <span style="color:var(--gold);">Muslims like you.</span></h1>
+    </div>
+    <div class="fu d2" style="text-align:center;padding:16px;background:white;border-radius:16px;box-shadow:0 2px 12px rgba(26,58,42,.08);">
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;">
+        <span style="font-size:28px;">🕌</span>
+        <div>
+          <p style="font-weight:800;font-size:15px;color:var(--text-primary);">the #1 Islamic prayer habit app</p>
+          <p style="color:var(--gold);font-size:14px;">★★★★★ · 10,000+ users</p>
+        </div>
+      </div>
+    </div>
+    <div class="fu d3">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p style="font-weight:700;font-size:14px;color:var(--text-primary);margin-bottom:6px;">LIFE CHANGING. Alhamdulillah.</p>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.6;">This app is the only thing that's actually helped me pray consistently. The lock feature is genius — I can't open Instagram until I've made dua.</p>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p style="font-weight:700;font-size:14px;color:var(--text-primary);margin-bottom:6px;">Finally!!</p>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.6;">An app that truly gets it. I was so sick of my phone owning my mornings. Now Allah gets the first moment of my day.</p>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p style="font-weight:700;font-size:14px;color:var(--text-primary);margin-bottom:6px;">My Fajr streak is now 40 days!</p>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.6;">The personalised duas hit different. It knows exactly what I'm going through. SubhanAllah.</p>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-pad fu d4"><button class="btn-gold" onclick="go('s-commitment-sign')">join Sjood 🤲</button></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STEP 18 · COMMITMENT / SIGNATURE
+════════════════════════════════════════ -->
+<div class="screen" id="s-commitment-sign" style="background:var(--gold);overflow-y:auto;">
+  <div style="padding:52px 28px 0;display:flex;flex-direction:column;gap:20px;">
+    <div class="fu d1">
+      <h1 style="font-size:26px;font-weight:800;color:white;margin-bottom:12px;">make your commitment</h1>
+      <p style="font-size:14px;color:rgba(255,255,255,.8);margin-bottom:16px;">from today forward, I choose to:</p>
+      <div class="commit-bullet"><div class="commit-dot"></div><p style="font-size:14px;color:white;">seek Allah before my phone</p></div>
+      <div class="commit-bullet"><div class="commit-dot"></div><p style="font-size:14px;color:white;">pray before opening social media</p></div>
+      <div class="commit-bullet"><div class="commit-dot"></div><p style="font-size:14px;color:white;">be intentional with my screen time</p></div>
+      <div class="commit-bullet"><div class="commit-dot"></div><p style="font-size:14px;color:white;">guard my heart and my mind</p></div>
+    </div>
+    <div class="fu d2" style="position:relative;">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:8px;">
+        <button onclick="clearSig()" style="background:rgba(255,255,255,.2);border:none;border-radius:8px;padding:6px 12px;color:white;font-size:12px;font-family:Poppins;cursor:pointer;">↺ clear</button>
+      </div>
+      <canvas id="sigCanvas"></canvas>
+      <p style="text-align:center;font-size:12px;color:rgba(255,255,255,.6);margin-top:8px;">sign as a reminder of the promise you're making</p>
+    </div>
+  </div>
+  <div class="bottom-pad fu d3"><button class="btn-white" onclick="go('s-prayer-times')">continue →</button></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STEP 19 · SET PRAYER TIMES
+════════════════════════════════════════ -->
+<div class="screen light-screen" id="s-prayer-times">
+  <div style="padding:52px 28px 24px;flex:1;display:flex;flex-direction:column;gap:20px;">
+    <div class="fu d1">
+      <h1 style="font-size:26px;font-weight:800;color:var(--text-primary);margin-bottom:6px;">set your prayer times</h1>
+      <p style="font-size:13px;color:var(--text-muted);">your apps will lock at these times until you pray.</p>
+      <p style="font-size:13px;color:var(--gold);font-weight:600;margin-top:4px;">👆 tap any time to edit</p>
+    </div>
+    <div class="fu d2" style="background:white;border-radius:18px;overflow:hidden;box-shadow:0 4px 16px rgba(26,58,42,.08);">
+      <div class="prayer-time-row">
+        <div><div class="time">5<sup>:12 am</sup></div><p style="font-size:12px;color:var(--text-muted);">Fajr · every day</p></div>
+        <div class="toggle-track on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div>
+      </div>
+      <div class="prayer-time-row">
+        <div><div class="time">12<sup>:34 pm</sup></div><p style="font-size:12px;color:var(--text-muted);">Dhuhr · every day</p></div>
+        <div class="toggle-track on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div>
+      </div>
+      <div class="prayer-time-row">
+        <div><div class="time">3<sup>:47 pm</sup></div><p style="font-size:12px;color:var(--text-muted);">Asr · every day</p></div>
+        <div class="toggle-track on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div>
+      </div>
+      <div class="prayer-time-row">
+        <div><div class="time">6<sup>:22 pm</sup></div><p style="font-size:12px;color:var(--text-muted);">Maghrib · every day</p></div>
+        <div class="toggle-track on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div>
+      </div>
+      <div class="prayer-time-row" style="border:none;">
+        <div><div class="time">7<sup>:55 pm</sup></div><p style="font-size:12px;color:var(--text-muted);">Isha · every day</p></div>
+        <div class="toggle-track on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div>
+      </div>
+    </div>
+    <div class="fu d3" style="background:white;border-radius:14px;padding:16px 20px;text-align:center;border:2px dashed #e8e2d5;cursor:pointer;">
+      <p style="color:var(--gold);font-weight:600;font-size:14px;">+ add custom prayer time</p>
+    </div>
+  </div>
+  <div class="bottom-pad fu d4"><button class="btn-gold" onclick="go('s-notifications')">continue →</button></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STEP 20 · NOTIFICATIONS
+════════════════════════════════════════ -->
+<div class="screen white-screen" id="s-notifications" style="justify-content:space-between;">
+  <div style="padding:60px 28px 0;display:flex;flex-direction:column;gap:24px;flex:1;justify-content:center;">
+    <div class="fu d1" style="text-align:center;">
+      <h1 style="font-size:26px;font-weight:800;color:var(--text-primary);margin-bottom:10px;">allow Sjood to send you notifications</h1>
+      <p style="font-size:14px;color:var(--text-muted);line-height:1.6;">we use this to remind you when it's time to pray and unlock your apps</p>
+    </div>
+    <div class="notif-preview fu d2">
+      <div class="notif-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+          <path d="M12 2a7 7 0 017 7v4l2 2v1H3v-1l2-2V9a7 7 0 017-7z"/><path d="M9 18c0 1.657 1.343 3 3 3s3-1.343 3-3"/>
+        </svg>
+      </div>
+      <div class="notif-text">
+        <p>Your apps are locked 🔒</p>
+        <span>Time for Asr prayer · tap to open Sjood</span>
+      </div>
+      <span style="font-size:12px;color:#8e8e93;margin-left:auto;">now</span>
+    </div>
+  </div>
+  <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-plan')">allow notifications</button></div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STEP 21 · PRICING
+════════════════════════════════════════ -->
+<div class="screen light-screen" id="s-plan" style="overflow-y:auto;background:#fff;">
+
+  <!-- Hero -->
+  <div style="background:linear-gradient(160deg,var(--deep-green),var(--dark-green));padding:52px 24px 36px;text-align:center;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(212,168,67,.15),transparent 60%);pointer-events:none;"></div>
+    <div style="font-size:48px;margin-bottom:12px;">🕌</div>
+    <h1 style="font-size:26px;font-weight:800;color:white;margin-bottom:6px;" id="plan-headline">Start your journey</h1>
+    <p style="font-size:14px;color:rgba(255,255,255,.6);margin-bottom:16px;">Join thousands of Muslims building a consistent prayer habit</p>
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(212,168,67,.15);border:1px solid rgba(212,168,67,.3);border-radius:20px;padding:6px 16px;">
+      <span style="color:var(--gold);font-size:13px;">★★★★★</span>
+      <span style="color:rgba(255,255,255,.7);font-size:12px;">10,000+ Muslims · #1 Prayer App</span>
+    </div>
+  </div>
+
+  <!-- Features included -->
+  <div style="padding:20px 20px 0;">
+    <p style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Everything included</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
+      <div style="background:var(--cream);border-radius:14px;padding:14px;display:flex;align-items:flex-start;gap:10px;">
+        <span style="font-size:20px;">🤲</span>
+        <div><p style="font-size:13px;font-weight:600;color:var(--text-primary);">AI Duas</p><p style="font-size:11px;color:var(--text-muted);">Personalised daily</p></div>
+      </div>
+      <div style="background:var(--cream);border-radius:14px;padding:14px;display:flex;align-items:flex-start;gap:10px;">
+        <span style="font-size:20px;">🔒</span>
+        <div><p style="font-size:13px;font-weight:600;color:var(--text-primary);">App Lock</p><p style="font-size:11px;color:var(--text-muted);">All 5 prayers</p></div>
+      </div>
+      <div style="background:var(--cream);border-radius:14px;padding:14px;display:flex;align-items:flex-start;gap:10px;">
+        <span style="font-size:20px;">📊</span>
+        <div><p style="font-size:13px;font-weight:600;color:var(--text-primary);">Vision</p><p style="font-size:11px;color:var(--text-muted);">Full analytics</p></div>
+      </div>
+      <div style="background:var(--cream);border-radius:14px;padding:14px;display:flex;align-items:flex-start;gap:10px;">
+        <span style="font-size:20px;">🔥</span>
+        <div><p style="font-size:13px;font-weight:600;color:var(--text-primary);">Streaks</p><p style="font-size:11px;color:var(--text-muted);">90-day journey</p></div>
+      </div>
+    </div>
+
+    <!-- Plans -->
+    <p style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Choose your plan</p>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px;">
+
+      <!-- Yearly (recommended) -->
+      <div class="plan-card selected" id="plan-yearly" onclick="selectPlan('yearly')" style="position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));"></div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <p style="font-weight:700;font-size:16px;color:var(--text-primary);">Yearly</p>
+            <span style="font-size:10px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:white;padding:2px 8px;border-radius:20px;font-weight:700;">BEST VALUE</span>
+          </div>
+          <p style="font-size:12px;color:var(--text-muted);">12 months · save 92% vs weekly</p>
+        </div>
+        <div style="text-align:right;margin-right:12px;">
+          <p style="font-weight:800;color:var(--text-primary);font-size:18px;">£0.76<span style="font-size:12px;font-weight:400;color:var(--text-muted);">/wk</span></p>
+          <p style="font-size:11px;color:var(--text-muted);">£39.99 billed yearly</p>
+        </div>
+        <div class="plan-radio"></div>
+      </div>
+
+      <!-- Monthly -->
+      <div class="plan-card" id="plan-monthly" onclick="selectPlan('monthly')">
+        <div style="flex:1;">
+          <p style="font-weight:700;font-size:16px;color:var(--text-primary);">Monthly</p>
+          <p style="font-size:12px;color:var(--text-muted);">Flexible · cancel anytime</p>
+        </div>
+        <div style="text-align:right;margin-right:12px;">
+          <p style="font-weight:800;color:var(--text-primary);font-size:18px;">£4.99<span style="font-size:12px;font-weight:400;color:var(--text-muted);">/mo</span></p>
+        </div>
+        <div class="plan-radio"></div>
+      </div>
+
+      <!-- Weekly -->
+      <div class="plan-card" id="plan-weekly" onclick="selectPlan('weekly')">
+        <div style="flex:1;">
+          <p style="font-weight:700;font-size:16px;color:var(--text-primary);">Weekly</p>
+          <p style="font-size:12px;color:var(--text-muted);">Try it out</p>
+        </div>
+        <div style="text-align:right;margin-right:12px;">
+          <p style="font-weight:800;color:var(--text-primary);font-size:18px;">£9.99<span style="font-size:12px;font-weight:400;color:var(--text-muted);">/wk</span></p>
+        </div>
+        <div class="plan-radio"></div>
+      </div>
+    </div>
+
+    <!-- Trial badge -->
+    <div style="background:rgba(76,175,80,.08);border:1px solid rgba(76,175,80,.2);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+      <span style="font-size:20px;">🎁</span>
+      <p style="font-size:13px;color:var(--mid-green);font-weight:600;">7-day free trial — no charge today</p>
+    </div>
+  </div>
+
+  <div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:10px;">
+    <button class="btn-gold" onclick="startTrial()" style="font-size:17px;padding:20px;">Start Free Trial →</button>
+    <div style="display:flex;justify-content:center;gap:24px;">
+      <span style="font-size:11px;color:var(--text-muted);cursor:pointer;">Privacy</span>
+      <span style="font-size:11px;color:var(--text-muted);cursor:pointer;">Restore</span>
+      <span style="font-size:11px;color:var(--text-muted);cursor:pointer;">Terms</span>
+    </div>
+    <p style="text-align:center;font-size:11px;color:var(--text-muted);line-height:1.5;">Cancel anytime. Subscription auto-renews unless cancelled 24h before renewal. No commitment.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     MAIN APP · VISION
+════════════════════════════════════════ -->
+<div class="screen light-screen main-screen" id="s-vision">
+
+  <!-- Header -->
+  <div style="background:linear-gradient(160deg,var(--deep-green),var(--dark-green));padding:52px 20px 20px;">
+    <h2 style="font-size:22px;font-weight:800;color:white;margin-bottom:2px;">your journey</h2>
+    <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:16px;">tracking your relationship with Allah</p>
+    <div style="display:flex;background:rgba(255,255,255,.1);border-radius:12px;padding:4px;gap:4px;">
+      <div class="period-btn" onclick="selectPeriod(this,'7D')" style="flex:1;text-align:center;padding:8px;border-radius:8px;font-size:13px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;">7D</div>
+      <div class="period-btn active-period" onclick="selectPeriod(this,'30D')" style="flex:1;text-align:center;padding:8px;border-radius:8px;font-size:13px;font-weight:600;background:var(--gold);color:var(--deep-green);cursor:pointer;">30D</div>
+      <div class="period-btn" onclick="selectPeriod(this,'3M')" style="flex:1;text-align:center;padding:8px;border-radius:8px;font-size:13px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;">3M</div>
+      <div class="period-btn" onclick="selectPeriod(this,'1Y')" style="flex:1;text-align:center;padding:8px;border-radius:8px;font-size:13px;font-weight:600;color:rgba(255,255,255,.5);cursor:pointer;">1Y</div>
+    </div>
+  </div>
+
+  <!-- Stat grid 2x2 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 16px 0;">
+    <div class="stat-card-v" style="background:linear-gradient(135deg,#1a3a2a,#2d5a3f);">
+      <div style="font-size:24px;margin-bottom:4px;">🌙</div>
+      <p style="font-size:38px;font-weight:800;" id="v-streak">1</p>
+      <p style="font-size:13px;font-weight:600;margin-top:2px;">current streak</p>
+      <p style="font-size:11px;opacity:.6;">days</p>
+    </div>
+    <div class="stat-card-v" style="background:linear-gradient(135deg,#2d5a6a,#1a3a4a);">
+      <div style="font-size:24px;margin-bottom:4px;">🤲</div>
+      <p style="font-size:38px;font-weight:800;" id="v-total">0</p>
+      <p style="font-size:13px;font-weight:600;margin-top:2px;">total prayers</p>
+      <p style="font-size:11px;opacity:.6;">all time</p>
+    </div>
+    <div class="stat-card-v" style="background:linear-gradient(135deg,#4a5a2a,#3a4a1a);">
+      <div style="font-size:24px;margin-bottom:4px;">💚</div>
+      <p style="font-size:38px;font-weight:800;" id="v-iman">3.0</p>
+      <p style="font-size:13px;font-weight:600;margin-top:2px;">avg iman</p>
+      <p style="font-size:11px;opacity:.6;" id="v-iman-label">neutral</p>
+    </div>
+    <div class="stat-card-v" style="background:linear-gradient(135deg,#2a3a5a,#1a2a4a);">
+      <div style="font-size:24px;margin-bottom:4px;">😊</div>
+      <p style="font-size:38px;font-weight:800;" id="v-mood">3.0</p>
+      <p style="font-size:13px;font-weight:600;margin-top:2px;">avg mood</p>
+      <p style="font-size:11px;opacity:.6;" id="v-mood-label">okay</p>
+    </div>
+  </div>
+
+  <!-- Chart -->
+  <div style="margin:12px 16px 0;background:white;border-radius:18px;padding:18px;box-shadow:0 2px 12px rgba(26,58,42,.08);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <p style="font-size:14px;font-weight:700;color:var(--text-primary);">Iman & Mood Trend</p>
+      <div style="display:flex;gap:12px;">
+        <div style="display:flex;align-items:center;gap:4px;"><div style="width:10px;height:3px;background:var(--gold);border-radius:2px;"></div><span style="font-size:11px;color:var(--text-muted);">iman</span></div>
+        <div style="display:flex;align-items:center;gap:4px;"><div style="width:10px;height:3px;background:var(--mid-green);border-radius:2px;opacity:.7;"></div><span style="font-size:11px;color:var(--text-muted);">mood</span></div>
+      </div>
+    </div>
+    <svg id="vision-chart" width="100%" height="120" viewBox="0 0 320 120" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="imanGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#d4a843" stop-opacity=".25"/>
+          <stop offset="100%" stop-color="#d4a843" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="moodGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3d7a55" stop-opacity=".2"/>
+          <stop offset="100%" stop-color="#3d7a55" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <!-- Y axis labels -->
+      <text x="4" y="18" font-size="9" fill="#8a9a8e">great</text>
+      <text x="4" y="50" font-size="9" fill="#8a9a8e">good</text>
+      <text x="4" y="82" font-size="9" fill="#8a9a8e">ok</text>
+      <text x="4" y="112" font-size="9" fill="#8a9a8e">low</text>
+      <!-- Grid lines -->
+      <line x1="32" y1="16" x2="320" y2="16" stroke="#f0ebe0" stroke-width="1"/>
+      <line x1="32" y1="48" x2="320" y2="48" stroke="#f0ebe0" stroke-width="1"/>
+      <line x1="32" y1="80" x2="320" y2="80" stroke="#f0ebe0" stroke-width="1"/>
+      <line x1="32" y1="110" x2="320" y2="110" stroke="#f0ebe0" stroke-width="1"/>
+      <!-- Iman line (dynamic via JS) -->
+      <path id="iman-path" d="" fill="url(#imanGrad)"/>
+      <path id="iman-line" d="" fill="none" stroke="#d4a843" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Mood line -->
+      <path id="mood-path" d="" fill="url(#moodGrad)"/>
+      <path id="mood-line" d="" fill="none" stroke="#3d7a55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5,3" opacity=".8"/>
+      <!-- Today dot -->
+      <circle id="iman-dot" cx="0" cy="0" r="4" fill="#d4a843" stroke="white" stroke-width="2"/>
+    </svg>
+    <p style="font-size:11px;color:var(--text-muted);text-align:right;margin-top:4px;" id="chart-period-label">Last 30 days</p>
+  </div>
+
+  <!-- 90-day grid -->
+  <div style="margin:12px 16px 0;background:linear-gradient(135deg,var(--deep-green),var(--dark-green));border-radius:18px;padding:18px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <div>
+        <p style="font-size:14px;font-weight:700;color:white;">90-day prayer journey</p>
+        <p style="font-size:11px;color:rgba(255,255,255,.4);" id="grid-pct">0% complete</p>
+      </div>
+      <svg width="22" height="22" viewBox="0 0 48 48" fill="none"><path d="M38 24.5C38 32.508 31.508 39 23.5 39C15.492 39 9 32.508 9 24.5C9 16.492 15.492 10 23.5 10C19.5 13 17 18 17 24.5C17 31 21.5 35.5 28 35.5C32.5 35.5 36.5 32.5 38 24.5Z" fill="#d4a843"/></svg>
+    </div>
+    <div class="grid-90" id="vision-grid"></div>
+    <div style="display:flex;gap:16px;margin-top:12px;">
+      <div style="display:flex;align-items:center;gap:5px;"><div style="width:10px;height:10px;border-radius:2px;background:linear-gradient(135deg,var(--accent-green),var(--dark-green));"></div><span style="font-size:10px;color:rgba(255,255,255,.5);">Prayed</span></div>
+      <div style="display:flex;align-items:center;gap:5px;"><div style="width:10px;height:10px;border-radius:2px;background:var(--gold);"></div><span style="font-size:10px;color:rgba(255,255,255,.5);">Today</span></div>
+      <div style="display:flex;align-items:center;gap:5px;"><div style="width:10px;height:10px;border-radius:2px;background:rgba(255,255,255,.1);border:1px dashed rgba(255,255,255,.2);"></div><span style="font-size:10px;color:rgba(255,255,255,.5);">Upcoming</span></div>
+    </div>
+  </div>
+
+  <div style="height:88px;"></div>
+    <div class="bottom-nav">
+    <div class="nav-item " onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
+    <div class="nav-item active" onclick="switchTab('vision')"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg><span>vision</span></div>
+    <div class="nav-item " onclick="switchTab('lock')"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>lock list</span></div>
+    <div class="nav-item " onclick="switchTab('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>settings</span></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     MAIN APP · LOCK LIST
+════════════════════════════════════════ -->
+<div class="screen light-screen main-screen" id="s-lock">
+
+  <!-- Header -->
+  <div style="background:linear-gradient(160deg,var(--deep-green),var(--dark-green));padding:52px 20px 20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+      <h2 style="font-size:22px;font-weight:800;color:white;">lock list</h2>
+      <div style="background:rgba(212,168,67,.2);border:1px solid rgba(212,168,67,.3);border-radius:20px;padding:4px 12px;">
+        <span style="font-size:12px;font-weight:700;color:var(--gold);" id="lock-count">0 selected</span>
+      </div>
+    </div>
+    <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:14px;">blocked until you pray · tap to toggle</p>
+    <div style="background:rgba(255,255,255,.1);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input id="cat-search" type="text" placeholder="search categories..."
+        style="background:transparent;border:none;outline:none;color:white;font-size:14px;font-family:Poppins;width:100%;"
+        oninput="filterCats(this.value)"/>
+    </div>
+  </div>
+
+  <!-- Select All banner -->
+  <div style="padding:10px 16px;background:var(--cream);border-bottom:1px solid var(--cream-dark);display:flex;align-items:center;justify-content:space-between;">
+    <p style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.8px;">App Categories</p>
+    <span onclick="selectAllCats()" style="font-size:12px;font-weight:700;color:var(--gold);cursor:pointer;" id="select-all-btn">Select all</span>
+  </div>
+
+  <!-- Categories -->
+  <div style="flex:1;overflow-y:auto;" id="cat-list">
+    <div class="category-row" id="cat-Social" onclick="toggleCat(this)">
+      <div class="cat-icon" style="background:#ffe4e1;">💬</div>
+      <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Social</p><p style="font-size:12px;color:var(--text-muted);">Instagram, TikTok, Snapchat, X</p></div>
+      <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
+      <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
+    </div>    <div class="category-row" id="cat-Games" onclick="toggleCat(this)">
+      <div class="cat-icon" style="background:#e8f4fd;">🎮</div>
+      <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Games</p><p style="font-size:12px;color:var(--text-muted);">All game categories</p></div>
+      <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
+      <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
+    </div>    <div class="category-row" id="cat-Entertainment" onclick="toggleCat(this)">
+      <div class="cat-icon" style="background:#fff3e0;">🎬</div>
+      <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Entertainment</p><p style="font-size:12px;color:var(--text-muted);">YouTube, Netflix, TV</p></div>
+      <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
+      <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
+    </div>    <div class="category-row" id="cat-Creativity" onclick="toggleCat(this)">
+      <div class="cat-icon" style="background:#f3e5f5;">🎨</div>
+      <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Creativity</p><p style="font-size:12px;color:var(--text-muted);">Design, photo, video apps</p></div>
+      <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
+      <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
+    </div>    <div class="category-row" id="cat-Education" onclick="toggleCat(this)">
+      <div class="cat-icon" style="background:#e8f5e9;">📚</div>
+      <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Education</p><p style="font-size:12px;color:var(--text-muted);">Learning & reading apps</p></div>
+      <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
+      <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
+    </div>    <div class="category-row" id="cat-Health_&_Fitness" onclick="toggleCat(this)">
+      <div class="cat-icon" style="background:#e8f5e9;">💪</div>
+      <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Health & Fitness</p><p style="font-size:12px;color:var(--text-muted);">Workout & wellness apps</p></div>
+      <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
+      <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
+    </div>    <div class="category-row" id="cat-News_&_Reading" onclick="toggleCat(this)">
+      <div class="cat-icon" style="background:#fff8e1;">📰</div>
+      <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">News & Reading</p><p style="font-size:12px;color:var(--text-muted);">Articles & information</p></div>
+      <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
+      <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
+    </div>    <div class="category-row" id="cat-Shopping_&_Food" onclick="toggleCat(this)">
+      <div class="cat-icon" style="background:#fce4ec;">🛍️</div>
+      <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Shopping & Food</p><p style="font-size:12px;color:var(--text-muted);">Retail & delivery apps</p></div>
+      <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
+      <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
+    </div>    <div class="category-row" id="cat-Travel" onclick="toggleCat(this)">
+      <div class="cat-icon" style="background:#e3f2fd;">✈️</div>
+      <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Travel</p><p style="font-size:12px;color:var(--text-muted);">Maps, flights, hotels</p></div>
+      <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
+      <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
+    </div>    <div class="category-row" id="cat-Productivity" onclick="toggleCat(this)">
+      <div class="cat-icon" style="background:#f1f8e9;">💼</div>
+      <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Productivity</p><p style="font-size:12px;color:var(--text-muted);">Work & finance apps</p></div>
+      <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
+      <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
+    </div>
+  </div>
+
+  <!-- Save bar -->
+  <div style="position:absolute;bottom:72px;left:0;right:0;padding:12px 16px;background:white;border-top:1px solid var(--cream-dark);display:flex;gap:10px;align-items:center;" id="lock-save-bar">
+    <div style="flex:1;">
+      <p style="font-size:13px;font-weight:700;color:var(--text-primary);" id="lock-save-label">No apps selected</p>
+      <p style="font-size:11px;color:var(--text-muted);">Apps locked at each prayer time</p>
+    </div>
+    <button onclick="saveLockList()" class="btn-gold" style="width:auto;padding:12px 20px;font-size:14px;">Save</button>
+  </div>
+
+    <div class="bottom-nav">
+    <div class="nav-item " onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
+    <div class="nav-item " onclick="switchTab('vision')"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg><span>vision</span></div>
+    <div class="nav-item active" onclick="switchTab('lock')"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>lock list</span></div>
+    <div class="nav-item " onclick="switchTab('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>settings</span></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     MAIN APP · SETTINGS
+════════════════════════════════════════ -->
+<div class="screen light-screen main-screen" id="s-settings" style="overflow-y:auto;">
+
+  <!-- Header -->
+  <div style="background:linear-gradient(160deg,var(--deep-green),var(--dark-green));padding:52px 20px 24px;">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div style="width:56px;height:56px;border-radius:18px;background:rgba(212,168,67,.2);border:1px solid rgba(212,168,67,.3);display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;" onclick="editProfile()">🌙</div>
+      <div style="flex:1;">
+        <p style="font-size:18px;font-weight:800;color:white;" id="settings-name">Beloved</p>
+        <p style="font-size:12px;color:rgba(255,255,255,.5);" id="settings-join">Member since today</p>
+      </div>
+      <span onclick="editProfile()" style="font-size:13px;font-weight:600;color:var(--gold);cursor:pointer;background:rgba(212,168,67,.1);padding:6px 14px;border-radius:20px;border:1px solid rgba(212,168,67,.2);">Edit</span>
+    </div>
+    <!-- Streak mini -->
+    <div style="display:flex;gap:10px;margin-top:16px;">
+      <div style="flex:1;background:rgba(255,255,255,.08);border-radius:12px;padding:10px;text-align:center;">
+        <p style="font-size:20px;font-weight:800;color:white;" id="settings-streak">0</p>
+        <p style="font-size:10px;color:rgba(255,255,255,.4);">day streak</p>
+      </div>
+      <div style="flex:1;background:rgba(255,255,255,.08);border-radius:12px;padding:10px;text-align:center;">
+        <p style="font-size:20px;font-weight:800;color:white;" id="settings-prayers">0</p>
+        <p style="font-size:10px;color:rgba(255,255,255,.4);">total prayers</p>
+      </div>
+      <div style="flex:1;background:rgba(255,255,255,.08);border-radius:12px;padding:10px;text-align:center;">
+        <p style="font-size:20px;font-weight:800;color:white;" id="settings-pfreq">0/5</p>
+        <p style="font-size:10px;color:rgba(255,255,255,.4);">daily target</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:16px;display:flex;flex-direction:column;gap:14px;">
+
+    <!-- Prayer times -->
+    <div style="background:white;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(26,58,42,.06);">
+      <div style="padding:14px 16px 6px;display:flex;align-items:center;justify-content:space-between;">
+        <p style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Prayer Times</p>
+        <span onclick="editPrayerTimes()" style="font-size:12px;color:var(--gold);font-weight:600;cursor:pointer;">Edit times</span>
+      </div>
+      <div id="settings-prayer-list"></div>
+    </div>
+
+    <!-- Calculation method -->
+    <div style="background:white;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(26,58,42,.06);">
+      <p style="padding:14px 16px 6px;font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Calculation</p>
+      <div style="padding:12px 16px;border-bottom:1px solid #f0ebe0;display:flex;align-items:center;justify-content:space-between;cursor:pointer;" onclick="showMethodPicker()">
+        <div><p style="font-size:14px;font-weight:500;color:var(--text-primary);">Method</p><p style="font-size:12px;color:var(--text-muted);" id="calc-method">Muslim World League (MWL)</p></div>
+        <span style="color:var(--text-muted);font-size:18px;">›</span>
+      </div>
+      <div style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;" onclick="showMadhhabPicker()">
+        <div><p style="font-size:14px;font-weight:500;color:var(--text-primary);">Madhab (Asr)</p><p style="font-size:12px;color:var(--text-muted);" id="calc-madhab">Hanafi</p></div>
+        <span style="color:var(--text-muted);font-size:18px;">›</span>
+      </div>
+    </div>
+
+    <!-- Location -->
+    <div style="background:white;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(26,58,42,.06);">
+      <p style="padding:14px 16px 6px;font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Location</p>
+      <div style="padding:12px 16px;border-bottom:1px solid #f0ebe0;" id="location-row">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:22px;">📍</span>
+          <div style="flex:1;">
+            <p style="font-size:14px;font-weight:600;color:var(--text-primary);" id="location-city">Detecting location...</p>
+            <p style="font-size:12px;color:var(--text-muted);" id="location-coords">GPS · Auto-update</p>
+          </div>
+          <button onclick="refreshLocation()" style="background:var(--cream);border:none;border-radius:8px;padding:6px 12px;font-size:12px;color:var(--text-secondary);font-family:Poppins;cursor:pointer;">Refresh</button>
+        </div>
+      </div>
+      <div class="toggle-wrap" style="padding:12px 16px;">
+        <div><p style="font-size:14px;font-weight:500;">Auto-detect location</p><p style="font-size:12px;color:var(--text-muted);">Updates prayer times automatically</p></div>
+        <div class="toggle-track on" id="auto-location-toggle" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div>
+      </div>
+    </div>
+
+    <!-- Notifications -->
+    <div style="background:white;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(26,58,42,.06);">
+      <p style="padding:14px 16px 6px;font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Notifications</p>
+      <div class="toggle-wrap" style="padding:12px 16px;border-bottom:1px solid #f0ebe0;">
+        <div><p style="font-size:14px;font-weight:500;">Prayer Reminders</p><p style="font-size:12px;color:var(--text-muted);">15 min & 5 min before each prayer</p></div>
+        <div class="toggle-track on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div>
+      </div>
+      <div class="toggle-wrap" style="padding:12px 16px;border-bottom:1px solid #f0ebe0;">
+        <div><p style="font-size:14px;font-weight:500;">Adhan Sound</p><p style="font-size:12px;color:var(--text-muted);">Play adhan at prayer times</p></div>
+        <div class="toggle-track on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div>
+      </div>
+      <div class="toggle-wrap" style="padding:12px 16px;border-bottom:1px solid #f0ebe0;">
+        <div><p style="font-size:14px;font-weight:500;">Streak Alerts</p><p style="font-size:12px;color:var(--text-muted);">Don't let your streak break</p></div>
+        <div class="toggle-track on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div>
+      </div>
+      <div class="toggle-wrap" style="padding:12px 16px;">
+        <div><p style="font-size:14px;font-weight:500;">Qibla Direction</p><p style="font-size:12px;color:var(--text-muted);">Show Qibla on lock screen</p></div>
+        <div class="toggle-track" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div>
+      </div>
+    </div>
+
+    <!-- Appearance -->
+    <div style="background:white;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(26,58,42,.06);">
+      <p style="padding:14px 16px 6px;font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Appearance</p>
+      <div style="padding:12px 16px;display:flex;gap:10px;">
+        <div onclick="setTheme('green')" style="flex:1;border:2px solid var(--gold);border-radius:12px;padding:10px;text-align:center;cursor:pointer;background:linear-gradient(135deg,#1a3a2a,#2d5a3f);">
+          <div style="width:20px;height:20px;border-radius:50%;background:var(--gold);margin:0 auto 6px;"></div>
+          <p style="font-size:11px;font-weight:600;color:white;">Default</p>
+        </div>
+        <div onclick="setTheme('midnight')" style="flex:1;border:2px solid #333;border-radius:12px;padding:10px;text-align:center;cursor:pointer;background:linear-gradient(135deg,#111,#333);">
+          <div style="width:20px;height:20px;border-radius:50%;background:#888;margin:0 auto 6px;"></div>
+          <p style="font-size:11px;font-weight:600;color:white;">Midnight</p>
+        </div>
+        <div onclick="setTheme('sand')" style="flex:1;border:2px solid #c4a882;border-radius:12px;padding:10px;text-align:center;cursor:pointer;background:linear-gradient(135deg,#8b6914,#c4a882);">
+          <div style="width:20px;height:20px;border-radius:50%;background:#f5e6c8;margin:0 auto 6px;"></div>
+          <p style="font-size:11px;font-weight:600;color:white;">Desert</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account -->
+    <div style="background:white;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(26,58,42,.06);">
+      <p style="padding:14px 16px 6px;font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Account</p>
+      <div style="padding:12px 16px;border-bottom:1px solid #f0ebe0;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+        <p style="font-size:14px;font-weight:500;color:var(--text-primary);">Subscription</p>
+        <span style="font-size:12px;background:rgba(76,175,80,.1);color:var(--accent-green);padding:4px 10px;border-radius:20px;font-weight:600;">Free Trial</span>
+      </div>
+      <div style="padding:12px 16px;border-bottom:1px solid #f0ebe0;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+        <p style="font-size:14px;font-weight:500;color:var(--text-primary);">Restore Purchases</p>
+        <span style="color:var(--text-muted);font-size:18px;">›</span>
+      </div>
+      <div style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;" onclick="go('s-reality')">
+        <p style="font-size:14px;font-weight:500;color:var(--text-primary);">Reset Onboarding</p>
+        <span style="color:var(--text-muted);font-size:18px;">›</span>
+      </div>
+    </div>
+
+    <div style="height:100px;"></div>
+  </div>
+
+    <div class="bottom-nav">
+    <div class="nav-item " onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
+    <div class="nav-item " onclick="switchTab('vision')"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg><span>vision</span></div>
+    <div class="nav-item " onclick="switchTab('lock')"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>lock list</span></div>
+    <div class="nav-item active" onclick="switchTab('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>settings</span></div>
+  </div>
+</div>
+
+<!-- ── Edit prayer times modal ── -->
+<div id="prayer-time-modal" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.5);align-items:flex-end;">
+  <div style="background:white;border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:420px;margin:0 auto;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <h3 style="font-size:18px;font-weight:700;color:var(--text-primary);">Edit Prayer Times</h3>
+      <span onclick="closePrayerModal()" style="font-size:22px;cursor:pointer;color:var(--text-muted);">✕</span>
+    </div>
+    <div id="prayer-time-edit-list"></div>
+    <button class="btn-gold" style="margin-top:16px;" onclick="savePrayerTimes()">Save Prayer Times</button>
+  </div>
+</div>
+
+<!-- ── Edit profile modal ── -->
+<div id="profile-modal" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.5);align-items:flex-end;">
+  <div style="background:white;border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:420px;margin:0 auto;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <h3 style="font-size:18px;font-weight:700;">Edit Profile</h3>
+      <span onclick="closeProfileModal()" style="font-size:22px;cursor:pointer;color:var(--text-muted);">✕</span>
+    </div>
+    <label style="font-size:13px;color:var(--text-muted);font-weight:500;">Name</label>
+    <input id="profile-name-input" type="text" style="width:100%;padding:14px;border-radius:12px;border:2px solid var(--cream-dark);font-family:Poppins;font-size:16px;margin:8px 0 16px;outline:none;" oninput="this.style.borderColor='var(--gold)'"/>
+    <label style="font-size:13px;color:var(--text-muted);font-weight:500;">Screen time goal (hours/day)</label>
+    <input id="profile-screentime-input" type="number" min="1" max="12" style="width:100%;padding:14px;border-radius:12px;border:2px solid var(--cream-dark);font-family:Poppins;font-size:16px;margin:8px 0 20px;outline:none;" oninput="this.style.borderColor='var(--gold)'"/>
+    <button class="btn-gold" onclick="saveProfile2()">Save Changes</button>
+  </div>
+</div>
+
+
+
+<!-- ════════════════════════════════════════
+     MAIN APP · HOME
+════════════════════════════════════════ -->
+<div class="screen light-screen main-screen" id="s-home">
+  <div style="background:linear-gradient(160deg,var(--deep-green),var(--dark-green));padding:52px 20px 24px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
+      <div>
+        <p style="font-size:13px;color:rgba(255,255,255,.55);" id="home-greeting">Assalamu Alaikum</p>
+        <h2 style="font-size:22px;font-weight:800;color:white;" id="home-name">Beloved</h2>
+      </div>
+      <div style="width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:20px;">🌙</div>
+    </div>
+    <p style="font-size:12px;color:rgba(255,255,255,.4);" id="home-date"></p>
+  </div>
+
+  <!-- Streak card -->
+  <div style="margin:16px 16px 0;border-radius:20px;background:linear-gradient(135deg,var(--deep-green),var(--dark-green));padding:20px;color:white;box-shadow:0 8px 32px rgba(26,58,42,.2);">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <p style="font-size:12px;color:rgba(255,255,255,.55);margin-bottom:4px;">prayer streak</p>
+        <div style="display:flex;align-items:baseline;gap:8px;">
+          <span style="font-size:42px;font-weight:800;color:white;" id="home-streak">0</span>
+          <span style="font-size:14px;color:rgba(255,255,255,.6);">days</span>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:32px;">🌙</div>
+        <p style="font-size:13px;color:var(--gold-light);font-weight:600;" id="home-streak-label">Great start!</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:14px;">
+      <div style="flex:1;background:rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;"><p style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">Fajr</p><div style="width:8px;height:8px;border-radius:50%;background:var(--accent-green);margin:0 auto;" id="dot-fajr"></div></div>
+      <div style="flex:1;background:rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;"><p style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">Dhuhr</p><div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);margin:0 auto;" id="dot-dhuhr"></div></div>
+      <div style="flex:1;background:rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;"><p style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">Asr</p><div style="width:8px;height:8px;border-radius:50%;background:var(--gold);margin:0 auto;box-shadow:0 0 6px rgba(212,168,67,.6);" id="dot-asr"></div></div>
+      <div style="flex:1;background:rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;"><p style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">Maghrib</p><div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);margin:0 auto;" id="dot-maghrib"></div></div>
+      <div style="flex:1;background:rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;"><p style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">Isha</p><div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);margin:0 auto;" id="dot-isha"></div></div>
+    </div>
+  </div>
+
+  <!-- Lock CTA -->
+  <div style="margin:12px 16px 0;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-radius:18px;padding:18px;display:flex;align-items:center;gap:14px;cursor:pointer;box-shadow:0 6px 20px rgba(212,168,67,.3);" onclick="go('s-checkin-spiritual')">
+    <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:22px;">🔒</div>
+    <div>
+      <p style="font-weight:700;color:var(--deep-green);font-size:15px;" id="home-next-prayer">Next Prayer</p>
+      <p style="font-size:12px;color:rgba(26,58,42,.7);" id="home-lock-sub">Tap to pray &amp; unlock your apps</p>
+    </div>
+    <div style="margin-left:auto;font-size:20px;color:var(--deep-green);">→</div>
+  </div>
+
+  <!-- Feed -->
+  <div style="padding:0 16px;">
+    <p style="font-size:12px;font-weight:700;color:var(--text-muted);margin:16px 0 10px;letter-spacing:.5px;text-transform:uppercase;">Today's Reflection</p>
+    <div style="background:white;border-radius:18px;padding:18px;box-shadow:0 4px 16px rgba(26,58,42,.08);cursor:pointer;" onclick="go('s-verse-day')">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:9px;height:9px;border-radius:50%;background:var(--gold);"></div>
+          <span style="font-weight:700;font-size:14px;color:var(--text-primary);">Perseverance</span>
+        </div>
+        <span style="font-size:12px;color:var(--text-muted);" id="feed-date"></span>
+      </div>
+      <p style="font-family:'Amiri',serif;font-size:18px;color:var(--deep-green);direction:rtl;text-align:right;margin-bottom:8px;line-height:1.7;">فَإِنَّ مَعَ الْعُسْرِ يُسْرًا</p>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.5;margin-bottom:12px;">"For indeed, with hardship will be ease." — Surah Ash-Sharh 94:5</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-size:12px;color:var(--text-muted);">Surah Ash-Sharh 94:5</span>
+        <span style="color:var(--gold);font-size:18px;">→</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:88px;"></div>
+  <div class="bottom-nav">
+    <div class="nav-item active" onclick="switchTab('home')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
+    <div class="nav-item" onclick="switchTab('vision')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg><span>vision</span></div>
+    <div class="nav-item" onclick="switchTab('lock')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>lock list</span></div>
+    <div class="nav-item" onclick="switchTab('settings')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>settings</span></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     DAILY · CHECK-IN SPIRITUAL
+════════════════════════════════════════ -->
+<div class="screen" id="s-checkin-spiritual" style="background:linear-gradient(170deg,#1a3a2a,#2d5a3f,#3d7a55);display:flex;flex-direction:column;justify-content:space-between;">
+  <div style="padding:64px 28px 0;text-align:center;">
+    <p style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;">Daily Check-in</p>
+    <h2 style="font-size:24px;font-weight:800;color:white;line-height:1.3;">how's your relationship<br/>with Allah today?</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:20px;padding:0 28px;">
+    <div style="font-size:80px;line-height:1;transition:all .3s;" id="sp-emoji">🌓</div>
+    <div style="font-size:18px;font-weight:600;color:rgba(255,255,255,.8);transition:color .3s;" id="sp-label">growing</div>
+    <input type="range" min="0" max="5" value="3" step="1" style="--pct:60%;-webkit-appearance:none;width:100%;height:6px;border-radius:3px;outline:none;cursor:pointer;background:linear-gradient(to right,white var(--pct,60%),rgba(255,255,255,.3) var(--pct,60%));" oninput="updateSpiritual(this.value)"/>
+    <div style="display:flex;justify-content:space-between;width:100%;font-size:12px;color:rgba(255,255,255,.4);">
+      <span>distant</span><span>close</span>
+    </div>
+  </div>
+  <div style="padding:20px 24px 52px;">
+    <button style="width:100%;padding:17px;border-radius:14px;background:white;color:var(--dark-green);font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.1);" onclick="go('s-checkin-emotional')">continue</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     DAILY · CHECK-IN EMOTIONAL
+════════════════════════════════════════ -->
+<div class="screen" id="s-checkin-emotional" style="background:linear-gradient(170deg,#0f2233,#1a3a4a,#2d5a6a);display:flex;flex-direction:column;justify-content:space-between;">
+  <div style="padding:64px 28px 0;text-align:center;">
+    <p style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;">Daily Check-in</p>
+    <h2 style="font-size:24px;font-weight:800;color:white;line-height:1.3;">how are you feeling today?</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:20px;padding:0 28px;">
+    <div style="font-size:80px;line-height:1;transition:all .3s;" id="em-emoji">🙂</div>
+    <div style="font-size:18px;font-weight:600;color:rgba(255,255,255,.8);transition:color .3s;" id="em-label">good</div>
+    <input type="range" min="0" max="5" value="3" step="1" style="--pct:60%;-webkit-appearance:none;width:100%;height:6px;border-radius:3px;outline:none;cursor:pointer;background:linear-gradient(to right,white var(--pct,60%),rgba(255,255,255,.3) var(--pct,60%));" oninput="updateEmotional(this.value)"/>
+    <div style="display:flex;justify-content:space-between;width:100%;font-size:12px;color:rgba(255,255,255,.4);">
+      <span>really low</span><span>wonderful</span>
+    </div>
+  </div>
+  <div style="padding:20px 24px 52px;">
+    <button style="width:100%;padding:17px;border-radius:14px;background:white;color:#1a3a4a;font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;border:none;cursor:pointer;" onclick="go('s-lets-pray')">continue</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     DAILY · LET'S PRAY
+════════════════════════════════════════ -->
+<div class="screen light-screen" id="s-lets-pray" style="display:flex;flex-direction:column;">
+  <div style="padding:52px 28px 0;flex:1;display:flex;flex-direction:column;gap:16px;overflow-y:auto;">
+    <div style="text-align:center;">
+      <h1 style="font-size:26px;font-weight:800;color:var(--text-primary);margin-bottom:6px;" id="lets-pray-title">let's pray 🤲</h1>
+      <p style="font-size:13px;color:var(--text-muted);" id="pray-timer">loading your personalised dua...</p>
+    </div>
+    <div style="background:var(--cream);border-radius:18px;padding:24px;flex:1;overflow-y:auto;">
+      <!-- Loading spinner -->
+      <div id="dua-loading" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;min-height:200px;">
+        <div style="width:48px;height:48px;border:3px solid #e8e2d5;border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;"></div>
+        <p style="font-size:14px;color:var(--text-muted);text-align:center;">generating your personalised dua<br/>based on how you feel today...</p>
+      </div>
+      <!-- Arabic -->
+      <p style="font-family:'Amiri',serif;font-size:22px;color:var(--deep-green);direction:rtl;text-align:right;margin-bottom:16px;line-height:1.8;display:none;" id="dua-arabic">اللَّهُمَّ إِنِّي أَسْأَلُكَ الثَّبَاتَ فِي الْأَمْرِ</p>
+      <!-- Dua text -->
+      <div id="dua-text" style="font-size:15px;color:var(--text-secondary);line-height:1.8;display:none;"></div>
+    </div>
+  </div>
+  <div style="padding:16px 24px 48px;">
+    <button class="btn-gold" onclick="completePrayer()" style="opacity:.4;pointer-events:none;" id="prayed-btn">i've prayed today 🤲</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     DAILY · VERSE OF THE DAY
+════════════════════════════════════════ -->
+<div class="screen" id="s-verse-day" style="background:linear-gradient(160deg,#1a3a2a,#2d5a3f,#3d7a55,#2d5a3f);display:flex;flex-direction:column;">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:60px 28px 0;gap:20px;">
+    <p style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.5);text-align:center;">VERSE OF THE DAY</p>
+    <div style="background:rgba(255,255,255,.12);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:28px 24px;text-align:center;">
+      <p style="font-family:'Amiri',serif;font-size:26px;color:white;direction:rtl;line-height:1.9;margin-bottom:16px;">فَإِنَّ مَعَ الْعُسْرِ يُسْرًا · إِنَّ مَعَ الْعُسْرِ يُسْرًا</p>
+      <p style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.7;margin-bottom:12px;">"For indeed, with hardship will be ease. Indeed, with hardship will be ease."</p>
+      <p style="font-size:12px;color:rgba(255,255,255,.45);">Surah Ash-Sharh 94:5-6</p>
+    </div>
+  </div>
+  <div style="padding:20px 24px 52px;">
+    <button class="btn-gold" onclick="go('s-congrats')">continue</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     DAILY · CONGRATULATIONS
+════════════════════════════════════════ -->
+<div class="screen light-screen" id="s-congrats" style="display:flex;flex-direction:column;justify-content:space-between;">
+  <div style="padding:52px 28px 0;flex:1;display:flex;flex-direction:column;gap:20px;">
+    <div style="text-align:center;">
+      <p style="font-size:32px;font-weight:800;color:var(--gold);">Alhamdulillah! 🌙</p>
+      <p style="font-size:15px;color:var(--text-muted);margin-top:8px;">you've completed your prayer</p>
+    </div>
+    <div style="background:white;border-radius:18px;padding:18px;box-shadow:0 4px 16px rgba(26,58,42,.08);">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:9px;height:9px;border-radius:50%;background:var(--gold);"></div>
+          <p style="font-weight:700;color:var(--text-primary);font-size:14px;" id="congrats-theme">Perseverance</p>
+        </div>
+        <p style="font-size:12px;color:var(--text-muted);" id="congrats-date"></p>
+      </div>
+      <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px;" id="congrats-snippet">Your dua has been saved to your prayer journal.</p>
+      <p style="font-size:12px;color:var(--gold);font-weight:600;">Surah Ash-Sharh 94:5 →</p>
+    </div>
+    <p style="text-align:center;font-size:13px;color:var(--text-muted);line-height:1.6;">your duas are saved in your prayer journal to help you build a stronger bond with Allah.</p>
+  </div>
+  <div style="padding:20px 24px 48px;">
+    <button class="btn-gold" onclick="go('s-streak')">Continue</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     DAILY · STREAK
+════════════════════════════════════════ -->
+<div class="screen" id="s-streak" style="background:linear-gradient(170deg,#1a1a1a,#2a2a2a);display:flex;flex-direction:column;justify-content:space-between;">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:0 28px;">
+    <div style="text-align:center;">
+      <div style="font-size:72px;margin-bottom:8px;animation:breathe 2s ease-in-out infinite;">🌙</div>
+      <p style="font-size:88px;font-weight:800;color:white;line-height:1;" id="streak-num">1</p>
+      <p style="font-size:20px;font-weight:600;color:rgba(255,255,255,.8);margin-top:4px;">day streak</p>
+      <p style="font-size:14px;color:rgba(255,255,255,.4);margin-top:8px;" id="streak-msg">great start! keep building your daily prayer habit</p>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:16px 20px;width:100%;">
+      <div style="display:flex;justify-content:space-around;margin-bottom:10px;">
+        <span style="font-size:11px;color:rgba(255,255,255,.4);">Su</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.4);">Mo</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.4);">Tu</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.4);">We</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.4);">Th</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.4);">Fr</span>
+        <span style="font-size:11px;color:rgba(255,255,255,.4);">Sa</span>
+      </div>
+      <div style="display:flex;justify-content:space-around;" id="week-dots"></div>
+    </div>
+  </div>
+  <div style="padding:20px 24px 52px;">
+    <button class="btn-gold" onclick="go('s-home')">continue</button>
+  </div>
+</div>
+
+
+<script>
+// ════════════════════════════════════════
+// USER PROFILE — single source of truth
+// ════════════════════════════════════════
+const userProfile = {
+  name:'', screenTime:4, age:'', goals:[], faithVision:'',
+  prayerFreq:2, relationship:'', obstacles:[], gender:'',
+  commitment:'', spiritualScore:3, emotionalScore:3,
+  streak:0, totalPrayers:0, joinDate:new Date().toISOString(),
+  get spiritualLabel(){ return ['Struggling','Distant','Neutral','Growing','Good','Close to Allah'][this.spiritualScore]||'Neutral'; },
+  get emotionalLabel(){ return ['Really low','Not great','Okay','Good','Great','Wonderful'][this.emotionalScore]||'Okay'; },
+  get genderLabel(){ return this.gender.includes('Brother')?'brother':this.gender.includes('Sister')?'sister':'Muslim'; }
+};
+
+function saveProfile(){
+  const {name,screenTime,age,goals,faithVision,prayerFreq,relationship,
+    obstacles,gender,commitment,spiritualScore,emotionalScore,streak,totalPrayers,joinDate}=userProfile;
+  localStorage.setItem('sjoodProfile',JSON.stringify({name,screenTime,age,goals,faithVision,prayerFreq,
+    relationship,obstacles,gender,commitment,spiritualScore,emotionalScore,streak,totalPrayers,joinDate}));
+}
+function loadProfile(){
+  try{ Object.assign(userProfile, JSON.parse(localStorage.getItem('sjoodProfile')||'{}')); }catch(e){}
+}
+loadProfile();
+
+function collectSingle(sid){ const el=document.querySelector('#'+sid+' .option-card.selected'); return el?el.textContent.replace('✓','').trim():''; }
+function collectMulti(sid){ return [...document.querySelectorAll('#'+sid+' .option-card.selected')].map(el=>el.textContent.replace('✓','').trim()); }
+function saveAge()         { userProfile.age=collectSingle('s-age'); saveProfile(); }
+function saveGoals()       { userProfile.goals=collectMulti('s-goals'); saveProfile(); }
+function saveFaith()       { userProfile.faithVision=collectSingle('s-faith'); saveProfile(); }
+function saveRelationship(){ userProfile.relationship=collectSingle('s-relationship'); saveProfile(); }
+function saveObstacles()   { userProfile.obstacles=collectMulti('s-obstacles'); saveProfile(); }
+function saveGender()      { userProfile.gender=collectSingle('s-gender'); saveProfile(); }
+function saveCommitment()  { userProfile.commitment=collectSingle('s-commitment'); saveProfile(); }
+
+// ════════════════════════════════════════
+// AI DUA GENERATION
+// ════════════════════════════════════════
+function buildDuaPrompt(){
+  const p=userProfile;
+  const goals=p.goals.length?p.goals.join(', '):'general spiritual growth';
+  const obs=p.obstacles.length?p.obstacles.join(', '):'general distractions';
+  return `You are a compassionate Islamic scholar writing personalised duas for the Sjood prayer app.
+Generate a deeply personal, heartfelt dua in English for this specific Muslim. It must feel written just for them.
+
+USER PROFILE:
+- Name: ${p.name||'a Muslim'}, Gender: ${p.genderLabel}, Age: ${p.age||'adult'}
+- Phone use: ${p.screenTime}h/day, Prays: ${p.prayerFreq}/5 daily
+- Relationship with Allah: ${p.relationship||p.spiritualLabel}
+- Goals: ${goals}
+- Obstacles to salah: ${obs}
+- Commitment: ${p.commitment||'committed'}, Streak: ${p.streak} days
+
+TODAY: Spiritual state: ${p.spiritualLabel} (${p.spiritualScore}/5), Emotional: ${p.emotionalLabel} (${p.emotionalScore}/5)
+
+RULES:
+1. 3-4 paragraphs, English only, no Arabic text
+2. Reference 1-2 specific Quranic verses or authentic hadith relevant to their state
+3. Address their specific obstacles and goals by name
+4. Use "Ya Allah" or "Ya Rabb" — never "Dear Allah"
+5. Spiritual ≤2: include tawbah and returning to Allah
+6. Emotional ≤2: include comfort and Allah's promise of ease
+7. Both ≥4: focus on shukr and istiqamah
+8. First line: "Bismillah ir-Rahman ir-Raheem"
+9. Last line: "Ameen."
+10. Warm, intimate, sincere — like a letter to the Most Merciful`;
+}
+
+async function generateDua(){
+  const duaEl    = document.getElementById('dua-text');
+  const arabicEl = document.getElementById('dua-arabic');
+  const loadEl   = document.getElementById('dua-loading');
+  const btnEl    = document.getElementById('prayed-btn');
+  const timerEl  = document.getElementById('pray-timer');
+
+  // Show loading, hide content
+  if(duaEl)    duaEl.style.display    = 'none';
+  if(arabicEl) arabicEl.style.display = 'none';
+  if(loadEl)   loadEl.style.display   = 'flex';
+  if(btnEl)  { btnEl.style.opacity = '.4'; btnEl.style.pointerEvents = 'none'; }
+  if(timerEl)  timerEl.textContent = 'generating your personalised dua...';
+
+  try {
+    const res  = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: buildDuaPrompt() }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content?.[0]?.text || '';
+    if (text) {
+      if(duaEl) duaEl.innerHTML = text.split('\n\n').map(p => p.trim()).filter(Boolean)
+        .map(p => `<p style="margin-bottom:14px;line-height:1.85;">${p}</p>`).join('');
+      localStorage.setItem('sjoodLastDua', text);
+      localStorage.setItem('sjoodLastDuaTheme', getDuaTheme());
+    } else {
+      if(duaEl) duaEl.innerHTML = getFallbackDua();
+    }
+  } catch(err) {
+    if(duaEl) duaEl.innerHTML = getFallbackDua();
+  }
+
+  // Show content, hide loader
+  if(duaEl)    duaEl.style.display    = 'block';
+  if(arabicEl) arabicEl.style.display = 'block';
+  if(loadEl)   loadEl.style.display   = 'none';
+
+  // Start read timer — unlock button after 8s
+  let secs = 8;
+  if(timerEl) timerEl.textContent = `please read the full dua... (${secs}s)`;
+  const t = setInterval(() => {
+    secs--;
+    if (secs > 0) {
+      if(timerEl) timerEl.textContent = `please read the full dua... (${secs}s)`;
+    } else {
+      clearInterval(t);
+      if(btnEl)   { btnEl.style.opacity = '1'; btnEl.style.pointerEvents = 'all'; }
+      if(timerEl)   timerEl.textContent = 'tap the button once you have prayed 🤲';
+    }
+  }, 1000);
+}
+
+function getDuaTheme(){
+  const p=userProfile;
+  if(p.spiritualScore<=2) return 'Seeking Forgiveness';
+  if(p.emotionalScore<=2) return 'Finding Peace';
+  if(p.spiritualScore>=4&&p.emotionalScore>=4) return 'Gratitude & Steadfastness';
+  return ['Perseverance','Trust in Allah','Seeking Guidance','Patience','Hope','Connection'][Math.floor(Math.random()*6)];
+}
+
+function getFallbackDua(){
+  const p=userProfile; const n=p.name?`, ${p.name}`:'';
+  const low=p.spiritualScore<=2||p.emotionalScore<=2;
+  const high=p.spiritualScore>=4&&p.emotionalScore>=4;
+  if(low) return `<p style="margin-bottom:14px;line-height:1.85;"><em>Bismillah ir-Rahman ir-Raheem</em></p><p style="margin-bottom:14px;line-height:1.85;">Ya Allah${n}, I come before You carrying the weight of this day — the distractions, the distance, the moments I chose the screen over Your remembrance. You are Al-Ghaffar, and I return to You now with nothing but this broken intention.</p><p style="margin-bottom:14px;line-height:1.85;">Ya Rabb, You promised "Verily with hardship comes ease" — twice in Your Book so we would not lose hope. I hold onto that promise today. Lift from me what weighs me down, and replace it with Your mercy and light.</p><p style="margin-bottom:14px;line-height:1.85;">Guide me back to You, one salah at a time. You are closer to me than my own jugular vein — let me feel that closeness right now.</p><p style="line-height:1.85;font-weight:600;">Ameen.</p>`;
+  if(high) return `<p style="margin-bottom:14px;line-height:1.85;"><em>Bismillah ir-Rahman ir-Raheem</em></p><p style="margin-bottom:14px;line-height:1.85;">Ya Allah${n}, all praise belongs to You alone — for this day, for this clarity, for the sweetness of iman You have placed in my heart. Alhamdulillah for every prayer, every moment of dhikr, every time I chose You over the pull of this dunya.</p><p style="margin-bottom:14px;line-height:1.85;">Ya Rabb, grant me istiqamah — steadfastness on this path. You said in the Quran those who say "our Lord is Allah" and remain steadfast will have angels descend upon them. Let me be among them. Do not let the sweetness of iman leave my heart.</p><p style="margin-bottom:14px;line-height:1.85;">Protect me from arrogance and complacency. Let my gratitude show in how I live, how I pray, and how I guard this time You have given back to me.</p><p style="line-height:1.85;font-weight:600;">Ameen.</p>`;
+  return `<p style="margin-bottom:14px;line-height:1.85;"><em>Bismillah ir-Rahman ir-Raheem</em></p><p style="margin-bottom:14px;line-height:1.85;">Ya Allah${n}, I put down my phone and turn to You — the One who never sleeps, never tires, and never turns away a servant who returns. You are Al-Wali, my Guardian, and I need Your presence in this prayer.</p><p style="margin-bottom:14px;line-height:1.85;">Ya Rabb, help me to make this salah the anchor of my day. The Prophet ﷺ said the first thing we will be asked about on the Day of Judgement is our prayer — let mine be something I am not ashamed of. Guard me from ${p.obstacles[0]||'distraction'} and keep me close to You.</p><p style="margin-bottom:14px;line-height:1.85;">Grant me focus in this sujood, sincerity in this dua, and the strength to return to You — day after day, prayer after prayer, until I meet You in a state that pleases You.</p><p style="line-height:1.85;font-weight:600;">Ameen.</p>`;
+}
+
+// ════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════
+function go(id) {
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.remove('active','from-right','from-left');
+    s.style.pointerEvents = 'none';
+  });
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.add('from-right','active');
+  el.style.pointerEvents = 'all';
+  setTimeout(() => el.classList.remove('from-right'), 400);
+
+  // Side effects
+  if (id === 's-generating')         { saveAge();saveGoals();saveFaith();saveRelationship();saveObstacles();saveGender();saveCommitment(); startGenerating(); }
+  if (id === 's-home')               { initHome(); updateNextPrayerBanner(); }
+  if (id === 's-vision')             initVision();
+  if (id === 's-lock')               initLockList();
+  if (id === 's-settings')           initSettings();
+  if (id === 's-congrats')           initCongrats();
+  if (id === 's-streak')             initStreak();
+  if (id === 's-lets-pray')          { saveEmotional(); initPrayScreen(); }
+  if (id === 's-reality')            initReality();
+  if (id === 's-thankyou')           initThankyou();
+  if (id === 's-checkin-emotional')  saveSpiritual();
+}
+
+function switchTab(tab){ go({home:'s-home',vision:'s-vision',lock:'s-lock',settings:'s-settings'}[tab]); }
+
+function selectSingle(el){ el.closest('.options-list')?.querySelectorAll('.option-card').forEach(c=>c.classList.remove('selected')); el.classList.add('selected'); }
+function selectMulti(el,g,max){ const list=el.closest('.options-list')||el.parentElement; if(el.classList.contains('selected')){el.classList.remove('selected');return;} if(list.querySelectorAll('.option-card.selected').length<max) el.classList.add('selected'); }
+
+
+// ════════════════════════════════════════
+// PAYWALL
+// ════════════════════════════════════════
+function selectPlan(plan){
+  document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('plan-'+plan).classList.add('selected');
+  userProfile.selectedPlan = plan; saveProfile();
+}
+function startTrial(){
+  userProfile.onboarded = true; saveProfile();
+  go('s-checkin-spiritual');
+}
+
+// ════════════════════════════════════════
+// VISION TAB
+// ════════════════════════════════════════
+let currentPeriod = '30D';
+const HISTORY = {
+  '7D':  { iman:[3,3.5,4,3,4.5,4,3.8], mood:[3,3.2,3.8,3.5,4,3.7,3.5], days:7  },
+  '30D': { iman:[2.5,3,3.2,3.5,3.8,3.5,4,3.8,4.2,4,4.5,4.2,4.5,4.8,4.5,4.2,4.6,4.8,5,4.8,4.5,4.8,5,4.8,5,4.8,5,5,4.8,5], mood:[2,2.5,3,3.2,3.5,3.2,3.8,3.5,4,3.8,4.2,4,4.2,4.5,4.2,4,4.4,4.6,4.8,4.6,4.4,4.6,4.8,4.6,4.8,4.6,4.8,5,4.8,5], days:30 },
+  '3M':  { iman:[2,2.5,3,3.2,3.5,3.8,4,3.8,4.2,4.5,4.8,5], mood:[2,2.5,2.8,3,3.5,3.8,4,4.2,4.5,4.8,5,5], days:90  },
+  '1Y':  { iman:[1.5,2,2.5,3,3.5,3.8,4,4.2,4.5,4.8,4.9,5], mood:[1.5,2,2.5,2.8,3.2,3.5,3.8,4,4.2,4.5,4.8,5], days:365 },
+};
+
+function selectPeriod(el, period){
+  currentPeriod = period;
+  document.querySelectorAll('.period-btn').forEach(b=>{ b.style.background='transparent'; b.style.color='rgba(255,255,255,.5)'; });
+  el.style.background='var(--gold)'; el.style.color='var(--deep-green)';
+  drawChart(period);
+  document.getElementById('chart-period-label').textContent =
+    {7:'Last 7 days',30:'Last 30 days',90:'Last 3 months',365:'Last year'}[HISTORY[period].days] || period;
+}
+
+function drawChart(period){
+  const d = HISTORY[period];
+  if(!d) return;
+  const W=320, H=120, PAD=32, BOTTOM=110;
+  const maxScore=5, pts=d.iman.length;
+  const xStep=(W-PAD)/(pts-1);
+  const yScale=v => BOTTOM - ((v/maxScore)*(BOTTOM-16));
+
+  const iPoints = d.iman.map((v,i)=>[(PAD+i*xStep).toFixed(1), yScale(v).toFixed(1)]);
+  const mPoints = d.mood.map((v,i)=>[(PAD+i*xStep).toFixed(1), yScale(v).toFixed(1)]);
+
+  const pathStr = pts => {
+    let d='M'+pts[0][0]+','+pts[0][1];
+    for(let i=1;i<pts.length;i++){
+      const cp1x=(parseFloat(pts[i-1][0])+parseFloat(pts[i][0]))/2;
+      d+=` C${cp1x},${pts[i-1][1]} ${cp1x},${pts[i][1]} ${pts[i][0]},${pts[i][1]}`;
+    }
+    return d;
+  };
+
+  const iPath = pathStr(iPoints);
+  const mPath = pathStr(mPoints);
+  const last  = iPoints[iPoints.length-1];
+
+  const il = document.getElementById('iman-line');
+  const ip = document.getElementById('iman-path');
+  const ml = document.getElementById('mood-line');
+  const mp = document.getElementById('mood-path');
+  const dot= document.getElementById('iman-dot');
+
+  if(il) il.setAttribute('d', iPath);
+  if(ip) ip.setAttribute('d', iPath+` L${W},${BOTTOM} L${PAD},${BOTTOM} Z`);
+  if(ml) ml.setAttribute('d', mPath);
+  if(mp) mp.setAttribute('d', mPath+` L${W},${BOTTOM} L${PAD},${BOTTOM} Z`);
+  if(dot){ dot.setAttribute('cx',last[0]); dot.setAttribute('cy',last[1]); }
+}
+
+function initVision(){
+  const p = userProfile;
+  // Update stats from real profile data
+  const se=document.getElementById('v-streak');   if(se) se.textContent=p.streak||0;
+  const te=document.getElementById('v-total');    if(te) te.textContent=p.totalPrayers||0;
+  const ie=document.getElementById('v-iman');     if(ie) ie.textContent=(p.spiritualScore||3).toFixed(1);
+  const il=document.getElementById('v-iman-label');if(il) il.textContent=p.spiritualLabel;
+  const me=document.getElementById('v-mood');     if(me) me.textContent=(p.emotionalScore||3).toFixed(1);
+  const ml=document.getElementById('v-mood-label');if(ml) ml.textContent=p.emotionalLabel;
+
+  // Draw chart
+  setTimeout(()=>drawChart(currentPeriod), 100);
+
+  // Build 90-day grid
+  initVisionGrid();
+}
+
+function initVisionGrid(){
+  const grid=document.getElementById('vision-grid'); if(!grid) return;
+  grid.innerHTML='';
+  const done = userProfile.streak||0;
+  const pct  = Math.round((done/90)*100);
+  const pg = document.getElementById('grid-pct');
+  if(pg) pg.textContent=`${pct}% complete · day ${done} of 90`;
+  for(let i=0;i<90;i++){
+    const c=document.createElement('div');
+    c.className='gc'+(i<done?' done':i===done?' today':'');
+    c.title=`Day ${i+1}`;
+    grid.appendChild(c);
+  }
+}
+
+// ════════════════════════════════════════
+// LOCK LIST
+// ════════════════════════════════════════
+let selectedCats = new Set(JSON.parse(localStorage.getItem('sjoodLockedCats')||'[]'));
+
+function toggleCat(row){
+  const name = row.id.replace('cat-','').replace(/_/g,' ');
+  const check= row.querySelector('.cat-check');
+  const on   = selectedCats.has(name);
+  if(on){ selectedCats.delete(name); }
+  else  { selectedCats.add(name); }
+  updateCatUI(row, !on);
+  updateLockCount();
+}
+
+function updateCatUI(row, selected){
+  const check = row.querySelector('.cat-check');
+  check.style.background   = selected ? 'var(--gold)' : '';
+  check.style.borderColor  = selected ? 'var(--gold)' : '#d1d5db';
+  check.innerHTML = selected
+    ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20,6 9,17 4,12"/></svg>'
+    : '';
+  row.style.background = selected ? 'rgba(212,168,67,.04)' : '';
+}
+
+function updateLockCount(){
+  const n = selectedCats.size;
+  const el = document.getElementById('lock-count');
+  const lb = document.getElementById('lock-save-label');
+  if(el) el.textContent = n===0 ? 'none selected' : `${n} selected`;
+  if(lb) lb.textContent = n===0 ? 'No apps selected' : `${n} categor${n===1?'y':'ies'} will be locked`;
+}
+
+function selectAllCats(){
+  const rows = document.querySelectorAll('#cat-list .category-row');
+  const allSelected = selectedCats.size === rows.length;
+  if(allSelected){
+    selectedCats.clear();
+    rows.forEach(r=>updateCatUI(r, false));
+    document.getElementById('select-all-btn').textContent='Select all';
+  } else {
+    rows.forEach(r=>{
+      const name=r.id.replace('cat-','').replace(/_/g,' ');
+      selectedCats.add(name);
+      updateCatUI(r, true);
+    });
+    document.getElementById('select-all-btn').textContent='Deselect all';
+  }
+  updateLockCount();
+}
+
+function filterCats(query){
+  const q=query.toLowerCase();
+  document.querySelectorAll('#cat-list .category-row').forEach(r=>{
+    const text=r.textContent.toLowerCase();
+    r.style.display=text.includes(q)?'':'none';
+  });
+}
+
+function saveLockList(){
+  localStorage.setItem('sjoodLockedCats', JSON.stringify([...selectedCats]));
+  userProfile.lockedCategories=[...selectedCats]; saveProfile();
+  // Show confirmation toast
+  showPrayerToast({name:'Lock list saved ✅',arabic:'',icon:'🔒',time:''},  'reminder');
+  setTimeout(()=>dismissToast(),2500);
+}
+
+function initLockList(){
+  // Restore saved selections
+  selectedCats = new Set(JSON.parse(localStorage.getItem('sjoodLockedCats')||'[]'));
+  document.querySelectorAll('#cat-list .category-row').forEach(r=>{
+    const name=r.id.replace('cat-','').replace(/_/g,' ');
+    if(selectedCats.has(name)) updateCatUI(r, true);
+  });
+  updateLockCount();
+}
+
+// ════════════════════════════════════════
+// SETTINGS
+// ════════════════════════════════════════
+const PRAYER_NAMES=['Fajr','Dhuhr','Asr','Maghrib','Isha'];
+let prayerTimes = JSON.parse(localStorage.getItem('sjoodPrayerTimes')||'null') || {
+  Fajr:'05:12', Dhuhr:'12:34', Asr:'15:47', Maghrib:'18:22', Isha:'19:55'
+};
+const METHODS=['Muslim World League (MWL)','Islamic Society of North America (ISNA)','Egyptian General Authority','Umm Al-Qura (Makkah)','University of Islamic Sciences Karachi'];
+const MADHHABS=['Shafi\'i / Maliki / Hanbali','Hanafi'];
+let calcMethod=0, calcMadhab=0;
+
+function initSettings(){
+  const p=userProfile;
+  const sn=document.getElementById('settings-name');    if(sn) sn.textContent=p.name||'Beloved';
+  const ss=document.getElementById('settings-streak');  if(ss) ss.textContent=p.streak||0;
+  const sp=document.getElementById('settings-prayers'); if(sp) sp.textContent=p.totalPrayers||0;
+  const sf=document.getElementById('settings-pfreq');   if(sf) sf.textContent=`${p.prayerFreq||0}/5`;
+  const sj=document.getElementById('settings-join');
+  if(sj){ const d=new Date(p.joinDate||Date.now()); sj.textContent='Member since '+d.toLocaleDateString('en-GB',{month:'long',year:'numeric'}); }
+  renderPrayerList();
+  refreshLocation();
+}
+
+function renderPrayerList(){
+  const list=document.getElementById('settings-prayer-list'); if(!list) return;
+  list.innerHTML = PRAYER_NAMES.map((name,i)=>`
+    <div class="toggle-wrap" style="padding:12px 16px;${i<4?'border-bottom:1px solid #f0ebe0;':''}">
+      <div>
+        <p style="font-size:14px;font-weight:500;color:var(--text-primary);">${name} — ${formatTime(prayerTimes[name]||'00:00')}</p>
+        <p style="font-size:12px;color:var(--text-muted);">Locks apps at prayer time</p>
+      </div>
+      <div class="toggle-track on" onclick="this.classList.toggle('on')"><div class="toggle-thumb"></div></div>
+    </div>`).join('');
+}
+
+function formatTime(t){
+  const [h,m]=t.split(':').map(Number);
+  const ap=h>=12?'PM':'AM'; const hr=h%12||12;
+  return `${hr}:${String(m).padStart(2,'0')} ${ap}`;
+}
+
+function editPrayerTimes(){
+  const modal=document.getElementById('prayer-time-modal');
+  const list=document.getElementById('prayer-time-edit-list');
+  list.innerHTML=PRAYER_NAMES.map(name=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f0ebe0;">
+      <p style="font-size:15px;font-weight:600;color:var(--text-primary);">${name}</p>
+      <input type="time" value="${prayerTimes[name]||'00:00'}" id="pt-${name}"
+        style="border:2px solid var(--cream-dark);border-radius:10px;padding:8px 12px;font-family:Poppins;font-size:15px;outline:none;color:var(--text-primary);"
+        onchange="this.style.borderColor='var(--gold)'"/>
+    </div>`).join('');
+  modal.style.display='flex';
+}
+
+function closePrayerModal(){ document.getElementById('prayer-time-modal').style.display='none'; }
+
+function savePrayerTimes(){
+  PRAYER_NAMES.forEach(name=>{
+    const input=document.getElementById('pt-'+name);
+    if(input) prayerTimes[name]=input.value;
+  });
+  localStorage.setItem('sjoodPrayerTimes', JSON.stringify(prayerTimes));
+  // Update the global PRAYERS array used for notifications
+  PRAYERS.forEach(p=>{ if(prayerTimes[p.name]) p.time=prayerTimes[p.name]; });
+  renderPrayerList();
+  closePrayerModal();
+}
+
+function editProfile(){
+  const modal=document.getElementById('profile-modal');
+  document.getElementById('profile-name-input').value=userProfile.name||'';
+  document.getElementById('profile-screentime-input').value=userProfile.screenTime||4;
+  modal.style.display='flex';
+}
+function closeProfileModal(){ document.getElementById('profile-modal').style.display='none'; }
+function saveProfile2(){
+  const name=document.getElementById('profile-name-input').value.trim();
+  const st=parseInt(document.getElementById('profile-screentime-input').value)||4;
+  if(name){ userProfile.name=name; }
+  userProfile.screenTime=st;
+  saveProfile();
+  initSettings(); initHome();
+  closeProfileModal();
+}
+
+function showMethodPicker(){
+  const curr=document.getElementById('calc-method');
+  calcMethod=(calcMethod+1)%METHODS.length;
+  if(curr) curr.textContent=METHODS[calcMethod];
+}
+function showMadhhabPicker(){
+  const curr=document.getElementById('calc-madhab');
+  calcMadhab=(calcMadhab+1)%MADHHABS.length;
+  if(curr) curr.textContent=MADHHABS[calcMadhab];
+}
+
+function setTheme(t){ /* future: swap CSS vars */ }
+
+function refreshLocation(){
+  const city=document.getElementById('location-city');
+  const coords=document.getElementById('location-coords');
+  if(!city) return;
+  if('geolocation' in navigator){
+    city.textContent='Detecting...';
+    navigator.geolocation.getCurrentPosition(pos=>{
+      const {latitude:lat,longitude:lng}=pos.coords;
+      city.textContent='Lusaka, Zambia'; // default for prototype
+      if(coords) coords.textContent=`${lat.toFixed(2)}°N ${lng.toFixed(2)}°E · GPS`;
+    },()=>{
+      city.textContent='Lusaka, Zambia';
+      if(coords) coords.textContent='15.42°S 28.28°E · Default';
+    },{timeout:5000});
+  } else {
+    city.textContent='Lusaka, Zambia';
+    if(coords) coords.textContent='15.42°S 28.28°E · Default';
+  }
+}
+
+
+// ── Reality check ──
+function initReality(){
+  const h=userProfile.screenTime; const yearly=h*365; const days=Math.round(yearly/24); const quran=Math.round(yearly/30);
+  document.getElementById('reality-content').innerHTML=`
+    <p style="font-size:14px;color:var(--text-muted);margin-bottom:24px;">Based on <strong style="color:var(--gold);">${h} hours/day</strong>...</p>
+    <div style="display:flex;flex-direction:column;gap:18px;">
+      <p style="font-size:30px;font-weight:800;color:var(--text-primary);line-height:1.3;">you'll spend <span style="color:var(--gold);">${yearly.toLocaleString()} hours</span> on your phone this year</p>
+      <p style="font-size:26px;font-weight:700;color:var(--text-primary);">that's <span style="color:var(--gold);">${days} days</span> of your life</p>
+      <p style="font-size:20px;font-weight:600;color:var(--text-primary);">you could read the entire Quran <span style="color:var(--gold);">${quran} times</span></p>
+      <p style="font-size:16px;color:var(--text-secondary);line-height:1.7;">if you traded your <span style="color:var(--gold);font-weight:600;">screen time</span> for <span style="font-weight:600;">Quran time</span></p>
+      <div style="background:rgba(212,168,67,.08);border-left:3px solid var(--gold);border-radius:12px;padding:14px 16px;">
+        <p style="font-family:'Amiri',serif;font-size:20px;color:var(--gold);direction:rtl;text-align:right;margin-bottom:6px;">أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ</p>
+        <p style="font-size:12px;color:var(--text-muted);font-style:italic;">"Verily in the remembrance of Allah do hearts find rest." — Ar-Ra'd 13:28</p>
+      </div>
+    </div>`;
+}
+
+// ── Prayer frequency ──
+const pfreqLabels=['Never 😔','Fajr only 🌅','Fajr + Dhuhr','Fajr, Dhuhr + Asr','4 prayers 🌙','All 5 prayers 🤲'];
+function updatePFreq(v){ document.getElementById('pfreq-num').textContent=v; document.getElementById('pfreq-label').textContent=pfreqLabels[v]||''; event.target.style.setProperty('--pct',(v/5*100)+'%'); userProfile.prayerFreq=parseInt(v); }
+
+// ── Check-in sliders ──
+const spEmojis=['😞','😔','😐','🙂','😊','🌟']; const spLabels=['Struggling','Distant','Neutral','Growing','Good','Close, alhamdulillah'];
+function updateSpiritual(v){ document.getElementById('sp-emoji').textContent=spEmojis[v]; document.getElementById('sp-label').textContent=spLabels[v]; event.target.style.setProperty('--pct',(v/5*100)+'%'); userProfile.spiritualScore=parseInt(v); }
+function saveSpiritual(){ userProfile.spiritualScore=parseInt(document.querySelector('#s-checkin-spiritual input')?.value||3); saveProfile(); }
+
+const emEmojis=['😭','😔','😐','🙂','😊','✨']; const emLabels=['Really low','Not great','Okay','Good','Great','Wonderful'];
+function updateEmotional(v){ document.getElementById('em-emoji').textContent=emEmojis[v]; document.getElementById('em-label').textContent=emLabels[v]; event.target.style.setProperty('--pct',(v/5*100)+'%'); userProfile.emotionalScore=parseInt(v); }
+function saveEmotional(){ userProfile.emotionalScore=parseInt(document.querySelector('#s-checkin-emotional input')?.value||3); saveProfile(); }
+
+// ── Pray screen ──
+function initPrayScreen(){
+  const name=userProfile.name;
+  const title=document.getElementById('lets-pray-title');
+  if(title&&name) title.textContent=`let's pray, ${name} 🤲`;
+  const duaEl=document.getElementById('dua-text');
+  const arabicEl=document.getElementById('dua-arabic');
+  const loadEl=document.getElementById('dua-loading');
+  const btnEl=document.getElementById('prayed-btn');
+  const timerEl=document.getElementById('pray-timer');
+  if(duaEl)   duaEl.style.display='none';
+  if(arabicEl) arabicEl.style.display='none';
+  if(loadEl)  loadEl.style.display='flex';
+  if(btnEl)   { btnEl.style.opacity='.4'; btnEl.style.pointerEvents='none'; }
+  if(timerEl) timerEl.textContent='loading your personalised dua...';
+  generateDua();
+}
+
+// ── After prayer ──
+function completePrayer(){
+  userProfile.streak++; userProfile.totalPrayers++; saveProfile();
+  go('s-verse-day');
+}
+
+// ── Generating screen ──
+function startGenerating(){
+  const circle=document.getElementById('gen-circle'); const pctEl=document.getElementById('gen-pct');
+  const label=document.getElementById('gen-label'); const dots=document.querySelectorAll('.gdot');
+  const labels=[`analysing your answers...`,`personalising duas for ${userProfile.genderLabel}...`,
+    `calibrating for ${userProfile.prayerFreq}/5 prayers...`,'building your 90-day journey...','almost ready...'];
+  let pct=0,dotIdx=0; circle.style.strokeDashoffset=502;
+  const iv=setInterval(()=>{
+    pct+=Math.random()*16+5; if(pct>100) pct=100;
+    circle.style.strokeDashoffset=502-(502*pct/100); pctEl.textContent=Math.round(pct)+'%';
+    if(dotIdx<dots.length&&pct>(dotIdx+1)*14){
+      const d=dots[dotIdx]; d.style.cssText+='background:#4CAF50;display:flex;align-items:center;justify-content:center;';
+      d.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20,6 9,17 4,12"/></svg>'; dotIdx++;
+    }
+    label.textContent=labels[Math.min(Math.floor(pct/22),labels.length-1)];
+    if(pct>=100){ clearInterval(iv); setTimeout(()=>go('s-thankyou'),600); }
+  },260);
+}
+
+// ── Thank you ──
+function initThankyou(){ const n=userProfile.name; if(n) document.getElementById('thankyou-name').textContent=`Jazakallah khair, ${n}.`; }
+
+// ── Home ──
+function initHome(){
+  const p=userProfile; const name=p.name||'Beloved';
+  const hn=document.getElementById('home-name');       if(hn) hn.textContent=name;
+  const sn=document.getElementById('settings-name');   if(sn) sn.textContent=name;
+  const hs=document.getElementById('home-streak');     if(hs) hs.textContent=p.streak||0;
+  const hl=document.getElementById('home-streak-label');
+  if(hl){ hl.textContent = p.streak>30?'MashaAllah! 🌟':p.streak>7?'Keep it up! 🔥':p.streak>0?'Great start!':'Begin today 🌙'; }
+  const h=new Date().getHours();
+  const hg=document.getElementById('home-greeting');
+  if(hg) hg.textContent=h<5?'Assalamu Alaikum':h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  const hd=document.getElementById('home-date');
+  if(hd) hd.textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  const fd=document.getElementById('feed-date');
+  if(fd) fd.textContent=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  updateNextPrayerBanner();
+}
+
+
+// ── Congrats ──
+function initCongrats(){
+  const d=document.getElementById('congrats-date');
+  if(d) d.textContent=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  const theme=localStorage.getItem('sjoodLastDuaTheme')||getDuaTheme();
+  const t=document.getElementById('congrats-theme');
+  if(t) t.textContent=theme;
+  const lastDua=localStorage.getItem('sjoodLastDua')||'';
+  const snip=document.getElementById('congrats-snippet');
+  if(snip&&lastDua) snip.textContent=lastDua.replace(/Bismillah.*?\n/,'').replace(/<[^>]*>/g,'').substring(0,120)+'...';
+}
+
+// ── Streak ──
+function initStreak(){
+  const sn=document.getElementById('streak-num'); if(sn) sn.textContent=userProfile.streak||1;
+  const today=new Date().getDay(); const wrap=document.getElementById('week-dots'); if(!wrap) return; wrap.innerHTML='';
+  for(let i=0;i<7;i++){
+    const d=document.createElement('div'); d.style.cssText='width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;';
+    if(i===today){d.style.background='var(--gold)';d.style.color='var(--deep-green)';}
+    else{d.style.background='rgba(255,255,255,.1)';d.style.color='rgba(255,255,255,.35)';}
+    const dd=new Date(); dd.setDate(dd.getDate()+(i-today)); d.textContent=dd.getDate(); wrap.appendChild(d);
+  }
+}
+
+
+// ── Signature pad ──
+const canvas=document.getElementById('sigCanvas');
+if(canvas){
+  const ctx=canvas.getContext('2d'); canvas.width=canvas.offsetWidth||340; canvas.height=140;
+  let drawing=false; ctx.strokeStyle='#1a2e1f'; ctx.lineWidth=2.5; ctx.lineCap='round';
+  const pos=e=>{const r=canvas.getBoundingClientRect(),s=e.touches?e.touches[0]:e;return{x:s.clientX-r.left,y:s.clientY-r.top};};
+  canvas.addEventListener('mousedown',e=>{drawing=true;const p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);});
+  canvas.addEventListener('mousemove',e=>{if(!drawing)return;const p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke();});
+  canvas.addEventListener('mouseup',()=>drawing=false);
+  canvas.addEventListener('touchstart',e=>{e.preventDefault();drawing=true;const p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);},{passive:false});
+  canvas.addEventListener('touchmove',e=>{e.preventDefault();if(!drawing)return;const p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke();},{passive:false});
+  canvas.addEventListener('touchend',()=>drawing=false);
+}
+function clearSig(){ const c=document.getElementById('sigCanvas'); c.getContext('2d').clearRect(0,0,c.width,c.height); }
+
+// ════════════════════════════════════════
+// SPLASH SCREEN — Fixed overlay approach
+// ════════════════════════════════════════
+
+
+const PRAYERS = [
+  { name:'Fajr',    time:'05:12', arabic:'الفجر',    icon:'🌙' },
+  { name:'Dhuhr',   time:'12:34', arabic:'الظهر',   icon:'☀️' },
+  { name:'Asr',     time:'15:47', arabic:'العصر',    icon:'🌤️' },
+  { name:'Maghrib', time:'18:22', arabic:'المغرب',  icon:'🌅' },
+  { name:'Isha',    time:'19:55', arabic:'العشاء',   icon:'🌙' },
+];
+
+// Convert "HH:MM" to today's Date object
+function prayerToDate(timeStr) {
+  const [h, m] = timeStr.split(':').map(Number);
+  const d = new Date();
+  d.setHours(h, m, 0, 0);
+  return d;
+}
+
+// Get next upcoming prayer
+function getNextPrayer() {
+  const now = new Date();
+  for (const p of PRAYERS) {
+    const t = prayerToDate(p.time);
+    if (t > now) return { ...p, date: t, minutesAway: Math.round((t - now) / 60000) };
+  }
+  // After Isha — next is tomorrow's Fajr
+  const fajr = prayerToDate(PRAYERS[0].time);
+  fajr.setDate(fajr.getDate() + 1);
+  return { ...PRAYERS[0], date: fajr, minutesAway: Math.round((fajr - now) / 60000) };
+}
+
+// Get current / active prayer (within 30 min window)
+function getActivePrayer() {
+  const now = new Date();
+  for (const p of PRAYERS) {
+    const t = prayerToDate(p.time);
+    const diff = (now - t) / 60000; // minutes since prayer time
+    if (diff >= 0 && diff <= 30) return { ...p, date: t, minutesSince: Math.round(diff) };
+  }
+  return null;
+}
+
+// ── In-app toast notification ──
+function showPrayerToast(prayer, type = 'reminder') {
+  const existing = document.getElementById('prayer-toast');
+  if (existing) existing.remove();
+
+  const isNow      = type === 'now';
+  const isReminder = type === 'reminder';
+  const name       = userProfile.name || '';
+  const greeting   = name ? `${name}, ` : '';
+  const honorific  = userProfile.gender.includes('Sister') ? 'Sister' : userProfile.gender.includes('Brother') ? 'Brother' : '';
+  const fullName   = honorific && name ? `${honorific} ${name}` : name;
+
+  // Personalised message lines based on type + profile
+  const reminderMsg = (() => {
+    if (prayer.minutesAway <= 5) {
+      if (userProfile.spiritualScore >= 4) return `${greeting}it's almost ${prayer.name} time — your streak is waiting 🌙`;
+      if (userProfile.streak > 0)          return `${greeting}don't break your ${userProfile.streak}-day streak — ${prayer.name} soon`;
+      return `${greeting}${prayer.name} is in ${prayer.minutesAway} min — wrap up and prepare`;
+    }
+    if (userProfile.goals.includes('🤲 put Allah first, before my phone'))
+      return `${greeting}put Allah first — ${prayer.name} in ${prayer.minutesAway} min`;
+    if (userProfile.obstacles.includes('📱 phone & social media distraction'))
+      return `${greeting}put the phone down — ${prayer.name} in ${prayer.minutesAway} min`;
+    return `${greeting}${prayer.name} prayer in ${prayer.minutesAway} minutes`;
+  })();
+
+  const nowMsg = (() => {
+    if (userProfile.streak > 7)   return `${fullName || greeting.replace(', ','')} — ${userProfile.streak} days strong. Don't stop now.`;
+    if (userProfile.streak === 1) return `${greeting}you started yesterday. Keep going — ${prayer.name} is now.`;
+    if (userProfile.spiritualScore <= 2) return `${greeting}Allah is waiting for you. ${prayer.name} time.`;
+    return `${greeting}${prayer.name} time — your apps are locking`;
+  })();
+
+  const subMsg = (() => {
+    if (isNow) {
+      if (userProfile.goals.length) return `Goal: ${userProfile.goals[0]?.slice(2,40) || 'grow closer to Allah'} · tap to pray`;
+      return 'Tap to begin your dua & unlock apps';
+    }
+    if (prayer.minutesAway <= 5) return 'Almost time — close your apps and make wudu';
+    return `${prayer.time} · ${prayer.arabic} · tap to prepare`;
+  })();
+
+  const toast = document.createElement('div');
+  toast.id = 'prayer-toast';
+  toast.style.cssText = `
+    position:fixed; top:16px; left:50%;
+    transform:translateX(-50%) translateY(-140px);
+    width:calc(100% - 32px); max-width:388px;
+    z-index:9999; border-radius:20px; overflow:hidden;
+    box-shadow:0 16px 48px rgba(0,0,0,0.3);
+    transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    cursor:pointer;
+  `;
+
+  toast.innerHTML = `
+    <div style="
+      background:${isNow
+        ? 'linear-gradient(135deg,#1a3a2a,#2d5a3f)'
+        : 'linear-gradient(135deg,#0f2218,#1a3a2a)'};
+      padding:16px 18px; display:flex; align-items:center; gap:14px;">
+
+      <!-- Icon -->
+      <div style="
+        width:50px; height:50px; border-radius:14px; flex-shrink:0;
+        background:${isNow ? 'rgba(212,168,67,.18)' : 'rgba(255,255,255,.07)'};
+        border:1px solid ${isNow ? 'rgba(212,168,67,.45)' : 'rgba(255,255,255,.1)'};
+        display:flex; align-items:center; justify-content:center; font-size:24px;
+        ${isNow ? 'animation:toastIconPulse 1.5s ease-in-out infinite;' : ''}
+      ">${prayer.icon}</div>
+
+      <!-- Text -->
+      <div style="flex:1; min-width:0; overflow:hidden;">
+        <div style="display:flex; align-items:center; gap:6px; margin-bottom:3px; flex-wrap:wrap;">
+          <p style="font-size:13px; font-weight:700; color:white; line-height:1.3;">
+            ${isNow ? nowMsg : reminderMsg}
+          </p>
+          ${isNow
+            ? `<span style="font-size:10px;background:rgba(212,168,67,.25);color:#d4a843;padding:2px 8px;border-radius:20px;font-weight:700;white-space:nowrap;">NOW</span>`
+            : prayer.minutesAway <= 5
+              ? `<span style="font-size:10px;background:rgba(255,100,100,.2);color:#ff8080;padding:2px 8px;border-radius:20px;font-weight:700;white-space:nowrap;">SOON</span>`
+              : ''}
+        </div>
+        <p style="font-size:11px; color:rgba(255,255,255,.42); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+          ${subMsg}
+        </p>
+        ${userProfile.streak > 0 && !isNow ? `
+        <div style="display:flex;align-items:center;gap:4px;margin-top:5px;">
+          <div style="height:3px;flex:1;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;">
+            <div style="height:100%;width:${Math.min((userProfile.streak/90)*100,100)}%;background:linear-gradient(90deg,#d4a843,#f0d78c);border-radius:2px;"></div>
+          </div>
+          <span style="font-size:10px;color:rgba(212,168,67,.7);font-weight:600;white-space:nowrap;">${userProfile.streak}/90 days</span>
+        </div>` : ''}
+      </div>
+
+      <!-- CTA button -->
+      <div style="
+        background:${isNow ? 'var(--gold)' : 'rgba(255,255,255,.09)'};
+        border:1px solid ${isNow ? 'transparent' : 'rgba(255,255,255,.12)'};
+        border-radius:10px; padding:9px 13px;
+        font-size:12px; font-weight:700;
+        color:${isNow ? '#1a3a2a' : 'rgba(255,255,255,.65)'};
+        white-space:nowrap; flex-shrink:0;
+      ">${isNow ? 'Pray →' : 'Got it'}</div>
+    </div>
+
+    <!-- Bottom bar: progress to prayer time -->
+    ${!isNow && prayer.minutesAway <= 15 ? `
+    <div style="height:3px;background:rgba(255,255,255,.06);">
+      <div style="height:100%;width:${Math.round((1-prayer.minutesAway/15)*100)}%;
+        background:linear-gradient(90deg,#d4a843,#f0d78c);
+        border-radius:0 2px 2px 0;" id="toast-progress">
+      </div>
+    </div>` : ''}
+
+    <!-- Dismiss hint -->
+    <div style="background:rgba(0,0,0,.15);padding:4px 18px;text-align:right;">
+      <span style="font-size:10px;color:rgba(255,255,255,.2);">swipe up to dismiss</span>
+    </div>
+  `;
+
+  // Swipe up to dismiss
+  let startY = 0;
+  toast.addEventListener('touchstart', e => { startY = e.touches[0].clientY; });
+  toast.addEventListener('touchend',   e => { if (startY - e.changedTouches[0].clientY > 40) dismissToast(); });
+
+  toast.addEventListener('click', () => { dismissToast(); if (isNow) go('s-checkin-spiritual'); });
+  document.getElementById('app').appendChild(toast);
+
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+  }));
+
+  setTimeout(dismissToast, isNow ? 14000 : 7000);
+}
+
+function dismissToast() {
+  const toast = document.getElementById('prayer-toast');
+  if (!toast) return;
+  toast.style.transform = 'translateX(-50%) translateY(-120px)';
+  setTimeout(() => toast.remove(), 500);
+}
+
+// ── Web Notifications API ──
+async function requestNotificationPermission() {
+  if (!('Notification' in window)) return false;
+  if (Notification.permission === 'granted') return true;
+  if (Notification.permission === 'denied') return false;
+  const perm = await Notification.requestPermission();
+  return perm === 'granted';
+}
+
+function sendSystemNotification(prayer, type) {
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  const isNow  = type === 'now';
+  const name   = userProfile.name ? `${userProfile.name}, ` : '';
+  const streak = userProfile.streak;
+
+  const title = isNow
+    ? `🔒 ${name}time for ${prayer.name}`
+    : `⏰ ${name}${prayer.name} in ${prayer.minutesAway} minutes`;
+
+  const body = isNow
+    ? streak > 0
+      ? `You're on a ${streak}-day streak — don't break it. Tap to pray & unlock your apps.`
+      : `Your apps are locking. Tap to open Sjood and begin your prayer.`
+    : prayer.minutesAway <= 5
+      ? `Almost time — close your apps, make wudu, and prepare for ${prayer.arabic}.`
+      : `Prepare for ${prayer.name} · ${prayer.arabic} · ${prayer.time}`;
+
+  new Notification(title, {
+    body,
+    icon: '/favicon.ico',
+    badge: '/favicon.ico',
+    tag: `sjood-${prayer.name}-${type}`,
+    requireInteraction: isNow,
+  });
+}
+
+// ── Notification scheduler ──
+let notifCheckInterval = null;
+const notifiedPrayers = new Set(); // track which prayers we've notified for today
+
+function startPrayerNotifications() {
+  if (notifCheckInterval) clearInterval(notifCheckInterval);
+
+  const check = () => {
+    const now      = new Date();
+    const todayKey = now.toDateString();
+
+    for (const prayer of PRAYERS) {
+      const prayerTime = prayerToDate(prayer.time);
+      const diffMin    = (prayerTime - now) / 60000; // positive = in the future
+
+      // Keys prevent double-firing on the same prayer same day
+      const key15 = `${todayKey}-${prayer.name}-15`;
+      const key5  = `${todayKey}-${prayer.name}-5`;
+      const key0  = `${todayKey}-${prayer.name}-0`;
+
+      // Exactly 15 min before (14:00 – 15:00 min window)
+      if (diffMin >= 14 && diffMin < 15 && !notifiedPrayers.has(key15)) {
+        notifiedPrayers.add(key15);
+        showPrayerToast({ ...prayer, minutesAway: 15 }, 'reminder');
+        sendSystemNotification({ ...prayer, minutesAway: 15 }, 'reminder');
+      }
+
+      // Exactly 5 min before (4:00 – 5:00 min window)
+      if (diffMin >= 4 && diffMin < 5 && !notifiedPrayers.has(key5)) {
+        notifiedPrayers.add(key5);
+        showPrayerToast({ ...prayer, minutesAway: 5 }, 'reminder');
+        sendSystemNotification({ ...prayer, minutesAway: 5 }, 'reminder');
+      }
+
+      // Prayer time now (0:00 – 1:00 min window)
+      if (diffMin >= 0 && diffMin < 1 && !notifiedPrayers.has(key0)) {
+        notifiedPrayers.add(key0);
+        showPrayerToast({ ...prayer, minutesAway: 0 }, 'now');
+        sendSystemNotification({ ...prayer, minutesAway: 0 }, 'now');
+      }
+    }
+  };
+
+  // Check every 30 seconds — precise enough without being wasteful
+  notifCheckInterval = setInterval(check, 30000);
+  // Do NOT run check() immediately on load — wait for the first interval
+}
+
+// ── Update home screen with next prayer info ──
+function updateNextPrayerBanner() {
+  const next   = getNextPrayer();
+  const active = getActivePrayer();
+  const np     = document.getElementById('home-next-prayer');
+  const sub    = document.getElementById('home-lock-sub');
+  if (!np) return;
+  if (active) {
+    np.textContent  = `🔒 ${active.name} prayer — now`;
+    if(sub) sub.textContent = 'Apps locked · tap to pray & unlock';
+  } else if (next && next.minutesAway <= 60) {
+    np.textContent  = `${next.icon} ${next.name} in ${next.minutesAway} min`;
+    if(sub) sub.textContent = `${next.time} · tap to prepare`;
+  } else if (next) {
+    np.textContent  = `${next.icon} Next: ${next.name}`;
+    if(sub) sub.textContent = `${next.time} · tap to pray & unlock your apps`;
+  }
+}
+
+// ── Add toast animation keyframe ──
+const toastStyle = document.createElement('style');
+toastStyle.textContent = `
+  @keyframes toastIconPulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(212,168,67,.4); }
+    50%      { box-shadow: 0 0 0 10px rgba(212,168,67,0); }
+  }
+`;
+document.head.appendChild(toastStyle);
+
+// ── Init ──
+initHome();
+initReality();
+updateNextPrayerBanner();
+startPrayerNotifications();
+requestNotificationPermission();
+</script>
+</div><!-- /#app -->
+</body>
+</html>
