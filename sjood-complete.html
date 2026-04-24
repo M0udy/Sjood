@@ -18,7 +18,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
 #app{width:100%;max-width:420px;height:100vh;position:relative;overflow:hidden;background:var(--cream);}
 
 /* ── Screen system ── */
-.screen{position:absolute;inset:0;display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;opacity:0;pointer-events:none;transition:opacity .35s ease, transform .35s cubic-bezier(.22,.68,0,1.2);}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;opacity:0;pointer-events:none;transition:opacity .35s ease, transform .35s cubic-bezier(.22,.68,0,1.2);}
 .screen.active{opacity:1;pointer-events:all;transform:translateX(0);}
 .screen.from-right{transform:translateX(60px);}
 .screen.from-left{transform:translateX(-60px);}
@@ -1256,7 +1256,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
     </div>
   </div>
   <div style="padding:20px 24px 52px;">
-    <button class="btn-gold" onclick="go('s-home')">continue</button>
+    <button class="btn-gold" onclick="completeOnboarding(); go('s-home')">continue</button>
   </div>
 </div>
 
@@ -2172,6 +2172,24 @@ toastStyle.textContent = `
 document.head.appendChild(toastStyle);
 
 // ── Init ──
+// Check if user has completed onboarding
+const hasOnboarded = localStorage.getItem('sjood_onboarded') === 'true';
+
+if (hasOnboarded) {
+  // Recurring user — skip entire onboarding flow, go directly to home
+  const screens = document.querySelectorAll('.screen');
+  screens.forEach(s => s.classList.remove('active'));
+  document.getElementById('s-home')?.classList.add('active');
+} else {
+  // First-time user — show onboarding flow (s-reality is already active by default)
+  document.getElementById('s-reality')?.classList.add('active');
+}
+
+// Mark onboarding as complete when user finishes (call this after last onboarding screen)
+function completeOnboarding() {
+  localStorage.setItem('sjood_onboarded', 'true');
+}
+
 initHome();
 initReality();
 updateNextPrayerBanner();
