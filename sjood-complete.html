@@ -88,7 +88,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
 #sigCanvas{width:100%;height:140px;background:white;border-radius:12px;cursor:crosshair;touch-action:none;}
 
 /* ── Bottom nav ── */
-.bottom-nav{position:absolute;bottom:0;left:0;right:0;height:72px;background:white;border-top:1px solid #e8e2d5;display:flex;align-items:center;justify-content:space-around;padding:0 8px;z-index:100;box-shadow:0 -4px 20px rgba(26,58,42,.08);}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;height:72px;background:white;border-top:1px solid #e8e2d5;display:flex;align-items:center;justify-content:space-around;padding:0 8px;z-index:100;box-shadow:0 -4px 20px rgba(26,58,42,.08);}
 .nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:8px 16px;border-radius:12px;transition:all .2s;flex:1;}
 .nav-item svg{width:22px;height:22px;stroke:var(--text-muted);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s;}
 .nav-item span{font-size:10px;color:var(--text-muted);font-weight:500;transition:color .2s;}
@@ -96,7 +96,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
 .nav-item.active span{color:var(--gold);}
 
 /* ── Main app screens ── */
-.main-screen{padding-bottom:80px;}
+.main-screen{padding-bottom:100px;}
 
 .streak-card{margin:20px 20px 0;border-radius:20px;background:linear-gradient(135deg,var(--deep-green),var(--dark-green));padding:20px;color:white;box-shadow:0 8px 32px rgba(26,58,42,.2);}
 .feed-card{margin:14px 20px 0;background:white;border-radius:18px;padding:18px;box-shadow:0 4px 16px rgba(26,58,42,.08);cursor:pointer;}
@@ -683,12 +683,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   </div>
 
   <div style="height:88px;"></div>
-  <div class="bottom-nav">
-    <div class="nav-item" onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
-    <div class="nav-item active" onclick="switchTab('vision')"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg><span>vision</span></div>
-    <div class="nav-item" onclick="switchTab('lock')"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>lock list</span></div>
-    <div class="nav-item" onclick="switchTab('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>settings</span></div>
-  </div>
 </div>
 
 <!-- ════ MAIN APP · LOCK LIST ════ -->
@@ -775,19 +769,12 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
     </div>
   </div>
 
-  <div style="position:absolute;bottom:72px;left:0;right:0;padding:12px 16px;background:white;border-top:1px solid var(--cream-dark);display:flex;gap:10px;align-items:center;" id="lock-save-bar">
+  <div style="position:fixed;bottom:72px;left:50%;transform:translateX(-50%);width:100%;max-width:420px;padding:12px 16px;background:white;border-top:1px solid var(--cream-dark);display:flex;gap:10px;align-items:center;z-index:99;" id="lock-save-bar">
     <div style="flex:1;">
       <p style="font-size:13px;font-weight:700;color:var(--text-primary);" id="lock-save-label">No apps selected</p>
       <p style="font-size:11px;color:var(--text-muted);">Apps locked at each prayer time</p>
     </div>
     <button onclick="saveLockList()" class="btn-gold" style="width:auto;padding:12px 20px;font-size:14px;">Save</button>
-  </div>
-
-  <div class="bottom-nav">
-    <div class="nav-item" onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
-    <div class="nav-item" onclick="switchTab('vision')"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg><span>vision</span></div>
-    <div class="nav-item active" onclick="switchTab('lock')"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>lock list</span></div>
-    <div class="nav-item" onclick="switchTab('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>settings</span></div>
   </div>
 </div>
 
@@ -913,13 +900,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
 
     <div style="height:100px;"></div>
   </div>
-
-  <div class="bottom-nav">
-    <div class="nav-item" onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
-    <div class="nav-item" onclick="switchTab('vision')"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg><span>vision</span></div>
-    <div class="nav-item" onclick="switchTab('lock')"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>lock list</span></div>
-    <div class="nav-item active" onclick="switchTab('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>settings</span></div>
-  </div>
 </div>
 
 <!-- Modals -->
@@ -1013,12 +993,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   </div>
 
   <div style="height:88px;"></div>
-  <div class="bottom-nav">
-    <div class="nav-item active" onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
-    <div class="nav-item" onclick="switchTab('vision')"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg><span>vision</span></div>
-    <div class="nav-item" onclick="switchTab('lock')"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>lock list</span></div>
-    <div class="nav-item" onclick="switchTab('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>settings</span></div>
-  </div>
 </div>
 
 <!-- ════ DAILY · CHECK-IN SPIRITUAL ════ -->
@@ -1145,6 +1119,15 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   <div style="padding:20px 24px 52px;">
     <button class="btn-gold" onclick="completeOnboarding(); go('s-home')">continue</button>
   </div>
+</div>
+
+
+<!-- SHARED BOTTOM NAV (outside .screen so position:fixed works) -->
+<div class="bottom-nav" id="shared-nav" style="display:none;">
+  <div class="nav-item" data-tab="home" onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
+  <div class="nav-item" data-tab="vision" onclick="switchTab('vision')"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg><span>vision</span></div>
+  <div class="nav-item" data-tab="lock" onclick="switchTab('lock')"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>lock list</span></div>
+  <div class="nav-item" data-tab="settings" onclick="switchTab('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>settings</span></div>
 </div>
 
 <script>
@@ -1279,6 +1262,7 @@ function go(id) {
   el.classList.add('from-right','active');
   el.style.pointerEvents='all';
   setTimeout(()=>el.classList.remove('from-right'),400);
+  updateNavVisibility(id);
   if(id==='s-generating'){ saveAge();saveGoals();saveFaith();saveRelationship();saveObstacles();saveGender();saveCommitment(); startGenerating(); }
   if(id==='s-home'){ initHome(); updateNextPrayerBanner(); }
   if(id==='s-vision') initVision();
@@ -1292,7 +1276,20 @@ function go(id) {
   if(id==='s-checkin-emotional') saveSpiritual();
 }
 
-function switchTab(tab){ go({home:'s-home',vision:'s-vision',lock:'s-lock',settings:'s-settings'}[tab]); }
+function switchTab(tab){
+  go({home:'s-home',vision:'s-vision',lock:'s-lock',settings:'s-settings'}[tab]);
+  document.querySelectorAll('#shared-nav .nav-item').forEach(n=>n.classList.toggle('active', n.dataset.tab===tab));
+}
+function updateNavVisibility(id){
+  const nav=document.getElementById('shared-nav');
+  if(!nav) return;
+  const mainScreens=['s-home','s-vision','s-lock','s-settings'];
+  nav.style.display = mainScreens.includes(id) ? 'flex' : 'none';
+  // also update active state based on current screen
+  const tabMap={'s-home':'home','s-vision':'vision','s-lock':'lock','s-settings':'settings'};
+  const activeTab=tabMap[id];
+  if(activeTab) document.querySelectorAll('#shared-nav .nav-item').forEach(n=>n.classList.toggle('active', n.dataset.tab===activeTab));
+}
 function selectSingle(el){ el.closest('.options-list')?.querySelectorAll('.option-card').forEach(c=>c.classList.remove('selected')); el.classList.add('selected'); }
 function selectMulti(el,g,max){ const list=el.closest('.options-list')||el.parentElement; if(el.classList.contains('selected')){el.classList.remove('selected');return;} if(list.querySelectorAll('.option-card.selected').length<max) el.classList.add('selected'); }
 
@@ -1696,6 +1693,7 @@ const hasOnboarded=localStorage.getItem('sjood_onboarded')==='true';
 if(hasOnboarded){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('s-home')?.classList.add('active');
+  updateNavVisibility('s-home');
 } else {
   document.getElementById('s-reality')?.classList.add('active');
 }
