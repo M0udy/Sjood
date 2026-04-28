@@ -15,7 +15,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;font-family:'Poppins',sans-serif;overflow:hidden;}
-#app{width:100%;max-width:420px;height:100vh;position:relative;overflow:hidden;background:var(--cream);}
+#app{width:100%;max-width:420px;height:100vh;height:100dvh;position:relative;overflow:hidden;background:var(--cream);}
 
 /* ── Screen system ── */
 .screen{position:absolute;inset:0;display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;opacity:0;pointer-events:none;transition:opacity .35s ease, transform .35s cubic-bezier(.22,.68,0,1.2);}
@@ -63,7 +63,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
 .fu{animation:fadeUp .5s cubic-bezier(.22,.68,0,1.2) both;}
 .d1{animation-delay:.05s;}.d2{animation-delay:.12s;}.d3{animation-delay:.2s;}.d4{animation-delay:.28s;}.d5{animation-delay:.36s;}.d6{animation-delay:.44s;}
 
-/* ── Option cards (multi-select / single-select) ── */
+/* ── Option cards ── */
 .options-list{display:flex;flex-direction:column;gap:10px;}
 .option-card{background:white;border:2px solid #e8e2d5;border-radius:14px;padding:15px 18px;cursor:pointer;font-size:14px;font-weight:500;color:var(--text-primary);transition:all .2s;display:flex;align-items:center;gap:10px;line-height:1.4;}
 .option-card:active{transform:scale(.98);}
@@ -98,78 +98,57 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
 /* ── Main app screens ── */
 .main-screen{padding-bottom:80px;}
 
-/* Streak card */
 .streak-card{margin:20px 20px 0;border-radius:20px;background:linear-gradient(135deg,var(--deep-green),var(--dark-green));padding:20px;color:white;box-shadow:0 8px 32px rgba(26,58,42,.2);}
-
-/* Feed card */
 .feed-card{margin:14px 20px 0;background:white;border-radius:18px;padding:18px;box-shadow:0 4px 16px rgba(26,58,42,.08);cursor:pointer;}
-
-/* Vision stat cards */
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 20px;margin-top:16px;}
 .stat-card-v{border-radius:18px;padding:20px;color:white;}
-
-/* Lock list */
 .category-row{display:flex;align-items:center;padding:16px 20px;background:white;border-bottom:1px solid #f0ebe0;cursor:pointer;gap:14px;}
 .cat-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;}
-
-/* Prayer time row */
 .prayer-time-row{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #f0ebe0;}
 .prayer-time-row .time{font-size:28px;font-weight:700;color:var(--text-primary);}
 .prayer-time-row .time sup{font-size:14px;font-weight:400;color:var(--text-muted);}
 
-/* ── Daily check-in screens (dark with emoji slider) ── */
 .checkin-screen{justify-content:space-between;}
 .emoji-display{font-size:80px;text-align:center;line-height:1;transition:all .3s cubic-bezier(.34,1.56,.64,1);}
 .emoji-label{text-align:center;font-size:18px;font-weight:600;margin-top:8px;transition:color .3s;}
 
-/* ── Loading circle ── */
 .circle-progress{position:relative;width:180px;height:180px;margin:0 auto;}
 .circle-progress svg{transform:rotate(-90deg);}
 .circle-bg{fill:none;stroke:#e8e2d5;stroke-width:12;}
 .circle-fill{fill:none;stroke:var(--gold);stroke-width:12;stroke-linecap:round;transition:stroke-dashoffset .4s ease;}
 .circle-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:var(--text-primary);}
 
-/* ── 90 day grid ── */
 .grid-90{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;}
 .gc{aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.08);transition:all .3s;}
 .gc.done{background:linear-gradient(135deg,var(--accent-green),var(--dark-green));border:none;}
 .gc.today{background:linear-gradient(135deg,var(--gold),var(--gold-dark));border:none;box-shadow:0 2px 8px rgba(212,168,67,.5);}
 
-/* Verse card */
 .verse-card{margin:0 20px;border-radius:20px;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.2);padding:28px 24px;text-align:center;backdrop-filter:blur(10px);}
 
-/* Commitment bullet */
 .commit-bullet{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
 .commit-dot{width:8px;height:8px;border-radius:50%;background:white;flex-shrink:0;}
 
-/* Notification preview */
 .notif-preview{background:#f2f2f7;border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin:0 28px;}
 .notif-icon{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--deep-green),var(--mid-green));display:flex;align-items:center;justify-content:center;}
 .notif-text p{font-size:13px;font-weight:600;color:#1c1c1e;}
 .notif-text span{font-size:12px;color:#8e8e93;}
 
-/* Reviews */
 .review-card{background:white;border-radius:16px;padding:18px;margin:0 0 12px;box-shadow:0 2px 12px rgba(26,58,42,.06);}
 .stars{color:var(--gold);font-size:16px;margin-bottom:6px;}
 
-/* Plan card */
 .plan-card{border:2px solid #e8e2d5;border-radius:16px;padding:18px 20px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:space-between;}
 .plan-card.selected{border-color:var(--gold);background:rgba(212,168,67,.06);}
 .plan-radio{width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;}
 .plan-card.selected .plan-radio{background:var(--gold);border-color:var(--gold);}
 .plan-card.selected .plan-radio::after{content:'✓';color:white;font-size:12px;font-weight:700;}
 
-/* Congrats screen */
 @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
 <div id="app">
 
-
-<!-- ════════════════════════════════════════
-     STEP 5 · REALITY CHECK
-════════════════════════════════════════ -->
+<!-- ════ STEP 5 · REALITY CHECK ════ -->
 <div class="screen light-screen active" id="s-reality">
   <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:60px 32px 0;">
     <div class="fu d1" id="reality-content">
@@ -181,9 +160,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     STEP 6 · AGE
-════════════════════════════════════════ -->
+<!-- ════ STEP 6 · AGE ════ -->
 <div class="screen light-screen" id="s-age">
   <div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:20%"></div></div></div>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:32px 28px 0;gap:24px;">
@@ -200,9 +177,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-goals')">continue</button></div>
 </div>
 
-<!-- ════════════════════════════════════════
-     STEP 7 · GOALS
-════════════════════════════════════════ -->
+<!-- ════ STEP 7 · GOALS ════ -->
 <div class="screen light-screen" id="s-goals">
   <div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:30%"></div></div></div>
   <div style="flex:1;display:flex;flex-direction:column;padding:28px 28px 0;gap:20px;overflow-y:auto;">
@@ -224,9 +199,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-faith')">continue</button></div>
 </div>
 
-<!-- ════════════════════════════════════════
-     STEP 8 · THRIVING FAITH
-════════════════════════════════════════ -->
+<!-- ════ STEP 8 · THRIVING FAITH ════ -->
 <div class="screen light-screen" id="s-faith">
   <div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:40%"></div></div></div>
   <div style="flex:1;display:flex;flex-direction:column;padding:28px 28px 0;gap:20px;">
@@ -243,9 +216,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-confirm')">continue</button></div>
 </div>
 
-<!-- ════════════════════════════════════════
-     STEP 9 · YOU'RE IN THE RIGHT PLACE
-════════════════════════════════════════ -->
+<!-- ════ STEP 9 · CONFIRM ════ -->
 <div class="screen" id="s-confirm" style="background:var(--gold);">
   <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:48px 28px;gap:20px;">
     <div class="fu d1" style="background:white;border-radius:20px;padding:22px;">
@@ -265,9 +236,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   <div class="bottom-pad fu d4"><button class="btn-white" onclick="go('s-prayer-freq')">continue</button></div>
 </div>
 
-<!-- ════════════════════════════════════════
-     STEP 10 · PRAYER FREQUENCY
-════════════════════════════════════════ -->
+<!-- ════ STEP 10 · PRAYER FREQUENCY ════ -->
 <div class="screen light-screen" id="s-prayer-freq">
   <div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:50%"></div></div></div>
   <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:28px;gap:40px;">
@@ -281,8 +250,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
         <p style="font-size:15px;color:var(--text-muted);margin-top:4px;">prayers / day</p>
       </div>
       <div style="font-size:14px;color:var(--gold);font-weight:600;text-align:center;" id="pfreq-label">Fajr + Dhuhr</div>
-      <input type="range" class="slider-custom" min="0" max="5" value="2" step="1" style="--pct:40%"
-        oninput="updatePFreq(this.value)"/>
+      <input type="range" class="slider-custom" min="0" max="5" value="2" step="1" style="--pct:40%" oninput="updatePFreq(this.value)"/>
       <div style="display:flex;justify-content:space-between;width:100%;font-size:12px;color:var(--text-muted);">
         <span>0</span><span>5 prayers</span>
       </div>
@@ -291,9 +259,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-relationship')">continue</button></div>
 </div>
 
-<!-- ════════════════════════════════════════
-     STEP 11 · RELATIONSHIP WITH ALLAH
-════════════════════════════════════════ -->
+<!-- ════ STEP 11 · RELATIONSHIP ════ -->
 <div class="screen light-screen" id="s-relationship">
   <div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:58%"></div></div></div>
   <div style="flex:1;display:flex;flex-direction:column;padding:28px 28px 0;gap:20px;">
@@ -310,9 +276,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-obstacles')">continue</button></div>
 </div>
 
-<!-- ════════════════════════════════════════
-     STEP 12 · OBSTACLES
-════════════════════════════════════════ -->
+<!-- ════ STEP 12 · OBSTACLES ════ -->
 <div class="screen light-screen" id="s-obstacles">
   <div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:65%"></div></div></div>
   <div style="flex:1;display:flex;flex-direction:column;padding:28px 28px 0;gap:20px;overflow-y:auto;">
@@ -334,9 +298,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-gender')">continue</button></div>
 </div>
 
-<!-- ════════════════════════════════════════
-     STEP 13 · GENDER
-════════════════════════════════════════ -->
+<!-- ════ STEP 13 · GENDER ════ -->
 <div class="screen light-screen" id="s-gender">
   <div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:72%"></div></div></div>
   <div style="flex:1;display:flex;flex-direction:column;padding:28px 28px 0;gap:24px;">
@@ -353,9 +315,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-commitment')">continue</button></div>
 </div>
 
-<!-- ════════════════════════════════════════
-     STEP 14 · COMMITMENT LEVEL
-════════════════════════════════════════ -->
+<!-- ════ STEP 14 · COMMITMENT ════ -->
 <div class="screen light-screen" id="s-commitment">
   <div class="progress-bar"><div class="progress-track"><div class="progress-fill" style="width:80%"></div></div></div>
   <div style="flex:1;display:flex;flex-direction:column;padding:28px 28px 0;gap:20px;">
@@ -374,15 +334,12 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-generating')">continue</button></div>
 </div>
 
-<!-- ════════════════════════════════════════
-     STEP 15 · GENERATING
-════════════════════════════════════════ -->
+<!-- ════ STEP 15 · GENERATING ════ -->
 <div class="screen white-screen" id="s-generating" style="justify-content:center;align-items:center;gap:32px;">
   <div class="circle-progress fu d1">
     <svg width="180" height="180" viewBox="0 0 180 180">
       <circle class="circle-bg" cx="90" cy="90" r="80"/>
-      <circle class="circle-fill" id="gen-circle" cx="90" cy="90" r="80"
-        stroke-dasharray="502" stroke-dashoffset="502"/>
+      <circle class="circle-fill" id="gen-circle" cx="90" cy="90" r="80" stroke-dasharray="502" stroke-dashoffset="502"/>
     </svg>
     <div class="circle-pct"><span id="gen-pct">0%</span></div>
   </div>
@@ -398,9 +355,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   <p style="font-size:18px;font-weight:700;color:var(--text-primary);" id="gen-label">personalising your journey...</p>
 </div>
 
-<!-- ════════════════════════════════════════
-     STEP 16 · THANK YOU / HOW IT WORKS
-════════════════════════════════════════ -->
+<!-- ════ STEP 16 · THANK YOU ════ -->
 <div class="screen" id="s-thankyou" style="background:var(--gold);">
   <div style="flex:1;display:flex;flex-direction:column;padding:60px 32px 0;gap:28px;">
     <div class="fu d1" style="text-align:center;font-size:72px;">🌙</div>
@@ -426,9 +381,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   <div class="bottom-pad fu d4"><button class="btn-white" onclick="go('s-social-proof')">let's go →</button></div>
 </div>
 
-<!-- ════════════════════════════════════════
-     STEP 17 · SOCIAL PROOF
-════════════════════════════════════════ -->
+<!-- ════ STEP 17 · SOCIAL PROOF ════ -->
 <div class="screen light-screen" id="s-social-proof" style="overflow-y:auto;">
   <div style="padding:52px 24px 0;display:flex;flex-direction:column;gap:20px;">
     <div class="fu d1" style="text-align:center;">
@@ -465,9 +418,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   <div class="bottom-pad fu d4"><button class="btn-gold" onclick="go('s-commitment-sign')">join Sjood 🤲</button></div>
 </div>
 
-<!-- ════════════════════════════════════════
-     STEP 18 · COMMITMENT / SIGNATURE
-════════════════════════════════════════ -->
+<!-- ════ STEP 18 · SIGNATURE ════ -->
 <div class="screen" id="s-commitment-sign" style="background:var(--gold);overflow-y:auto;">
   <div style="padding:52px 28px 0;display:flex;flex-direction:column;gap:20px;">
     <div class="fu d1">
@@ -489,9 +440,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   <div class="bottom-pad fu d3"><button class="btn-white" onclick="go('s-prayer-times')">continue →</button></div>
 </div>
 
-<!-- ════════════════════════════════════════
-     STEP 19 · SET PRAYER TIMES
-════════════════════════════════════════ -->
+<!-- ════ STEP 19 · PRAYER TIMES ════ -->
 <div class="screen light-screen" id="s-prayer-times">
   <div style="padding:52px 28px 24px;flex:1;display:flex;flex-direction:column;gap:20px;">
     <div class="fu d1">
@@ -528,9 +477,7 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   <div class="bottom-pad fu d4"><button class="btn-gold" onclick="go('s-notifications')">continue →</button></div>
 </div>
 
-<!-- ════════════════════════════════════════
-     STEP 20 · NOTIFICATIONS
-════════════════════════════════════════ -->
+<!-- ════ STEP 20 · NOTIFICATIONS ════ -->
 <div class="screen white-screen" id="s-notifications" style="justify-content:space-between;">
   <div style="padding:60px 28px 0;display:flex;flex-direction:column;gap:24px;flex:1;justify-content:center;">
     <div class="fu d1" style="text-align:center;">
@@ -553,12 +500,8 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   <div class="bottom-pad fu d3"><button class="btn-gold" onclick="go('s-plan')">allow notifications</button></div>
 </div>
 
-<!-- ════════════════════════════════════════
-     STEP 21 · PRICING
-════════════════════════════════════════ -->
+<!-- ════ STEP 21 · PRICING ════ -->
 <div class="screen light-screen" id="s-plan" style="overflow-y:auto;background:#fff;">
-
-  <!-- Hero -->
   <div style="background:linear-gradient(160deg,var(--deep-green),var(--dark-green));padding:52px 24px 36px;text-align:center;position:relative;overflow:hidden;">
     <div style="position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(212,168,67,.15),transparent 60%);pointer-events:none;"></div>
     <div style="font-size:48px;margin-bottom:12px;">🕌</div>
@@ -570,7 +513,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
     </div>
   </div>
 
-  <!-- Features included -->
   <div style="padding:20px 20px 0;">
     <p style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Everything included</p>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;">
@@ -592,11 +534,8 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
       </div>
     </div>
 
-    <!-- Plans -->
     <p style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Choose your plan</p>
     <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px;">
-
-      <!-- Yearly (recommended) -->
       <div class="plan-card selected" id="plan-yearly" onclick="selectPlan('yearly')" style="position:relative;overflow:hidden;">
         <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light));"></div>
         <div style="flex:1;">
@@ -612,8 +551,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
         </div>
         <div class="plan-radio"></div>
       </div>
-
-      <!-- Monthly -->
       <div class="plan-card" id="plan-monthly" onclick="selectPlan('monthly')">
         <div style="flex:1;">
           <p style="font-weight:700;font-size:16px;color:var(--text-primary);">Monthly</p>
@@ -624,8 +561,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
         </div>
         <div class="plan-radio"></div>
       </div>
-
-      <!-- Weekly -->
       <div class="plan-card" id="plan-weekly" onclick="selectPlan('weekly')">
         <div style="flex:1;">
           <p style="font-weight:700;font-size:16px;color:var(--text-primary);">Weekly</p>
@@ -638,7 +573,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
       </div>
     </div>
 
-    <!-- Trial badge -->
     <div style="background:rgba(76,175,80,.08);border:1px solid rgba(76,175,80,.2);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:20px;">
       <span style="font-size:20px;">🎁</span>
       <p style="font-size:13px;color:var(--mid-green);font-weight:600;">7-day free trial — no charge today</p>
@@ -656,12 +590,8 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     MAIN APP · VISION
-════════════════════════════════════════ -->
+<!-- ════ MAIN APP · VISION ════ -->
 <div class="screen light-screen main-screen" id="s-vision">
-
-  <!-- Header -->
   <div style="background:linear-gradient(160deg,var(--deep-green),var(--dark-green));padding:52px 20px 20px;">
     <h2 style="font-size:22px;font-weight:800;color:white;margin-bottom:2px;">your journey</h2>
     <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:16px;">tracking your relationship with Allah</p>
@@ -673,7 +603,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
     </div>
   </div>
 
-  <!-- Stat grid 2x2 -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 16px 0;">
     <div class="stat-card-v" style="background:linear-gradient(135deg,#1a3a2a,#2d5a3f);">
       <div style="font-size:24px;margin-bottom:4px;">🌙</div>
@@ -701,7 +630,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
     </div>
   </div>
 
-  <!-- Chart -->
   <div style="margin:12px 16px 0;background:white;border-radius:18px;padding:18px;box-shadow:0 2px 12px rgba(26,58,42,.08);">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
       <p style="font-size:14px;font-weight:700;color:var(--text-primary);">Iman & Mood Trend</p>
@@ -721,29 +649,23 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
           <stop offset="100%" stop-color="#3d7a55" stop-opacity="0"/>
         </linearGradient>
       </defs>
-      <!-- Y axis labels -->
       <text x="4" y="18" font-size="9" fill="#8a9a8e">great</text>
       <text x="4" y="50" font-size="9" fill="#8a9a8e">good</text>
       <text x="4" y="82" font-size="9" fill="#8a9a8e">ok</text>
       <text x="4" y="112" font-size="9" fill="#8a9a8e">low</text>
-      <!-- Grid lines -->
       <line x1="32" y1="16" x2="320" y2="16" stroke="#f0ebe0" stroke-width="1"/>
       <line x1="32" y1="48" x2="320" y2="48" stroke="#f0ebe0" stroke-width="1"/>
       <line x1="32" y1="80" x2="320" y2="80" stroke="#f0ebe0" stroke-width="1"/>
       <line x1="32" y1="110" x2="320" y2="110" stroke="#f0ebe0" stroke-width="1"/>
-      <!-- Iman line (dynamic via JS) -->
       <path id="iman-path" d="" fill="url(#imanGrad)"/>
       <path id="iman-line" d="" fill="none" stroke="#d4a843" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <!-- Mood line -->
       <path id="mood-path" d="" fill="url(#moodGrad)"/>
       <path id="mood-line" d="" fill="none" stroke="#3d7a55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5,3" opacity=".8"/>
-      <!-- Today dot -->
       <circle id="iman-dot" cx="0" cy="0" r="4" fill="#d4a843" stroke="white" stroke-width="2"/>
     </svg>
     <p style="font-size:11px;color:var(--text-muted);text-align:right;margin-top:4px;" id="chart-period-label">Last 30 days</p>
   </div>
 
-  <!-- 90-day grid -->
   <div style="margin:12px 16px 0;background:linear-gradient(135deg,var(--deep-green),var(--dark-green));border-radius:18px;padding:18px;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
       <div>
@@ -761,20 +683,16 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   </div>
 
   <div style="height:88px;"></div>
-    <div class="bottom-nav">
-    <div class="nav-item " onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
+  <div class="bottom-nav">
+    <div class="nav-item" onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
     <div class="nav-item active" onclick="switchTab('vision')"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg><span>vision</span></div>
-    <div class="nav-item " onclick="switchTab('lock')"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>lock list</span></div>
-    <div class="nav-item " onclick="switchTab('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>settings</span></div>
+    <div class="nav-item" onclick="switchTab('lock')"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>lock list</span></div>
+    <div class="nav-item" onclick="switchTab('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>settings</span></div>
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     MAIN APP · LOCK LIST
-════════════════════════════════════════ -->
+<!-- ════ MAIN APP · LOCK LIST ════ -->
 <div class="screen light-screen main-screen" id="s-lock">
-
-  <!-- Header -->
   <div style="background:linear-gradient(160deg,var(--deep-green),var(--dark-green));padding:52px 20px 20px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
       <h2 style="font-size:22px;font-weight:800;color:white;">lock list</h2>
@@ -785,66 +703,71 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
     <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:14px;">blocked until you pray · tap to toggle</p>
     <div style="background:rgba(255,255,255,.1);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input id="cat-search" type="text" placeholder="search categories..."
-        style="background:transparent;border:none;outline:none;color:white;font-size:14px;font-family:Poppins;width:100%;"
-        oninput="filterCats(this.value)"/>
+      <input id="cat-search" type="text" placeholder="search categories..." style="background:transparent;border:none;outline:none;color:white;font-size:14px;font-family:Poppins;width:100%;" oninput="filterCats(this.value)"/>
     </div>
   </div>
 
-  <!-- Select All banner -->
   <div style="padding:10px 16px;background:var(--cream);border-bottom:1px solid var(--cream-dark);display:flex;align-items:center;justify-content:space-between;">
     <p style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.8px;">App Categories</p>
     <span onclick="selectAllCats()" style="font-size:12px;font-weight:700;color:var(--gold);cursor:pointer;" id="select-all-btn">Select all</span>
   </div>
 
-  <!-- Categories -->
-  <div style="flex:1;overflow-y:auto;" id="cat-list">
+  <div style="flex:1;overflow-y:auto;padding-bottom:160px;-webkit-overflow-scrolling:touch;" id="cat-list">
     <div class="category-row" id="cat-Social" onclick="toggleCat(this)">
       <div class="cat-icon" style="background:#ffe4e1;">💬</div>
       <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Social</p><p style="font-size:12px;color:var(--text-muted);">Instagram, TikTok, Snapchat, X</p></div>
       <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
       <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
-    </div>    <div class="category-row" id="cat-Games" onclick="toggleCat(this)">
+    </div>
+    <div class="category-row" id="cat-Games" onclick="toggleCat(this)">
       <div class="cat-icon" style="background:#e8f4fd;">🎮</div>
       <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Games</p><p style="font-size:12px;color:var(--text-muted);">All game categories</p></div>
       <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
       <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
-    </div>    <div class="category-row" id="cat-Entertainment" onclick="toggleCat(this)">
+    </div>
+    <div class="category-row" id="cat-Entertainment" onclick="toggleCat(this)">
       <div class="cat-icon" style="background:#fff3e0;">🎬</div>
       <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Entertainment</p><p style="font-size:12px;color:var(--text-muted);">YouTube, Netflix, TV</p></div>
       <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
       <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
-    </div>    <div class="category-row" id="cat-Creativity" onclick="toggleCat(this)">
+    </div>
+    <div class="category-row" id="cat-Creativity" onclick="toggleCat(this)">
       <div class="cat-icon" style="background:#f3e5f5;">🎨</div>
       <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Creativity</p><p style="font-size:12px;color:var(--text-muted);">Design, photo, video apps</p></div>
       <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
       <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
-    </div>    <div class="category-row" id="cat-Education" onclick="toggleCat(this)">
+    </div>
+    <div class="category-row" id="cat-Education" onclick="toggleCat(this)">
       <div class="cat-icon" style="background:#e8f5e9;">📚</div>
       <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Education</p><p style="font-size:12px;color:var(--text-muted);">Learning & reading apps</p></div>
       <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
       <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
-    </div>    <div class="category-row" id="cat-Health_&_Fitness" onclick="toggleCat(this)">
+    </div>
+    <div class="category-row" id="cat-Health_&_Fitness" onclick="toggleCat(this)">
       <div class="cat-icon" style="background:#e8f5e9;">💪</div>
       <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Health & Fitness</p><p style="font-size:12px;color:var(--text-muted);">Workout & wellness apps</p></div>
       <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
       <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
-    </div>    <div class="category-row" id="cat-News_&_Reading" onclick="toggleCat(this)">
+    </div>
+    <div class="category-row" id="cat-News_&_Reading" onclick="toggleCat(this)">
       <div class="cat-icon" style="background:#fff8e1;">📰</div>
       <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">News & Reading</p><p style="font-size:12px;color:var(--text-muted);">Articles & information</p></div>
       <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
       <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
-    </div>    <div class="category-row" id="cat-Shopping_&_Food" onclick="toggleCat(this)">
+    </div>
+    <div class="category-row" id="cat-Shopping_&_Food" onclick="toggleCat(this)">
       <div class="cat-icon" style="background:#fce4ec;">🛍️</div>
       <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Shopping & Food</p><p style="font-size:12px;color:var(--text-muted);">Retail & delivery apps</p></div>
       <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
       <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
-    </div>    <div class="category-row" id="cat-Travel" onclick="toggleCat(this)">
+    </div>
+    <div class="category-row" id="cat-Travel" onclick="toggleCat(this)">
       <div class="cat-icon" style="background:#e3f2fd;">✈️</div>
       <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Travel</p><p style="font-size:12px;color:var(--text-muted);">Maps, flights, hotels</p></div>
       <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
       <span style="color:var(--text-muted);font-size:18px;margin-left:8px;">›</span>
-    </div>    <div class="category-row" id="cat-Productivity" onclick="toggleCat(this)">
+    </div>
+    <div class="category-row" id="cat-Productivity" onclick="toggleCat(this)">
       <div class="cat-icon" style="background:#f1f8e9;">💼</div>
       <div style="flex:1;"><p style="font-size:15px;font-weight:500;color:var(--text-primary);">Productivity</p><p style="font-size:12px;color:var(--text-muted);">Work & finance apps</p></div>
       <div style="width:24px;height:24px;border-radius:50%;border:2px solid #d1d5db;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;" class="cat-check"></div>
@@ -852,7 +775,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
     </div>
   </div>
 
-  <!-- Save bar -->
   <div style="position:absolute;bottom:72px;left:0;right:0;padding:12px 16px;background:white;border-top:1px solid var(--cream-dark);display:flex;gap:10px;align-items:center;" id="lock-save-bar">
     <div style="flex:1;">
       <p style="font-size:13px;font-weight:700;color:var(--text-primary);" id="lock-save-label">No apps selected</p>
@@ -861,20 +783,16 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
     <button onclick="saveLockList()" class="btn-gold" style="width:auto;padding:12px 20px;font-size:14px;">Save</button>
   </div>
 
-    <div class="bottom-nav">
-    <div class="nav-item " onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
-    <div class="nav-item " onclick="switchTab('vision')"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg><span>vision</span></div>
+  <div class="bottom-nav">
+    <div class="nav-item" onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
+    <div class="nav-item" onclick="switchTab('vision')"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg><span>vision</span></div>
     <div class="nav-item active" onclick="switchTab('lock')"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>lock list</span></div>
-    <div class="nav-item " onclick="switchTab('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>settings</span></div>
+    <div class="nav-item" onclick="switchTab('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>settings</span></div>
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     MAIN APP · SETTINGS
-════════════════════════════════════════ -->
+<!-- ════ MAIN APP · SETTINGS ════ -->
 <div class="screen light-screen main-screen" id="s-settings" style="overflow-y:auto;">
-
-  <!-- Header -->
   <div style="background:linear-gradient(160deg,var(--deep-green),var(--dark-green));padding:52px 20px 24px;">
     <div style="display:flex;align-items:center;gap:14px;">
       <div style="width:56px;height:56px;border-radius:18px;background:rgba(212,168,67,.2);border:1px solid rgba(212,168,67,.3);display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;" onclick="editProfile()">🌙</div>
@@ -884,7 +802,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
       </div>
       <span onclick="editProfile()" style="font-size:13px;font-weight:600;color:var(--gold);cursor:pointer;background:rgba(212,168,67,.1);padding:6px 14px;border-radius:20px;border:1px solid rgba(212,168,67,.2);">Edit</span>
     </div>
-    <!-- Streak mini -->
     <div style="display:flex;gap:10px;margin-top:16px;">
       <div style="flex:1;background:rgba(255,255,255,.08);border-radius:12px;padding:10px;text-align:center;">
         <p style="font-size:20px;font-weight:800;color:white;" id="settings-streak">0</p>
@@ -902,8 +819,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   </div>
 
   <div style="padding:16px;display:flex;flex-direction:column;gap:14px;">
-
-    <!-- Prayer times -->
     <div style="background:white;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(26,58,42,.06);">
       <div style="padding:14px 16px 6px;display:flex;align-items:center;justify-content:space-between;">
         <p style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Prayer Times</p>
@@ -912,7 +827,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
       <div id="settings-prayer-list"></div>
     </div>
 
-    <!-- Calculation method -->
     <div style="background:white;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(26,58,42,.06);">
       <p style="padding:14px 16px 6px;font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Calculation</p>
       <div style="padding:12px 16px;border-bottom:1px solid #f0ebe0;display:flex;align-items:center;justify-content:space-between;cursor:pointer;" onclick="showMethodPicker()">
@@ -925,7 +839,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
       </div>
     </div>
 
-    <!-- Location -->
     <div style="background:white;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(26,58,42,.06);">
       <p style="padding:14px 16px 6px;font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Location</p>
       <div style="padding:12px 16px;border-bottom:1px solid #f0ebe0;" id="location-row">
@@ -944,7 +857,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
       </div>
     </div>
 
-    <!-- Notifications -->
     <div style="background:white;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(26,58,42,.06);">
       <p style="padding:14px 16px 6px;font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Notifications</p>
       <div class="toggle-wrap" style="padding:12px 16px;border-bottom:1px solid #f0ebe0;">
@@ -965,7 +877,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
       </div>
     </div>
 
-    <!-- Appearance -->
     <div style="background:white;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(26,58,42,.06);">
       <p style="padding:14px 16px 6px;font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Appearance</p>
       <div style="padding:12px 16px;display:flex;gap:10px;">
@@ -984,7 +895,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
       </div>
     </div>
 
-    <!-- Account -->
     <div style="background:white;border-radius:18px;overflow:hidden;box-shadow:0 2px 12px rgba(26,58,42,.06);">
       <p style="padding:14px 16px 6px;font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;">Account</p>
       <div style="padding:12px 16px;border-bottom:1px solid #f0ebe0;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
@@ -1004,15 +914,15 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
     <div style="height:100px;"></div>
   </div>
 
-    <div class="bottom-nav">
-    <div class="nav-item " onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
-    <div class="nav-item " onclick="switchTab('vision')"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg><span>vision</span></div>
-    <div class="nav-item " onclick="switchTab('lock')"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>lock list</span></div>
+  <div class="bottom-nav">
+    <div class="nav-item" onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
+    <div class="nav-item" onclick="switchTab('vision')"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg><span>vision</span></div>
+    <div class="nav-item" onclick="switchTab('lock')"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>lock list</span></div>
     <div class="nav-item active" onclick="switchTab('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>settings</span></div>
   </div>
 </div>
 
-<!-- ── Edit prayer times modal ── -->
+<!-- Modals -->
 <div id="prayer-time-modal" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.5);align-items:flex-end;">
   <div style="background:white;border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:420px;margin:0 auto;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
@@ -1024,7 +934,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   </div>
 </div>
 
-<!-- ── Edit profile modal ── -->
 <div id="profile-modal" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.5);align-items:flex-end;">
   <div style="background:white;border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:420px;margin:0 auto;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
@@ -1032,18 +941,14 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
       <span onclick="closeProfileModal()" style="font-size:22px;cursor:pointer;color:var(--text-muted);">✕</span>
     </div>
     <label style="font-size:13px;color:var(--text-muted);font-weight:500;">Name</label>
-    <input id="profile-name-input" type="text" style="width:100%;padding:14px;border-radius:12px;border:2px solid var(--cream-dark);font-family:Poppins;font-size:16px;margin:8px 0 16px;outline:none;" oninput="this.style.borderColor='var(--gold)'"/>
+    <input id="profile-name-input" type="text" style="width:100%;padding:14px;border-radius:12px;border:2px solid var(--cream-dark);font-family:Poppins;font-size:16px;margin:8px 0 16px;outline:none;"/>
     <label style="font-size:13px;color:var(--text-muted);font-weight:500;">Screen time goal (hours/day)</label>
-    <input id="profile-screentime-input" type="number" min="1" max="12" style="width:100%;padding:14px;border-radius:12px;border:2px solid var(--cream-dark);font-family:Poppins;font-size:16px;margin:8px 0 20px;outline:none;" oninput="this.style.borderColor='var(--gold)'"/>
+    <input id="profile-screentime-input" type="number" min="1" max="12" style="width:100%;padding:14px;border-radius:12px;border:2px solid var(--cream-dark);font-family:Poppins;font-size:16px;margin:8px 0 20px;outline:none;"/>
     <button class="btn-gold" onclick="saveProfile2()">Save Changes</button>
   </div>
 </div>
 
-
-
-<!-- ════════════════════════════════════════
-     MAIN APP · HOME
-════════════════════════════════════════ -->
+<!-- ════ MAIN APP · HOME ════ -->
 <div class="screen light-screen main-screen" id="s-home">
   <div style="background:linear-gradient(160deg,var(--deep-green),var(--dark-green));padding:52px 20px 24px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
@@ -1056,7 +961,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
     <p style="font-size:12px;color:rgba(255,255,255,.4);" id="home-date"></p>
   </div>
 
-  <!-- Streak card -->
   <div style="margin:16px 16px 0;border-radius:20px;background:linear-gradient(135deg,var(--deep-green),var(--dark-green));padding:20px;color:white;box-shadow:0 8px 32px rgba(26,58,42,.2);">
     <div style="display:flex;align-items:center;justify-content:space-between;">
       <div>
@@ -1072,15 +976,14 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
       </div>
     </div>
     <div style="display:flex;gap:8px;margin-top:14px;">
-      <div style="flex:1;background:rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;"><p style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">Fajr</p><div style="width:8px;height:8px;border-radius:50%;background:var(--accent-green);margin:0 auto;" id="dot-fajr"></div></div>
-      <div style="flex:1;background:rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;"><p style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">Dhuhr</p><div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);margin:0 auto;" id="dot-dhuhr"></div></div>
-      <div style="flex:1;background:rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;"><p style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">Asr</p><div style="width:8px;height:8px;border-radius:50%;background:var(--gold);margin:0 auto;box-shadow:0 0 6px rgba(212,168,67,.6);" id="dot-asr"></div></div>
-      <div style="flex:1;background:rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;"><p style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">Maghrib</p><div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);margin:0 auto;" id="dot-maghrib"></div></div>
-      <div style="flex:1;background:rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;"><p style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">Isha</p><div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);margin:0 auto;" id="dot-isha"></div></div>
+      <div style="flex:1;background:rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;"><p style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">Fajr</p><div style="width:8px;height:8px;border-radius:50%;background:var(--accent-green);margin:0 auto;"></div></div>
+      <div style="flex:1;background:rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;"><p style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">Dhuhr</p><div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);margin:0 auto;"></div></div>
+      <div style="flex:1;background:rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;"><p style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">Asr</p><div style="width:8px;height:8px;border-radius:50%;background:var(--gold);margin:0 auto;box-shadow:0 0 6px rgba(212,168,67,.6);"></div></div>
+      <div style="flex:1;background:rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;"><p style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">Maghrib</p><div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);margin:0 auto;"></div></div>
+      <div style="flex:1;background:rgba(255,255,255,.1);border-radius:8px;padding:8px;text-align:center;"><p style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:4px;">Isha</p><div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);margin:0 auto;"></div></div>
     </div>
   </div>
 
-  <!-- Lock CTA -->
   <div style="margin:12px 16px 0;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-radius:18px;padding:18px;display:flex;align-items:center;gap:14px;cursor:pointer;box-shadow:0 6px 20px rgba(212,168,67,.3);" onclick="go('s-checkin-spiritual')">
     <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:22px;">🔒</div>
     <div>
@@ -1090,7 +993,6 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
     <div style="margin-left:auto;font-size:20px;color:var(--deep-green);">→</div>
   </div>
 
-  <!-- Feed -->
   <div style="padding:0 16px;">
     <p style="font-size:12px;font-weight:700;color:var(--text-muted);margin:16px 0 10px;letter-spacing:.5px;text-transform:uppercase;">Today's Reflection</p>
     <div style="background:white;border-radius:18px;padding:18px;box-shadow:0 4px 16px rgba(26,58,42,.08);cursor:pointer;" onclick="go('s-verse-day')">
@@ -1112,17 +1014,15 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
 
   <div style="height:88px;"></div>
   <div class="bottom-nav">
-    <div class="nav-item active" onclick="switchTab('home')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
-    <div class="nav-item" onclick="switchTab('vision')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg><span>vision</span></div>
-    <div class="nav-item" onclick="switchTab('lock')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>lock list</span></div>
-    <div class="nav-item" onclick="switchTab('settings')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>settings</span></div>
+    <div class="nav-item active" onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg><span>home</span></div>
+    <div class="nav-item" onclick="switchTab('vision')"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg><span>vision</span></div>
+    <div class="nav-item" onclick="switchTab('lock')"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><span>lock list</span></div>
+    <div class="nav-item" onclick="switchTab('settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>settings</span></div>
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     DAILY · CHECK-IN SPIRITUAL
-════════════════════════════════════════ -->
-<div class="screen" id="s-checkin-spiritual" style="background:linear-gradient(170deg,#1a3a2a,#2d5a3f,#3d7a55);display:flex;flex-direction:column;justify-content:space-between;">
+<!-- ════ DAILY · CHECK-IN SPIRITUAL ════ -->
+<div class="screen" id="s-checkin-spiritual" style="background:linear-gradient(170deg,#1a3a2a,#2d5a3f,#3d7a55);justify-content:space-between;">
   <div style="padding:64px 28px 0;text-align:center;">
     <p style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;">Daily Check-in</p>
     <h2 style="font-size:24px;font-weight:800;color:white;line-height:1.3;">how's your relationship<br/>with Allah today?</h2>
@@ -1136,14 +1036,12 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
     </div>
   </div>
   <div style="padding:20px 24px 52px;">
-    <button style="width:100%;padding:17px;border-radius:14px;background:white;color:var(--dark-green);font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.1);" onclick="go('s-checkin-emotional')">continue</button>
+    <button style="width:100%;padding:17px;border-radius:14px;background:white;color:var(--dark-green);font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;border:none;cursor:pointer;" onclick="go('s-checkin-emotional')">continue</button>
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     DAILY · CHECK-IN EMOTIONAL
-════════════════════════════════════════ -->
-<div class="screen" id="s-checkin-emotional" style="background:linear-gradient(170deg,#0f2233,#1a3a4a,#2d5a6a);display:flex;flex-direction:column;justify-content:space-between;">
+<!-- ════ DAILY · CHECK-IN EMOTIONAL ════ -->
+<div class="screen" id="s-checkin-emotional" style="background:linear-gradient(170deg,#0f2233,#1a3a4a,#2d5a6a);justify-content:space-between;">
   <div style="padding:64px 28px 0;text-align:center;">
     <p style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;">Daily Check-in</p>
     <h2 style="font-size:24px;font-weight:800;color:white;line-height:1.3;">how are you feeling today?</h2>
@@ -1161,24 +1059,19 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     DAILY · LET'S PRAY
-════════════════════════════════════════ -->
-<div class="screen light-screen" id="s-lets-pray" style="display:flex;flex-direction:column;">
+<!-- ════ DAILY · LET'S PRAY ════ -->
+<div class="screen light-screen" id="s-lets-pray">
   <div style="padding:52px 28px 0;flex:1;display:flex;flex-direction:column;gap:16px;overflow-y:auto;">
     <div style="text-align:center;">
       <h1 style="font-size:26px;font-weight:800;color:var(--text-primary);margin-bottom:6px;" id="lets-pray-title">let's pray 🤲</h1>
       <p style="font-size:13px;color:var(--text-muted);" id="pray-timer">loading your personalised dua...</p>
     </div>
     <div style="background:var(--cream);border-radius:18px;padding:24px;flex:1;overflow-y:auto;">
-      <!-- Loading spinner -->
       <div id="dua-loading" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;min-height:200px;">
         <div style="width:48px;height:48px;border:3px solid #e8e2d5;border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;"></div>
         <p style="font-size:14px;color:var(--text-muted);text-align:center;">generating your personalised dua<br/>based on how you feel today...</p>
       </div>
-      <!-- Arabic -->
       <p style="font-family:'Amiri',serif;font-size:22px;color:var(--deep-green);direction:rtl;text-align:right;margin-bottom:16px;line-height:1.8;display:none;" id="dua-arabic">اللَّهُمَّ إِنِّي أَسْأَلُكَ الثَّبَاتَ فِي الْأَمْرِ</p>
-      <!-- Dua text -->
       <div id="dua-text" style="font-size:15px;color:var(--text-secondary);line-height:1.8;display:none;"></div>
     </div>
   </div>
@@ -1187,10 +1080,8 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     DAILY · VERSE OF THE DAY
-════════════════════════════════════════ -->
-<div class="screen" id="s-verse-day" style="background:linear-gradient(160deg,#1a3a2a,#2d5a3f,#3d7a55,#2d5a3f);display:flex;flex-direction:column;">
+<!-- ════ DAILY · VERSE OF DAY ════ -->
+<div class="screen" id="s-verse-day" style="background:linear-gradient(160deg,#1a3a2a,#2d5a3f,#3d7a55,#2d5a3f);">
   <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:60px 28px 0;gap:20px;">
     <p style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.5);text-align:center;">VERSE OF THE DAY</p>
     <div style="background:rgba(255,255,255,.12);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:28px 24px;text-align:center;">
@@ -1204,10 +1095,8 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     DAILY · CONGRATULATIONS
-════════════════════════════════════════ -->
-<div class="screen light-screen" id="s-congrats" style="display:flex;flex-direction:column;justify-content:space-between;">
+<!-- ════ DAILY · CONGRATS ════ -->
+<div class="screen light-screen" id="s-congrats" style="justify-content:space-between;">
   <div style="padding:52px 28px 0;flex:1;display:flex;flex-direction:column;gap:20px;">
     <div style="text-align:center;">
       <p style="font-size:32px;font-weight:800;color:var(--gold);">Alhamdulillah! 🌙</p>
@@ -1231,10 +1120,8 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     DAILY · STREAK
-════════════════════════════════════════ -->
-<div class="screen" id="s-streak" style="background:linear-gradient(170deg,#1a1a1a,#2a2a2a);display:flex;flex-direction:column;justify-content:space-between;">
+<!-- ════ DAILY · STREAK ════ -->
+<div class="screen" id="s-streak" style="background:linear-gradient(170deg,#1a1a1a,#2a2a2a);justify-content:space-between;">
   <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:0 28px;">
     <div style="text-align:center;">
       <div style="font-size:72px;margin-bottom:8px;animation:breathe 2s ease-in-out infinite;">🌙</div>
@@ -1260,11 +1147,8 @@ body{background:#0d2118;display:flex;justify-content:center;min-height:100vh;fon
   </div>
 </div>
 
-
 <script>
-// ════════════════════════════════════════
-// USER PROFILE — single source of truth
-// ════════════════════════════════════════
+// ════ USER PROFILE ════
 const userProfile = {
   name:'', screenTime:4, age:'', goals:[], faithVision:'',
   prayerFreq:2, relationship:'', obstacles:[], gender:'',
@@ -1276,10 +1160,8 @@ const userProfile = {
 };
 
 function saveProfile(){
-  const {name,screenTime,age,goals,faithVision,prayerFreq,relationship,
-    obstacles,gender,commitment,spiritualScore,emotionalScore,streak,totalPrayers,joinDate}=userProfile;
-  localStorage.setItem('sjoodProfile',JSON.stringify({name,screenTime,age,goals,faithVision,prayerFreq,
-    relationship,obstacles,gender,commitment,spiritualScore,emotionalScore,streak,totalPrayers,joinDate}));
+  const {name,screenTime,age,goals,faithVision,prayerFreq,relationship,obstacles,gender,commitment,spiritualScore,emotionalScore,streak,totalPrayers,joinDate}=userProfile;
+  localStorage.setItem('sjoodProfile',JSON.stringify({name,screenTime,age,goals,faithVision,prayerFreq,relationship,obstacles,gender,commitment,spiritualScore,emotionalScore,streak,totalPrayers,joinDate}));
 }
 function loadProfile(){
   try{ Object.assign(userProfile, JSON.parse(localStorage.getItem('sjoodProfile')||'{}')); }catch(e){}
@@ -1288,17 +1170,15 @@ loadProfile();
 
 function collectSingle(sid){ const el=document.querySelector('#'+sid+' .option-card.selected'); return el?el.textContent.replace('✓','').trim():''; }
 function collectMulti(sid){ return [...document.querySelectorAll('#'+sid+' .option-card.selected')].map(el=>el.textContent.replace('✓','').trim()); }
-function saveAge()         { userProfile.age=collectSingle('s-age'); saveProfile(); }
-function saveGoals()       { userProfile.goals=collectMulti('s-goals'); saveProfile(); }
-function saveFaith()       { userProfile.faithVision=collectSingle('s-faith'); saveProfile(); }
+function saveAge(){ userProfile.age=collectSingle('s-age'); saveProfile(); }
+function saveGoals(){ userProfile.goals=collectMulti('s-goals'); saveProfile(); }
+function saveFaith(){ userProfile.faithVision=collectSingle('s-faith'); saveProfile(); }
 function saveRelationship(){ userProfile.relationship=collectSingle('s-relationship'); saveProfile(); }
-function saveObstacles()   { userProfile.obstacles=collectMulti('s-obstacles'); saveProfile(); }
-function saveGender()      { userProfile.gender=collectSingle('s-gender'); saveProfile(); }
-function saveCommitment()  { userProfile.commitment=collectSingle('s-commitment'); saveProfile(); }
+function saveObstacles(){ userProfile.obstacles=collectMulti('s-obstacles'); saveProfile(); }
+function saveGender(){ userProfile.gender=collectSingle('s-gender'); saveProfile(); }
+function saveCommitment(){ userProfile.commitment=collectSingle('s-commitment'); saveProfile(); }
 
-// ════════════════════════════════════════
-// AI DUA GENERATION
-// ════════════════════════════════════════
+// ════ AI DUA GENERATION ════
 function buildDuaPrompt(){
   const p=userProfile;
   const goals=p.goals.length?p.goals.join(', '):'general spiritual growth';
@@ -1321,70 +1201,53 @@ RULES:
 2. Reference 1-2 specific Quranic verses or authentic hadith relevant to their state
 3. Address their specific obstacles and goals by name
 4. Use "Ya Allah" or "Ya Rabb" — never "Dear Allah"
-5. Spiritual ≤2: include tawbah and returning to Allah
-6. Emotional ≤2: include comfort and Allah's promise of ease
-7. Both ≥4: focus on shukr and istiqamah
+5. Spiritual <=2: include tawbah and returning to Allah
+6. Emotional <=2: include comfort and Allah's promise of ease
+7. Both >=4: focus on shukr and istiqamah
 8. First line: "Bismillah ir-Rahman ir-Raheem"
 9. Last line: "Ameen."
-10. Warm, intimate, sincere — like a letter to the Most Merciful`;
+10. Warm, intimate, sincere`;
 }
 
 async function generateDua(){
-  const duaEl    = document.getElementById('dua-text');
-  const arabicEl = document.getElementById('dua-arabic');
-  const loadEl   = document.getElementById('dua-loading');
-  const btnEl    = document.getElementById('prayed-btn');
-  const timerEl  = document.getElementById('pray-timer');
-
-  // Show loading, hide content
-  if(duaEl)    duaEl.style.display    = 'none';
-  if(arabicEl) arabicEl.style.display = 'none';
-  if(loadEl)   loadEl.style.display   = 'flex';
-  if(btnEl)  { btnEl.style.opacity = '.4'; btnEl.style.pointerEvents = 'none'; }
-  if(timerEl)  timerEl.textContent = 'generating your personalised dua...';
-
+  const duaEl=document.getElementById('dua-text');
+  const arabicEl=document.getElementById('dua-arabic');
+  const loadEl=document.getElementById('dua-loading');
+  const btnEl=document.getElementById('prayed-btn');
+  const timerEl=document.getElementById('pray-timer');
+  if(duaEl) duaEl.style.display='none';
+  if(arabicEl) arabicEl.style.display='none';
+  if(loadEl) loadEl.style.display='flex';
+  if(btnEl){ btnEl.style.opacity='.4'; btnEl.style.pointerEvents='none'; }
+  if(timerEl) timerEl.textContent='generating your personalised dua...';
   try {
-    const res  = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: buildDuaPrompt() }]
-      })
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:buildDuaPrompt()}]})
     });
-    const data = await res.json();
-    const text = data.content?.[0]?.text || '';
-    if (text) {
-      if(duaEl) duaEl.innerHTML = text.split('\n\n').map(p => p.trim()).filter(Boolean)
-        .map(p => `<p style="margin-bottom:14px;line-height:1.85;">${p}</p>`).join('');
-      localStorage.setItem('sjoodLastDua', text);
-      localStorage.setItem('sjoodLastDuaTheme', getDuaTheme());
+    const data=await res.json();
+    const text=data.content?.[0]?.text||'';
+    if(text){
+      if(duaEl) duaEl.innerHTML=text.split('\n\n').map(p=>p.trim()).filter(Boolean).map(p=>`<p style="margin-bottom:14px;line-height:1.85;">${p}</p>`).join('');
+      localStorage.setItem('sjoodLastDua',text);
+      localStorage.setItem('sjoodLastDuaTheme',getDuaTheme());
     } else {
-      if(duaEl) duaEl.innerHTML = getFallbackDua();
+      if(duaEl) duaEl.innerHTML=getFallbackDua();
     }
-  } catch(err) {
-    if(duaEl) duaEl.innerHTML = getFallbackDua();
+  } catch(err){
+    if(duaEl) duaEl.innerHTML=getFallbackDua();
   }
-
-  // Show content, hide loader
-  if(duaEl)    duaEl.style.display    = 'block';
-  if(arabicEl) arabicEl.style.display = 'block';
-  if(loadEl)   loadEl.style.display   = 'none';
-
-  // Start read timer — unlock button after 8s
-  let secs = 8;
-  if(timerEl) timerEl.textContent = `please read the full dua... (${secs}s)`;
-  const t = setInterval(() => {
+  if(duaEl) duaEl.style.display='block';
+  if(arabicEl) arabicEl.style.display='block';
+  if(loadEl) loadEl.style.display='none';
+  let secs=8;
+  if(timerEl) timerEl.textContent=`please read the full dua... (${secs}s)`;
+  const t=setInterval(()=>{
     secs--;
-    if (secs > 0) {
-      if(timerEl) timerEl.textContent = `please read the full dua... (${secs}s)`;
-    } else {
-      clearInterval(t);
-      if(btnEl)   { btnEl.style.opacity = '1'; btnEl.style.pointerEvents = 'all'; }
-      if(timerEl)   timerEl.textContent = 'tap the button once you have prayed 🤲';
-    }
-  }, 1000);
+    if(secs>0){ if(timerEl) timerEl.textContent=`please read the full dua... (${secs}s)`; }
+    else { clearInterval(t); if(btnEl){ btnEl.style.opacity='1'; btnEl.style.pointerEvents='all'; } if(timerEl) timerEl.textContent='tap the button once you have prayed 🤲'; }
+  },1000);
 }
 
 function getDuaTheme(){
@@ -1399,138 +1262,109 @@ function getFallbackDua(){
   const p=userProfile; const n=p.name?`, ${p.name}`:'';
   const low=p.spiritualScore<=2||p.emotionalScore<=2;
   const high=p.spiritualScore>=4&&p.emotionalScore>=4;
-  if(low) return `<p style="margin-bottom:14px;line-height:1.85;"><em>Bismillah ir-Rahman ir-Raheem</em></p><p style="margin-bottom:14px;line-height:1.85;">Ya Allah${n}, I come before You carrying the weight of this day — the distractions, the distance, the moments I chose the screen over Your remembrance. You are Al-Ghaffar, and I return to You now with nothing but this broken intention.</p><p style="margin-bottom:14px;line-height:1.85;">Ya Rabb, You promised "Verily with hardship comes ease" — twice in Your Book so we would not lose hope. I hold onto that promise today. Lift from me what weighs me down, and replace it with Your mercy and light.</p><p style="margin-bottom:14px;line-height:1.85;">Guide me back to You, one salah at a time. You are closer to me than my own jugular vein — let me feel that closeness right now.</p><p style="line-height:1.85;font-weight:600;">Ameen.</p>`;
-  if(high) return `<p style="margin-bottom:14px;line-height:1.85;"><em>Bismillah ir-Rahman ir-Raheem</em></p><p style="margin-bottom:14px;line-height:1.85;">Ya Allah${n}, all praise belongs to You alone — for this day, for this clarity, for the sweetness of iman You have placed in my heart. Alhamdulillah for every prayer, every moment of dhikr, every time I chose You over the pull of this dunya.</p><p style="margin-bottom:14px;line-height:1.85;">Ya Rabb, grant me istiqamah — steadfastness on this path. You said in the Quran those who say "our Lord is Allah" and remain steadfast will have angels descend upon them. Let me be among them. Do not let the sweetness of iman leave my heart.</p><p style="margin-bottom:14px;line-height:1.85;">Protect me from arrogance and complacency. Let my gratitude show in how I live, how I pray, and how I guard this time You have given back to me.</p><p style="line-height:1.85;font-weight:600;">Ameen.</p>`;
-  return `<p style="margin-bottom:14px;line-height:1.85;"><em>Bismillah ir-Rahman ir-Raheem</em></p><p style="margin-bottom:14px;line-height:1.85;">Ya Allah${n}, I put down my phone and turn to You — the One who never sleeps, never tires, and never turns away a servant who returns. You are Al-Wali, my Guardian, and I need Your presence in this prayer.</p><p style="margin-bottom:14px;line-height:1.85;">Ya Rabb, help me to make this salah the anchor of my day. The Prophet ﷺ said the first thing we will be asked about on the Day of Judgement is our prayer — let mine be something I am not ashamed of. Guard me from ${p.obstacles[0]||'distraction'} and keep me close to You.</p><p style="margin-bottom:14px;line-height:1.85;">Grant me focus in this sujood, sincerity in this dua, and the strength to return to You — day after day, prayer after prayer, until I meet You in a state that pleases You.</p><p style="line-height:1.85;font-weight:600;">Ameen.</p>`;
+  if(low) return `<p style="margin-bottom:14px;line-height:1.85;"><em>Bismillah ir-Rahman ir-Raheem</em></p><p style="margin-bottom:14px;line-height:1.85;">Ya Allah${n}, I come before You carrying the weight of this day — the distractions, the distance, the moments I chose the screen over Your remembrance. You are Al-Ghaffar, and I return to You now.</p><p style="margin-bottom:14px;line-height:1.85;">Ya Rabb, You promised "Verily with hardship comes ease" — I hold onto that promise today. Lift from me what weighs me down, and replace it with Your mercy.</p><p style="margin-bottom:14px;line-height:1.85;">Guide me back to You, one salah at a time. You are closer to me than my own jugular vein — let me feel that closeness right now.</p><p style="line-height:1.85;font-weight:600;">Ameen.</p>`;
+  if(high) return `<p style="margin-bottom:14px;line-height:1.85;"><em>Bismillah ir-Rahman ir-Raheem</em></p><p style="margin-bottom:14px;line-height:1.85;">Ya Allah${n}, all praise belongs to You alone — for this day, for this clarity, for the sweetness of iman You have placed in my heart. Alhamdulillah for every prayer.</p><p style="margin-bottom:14px;line-height:1.85;">Ya Rabb, grant me istiqamah. Those who say "our Lord is Allah" and remain steadfast will have angels descend upon them. Let me be among them.</p><p style="margin-bottom:14px;line-height:1.85;">Protect me from arrogance and complacency. Let my gratitude show in how I live, how I pray, and how I guard this time You have given back to me.</p><p style="line-height:1.85;font-weight:600;">Ameen.</p>`;
+  return `<p style="margin-bottom:14px;line-height:1.85;"><em>Bismillah ir-Rahman ir-Raheem</em></p><p style="margin-bottom:14px;line-height:1.85;">Ya Allah${n}, I put down my phone and turn to You — the One who never sleeps, never tires, and never turns away a servant who returns. You are Al-Wali, my Guardian.</p><p style="margin-bottom:14px;line-height:1.85;">Ya Rabb, help me to make this salah the anchor of my day. The Prophet ﷺ said the first thing we will be asked about on the Day of Judgement is our prayer — let mine be something I am not ashamed of.</p><p style="margin-bottom:14px;line-height:1.85;">Grant me focus in this sujood, sincerity in this dua, and the strength to return to You — day after day, prayer after prayer.</p><p style="line-height:1.85;font-weight:600;">Ameen.</p>`;
 }
 
-// ════════════════════════════════════════
-// NAVIGATION
-// ════════════════════════════════════════
+// ════ NAVIGATION (with scroll fix) ════
 function go(id) {
   document.querySelectorAll('.screen').forEach(s => {
     s.classList.remove('active','from-right','from-left');
     s.style.pointerEvents = 'none';
+    s.scrollTop = 0;
   });
-  const el = document.getElementById(id);
+  const el=document.getElementById(id);
   if(!el) return;
   el.classList.add('from-right','active');
-  el.style.pointerEvents = 'all';
-  setTimeout(() => el.classList.remove('from-right'), 400);
-
-  // Side effects
-  if (id === 's-generating')         { saveAge();saveGoals();saveFaith();saveRelationship();saveObstacles();saveGender();saveCommitment(); startGenerating(); }
-  if (id === 's-home')               { initHome(); updateNextPrayerBanner(); }
-  if (id === 's-vision')             initVision();
-  if (id === 's-lock')               initLockList();
-  if (id === 's-settings')           initSettings();
-  if (id === 's-congrats')           initCongrats();
-  if (id === 's-streak')             initStreak();
-  if (id === 's-lets-pray')          { saveEmotional(); initPrayScreen(); }
-  if (id === 's-reality')            initReality();
-  if (id === 's-thankyou')           initThankyou();
-  if (id === 's-checkin-emotional')  saveSpiritual();
+  el.style.pointerEvents='all';
+  setTimeout(()=>el.classList.remove('from-right'),400);
+  if(id==='s-generating'){ saveAge();saveGoals();saveFaith();saveRelationship();saveObstacles();saveGender();saveCommitment(); startGenerating(); }
+  if(id==='s-home'){ initHome(); updateNextPrayerBanner(); }
+  if(id==='s-vision') initVision();
+  if(id==='s-lock') initLockList();
+  if(id==='s-settings') initSettings();
+  if(id==='s-congrats') initCongrats();
+  if(id==='s-streak') initStreak();
+  if(id==='s-lets-pray'){ saveEmotional(); initPrayScreen(); }
+  if(id==='s-reality') initReality();
+  if(id==='s-thankyou') initThankyou();
+  if(id==='s-checkin-emotional') saveSpiritual();
 }
 
 function switchTab(tab){ go({home:'s-home',vision:'s-vision',lock:'s-lock',settings:'s-settings'}[tab]); }
-
 function selectSingle(el){ el.closest('.options-list')?.querySelectorAll('.option-card').forEach(c=>c.classList.remove('selected')); el.classList.add('selected'); }
 function selectMulti(el,g,max){ const list=el.closest('.options-list')||el.parentElement; if(el.classList.contains('selected')){el.classList.remove('selected');return;} if(list.querySelectorAll('.option-card.selected').length<max) el.classList.add('selected'); }
 
-
-// ════════════════════════════════════════
-// PAYWALL
-// ════════════════════════════════════════
+// ════ PAYWALL ════
 function selectPlan(plan){
   document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('selected'));
   document.getElementById('plan-'+plan).classList.add('selected');
-  userProfile.selectedPlan = plan; saveProfile();
+  userProfile.selectedPlan=plan; saveProfile();
 }
-function startTrial(){
-  userProfile.onboarded = true; saveProfile();
-  go('s-checkin-spiritual');
-}
+function startTrial(){ userProfile.onboarded=true; saveProfile(); go('s-checkin-spiritual'); }
 
-// ════════════════════════════════════════
-// VISION TAB
-// ════════════════════════════════════════
-let currentPeriod = '30D';
-const HISTORY = {
-  '7D':  { iman:[3,3.5,4,3,4.5,4,3.8], mood:[3,3.2,3.8,3.5,4,3.7,3.5], days:7  },
-  '30D': { iman:[2.5,3,3.2,3.5,3.8,3.5,4,3.8,4.2,4,4.5,4.2,4.5,4.8,4.5,4.2,4.6,4.8,5,4.8,4.5,4.8,5,4.8,5,4.8,5,5,4.8,5], mood:[2,2.5,3,3.2,3.5,3.2,3.8,3.5,4,3.8,4.2,4,4.2,4.5,4.2,4,4.4,4.6,4.8,4.6,4.4,4.6,4.8,4.6,4.8,4.6,4.8,5,4.8,5], days:30 },
-  '3M':  { iman:[2,2.5,3,3.2,3.5,3.8,4,3.8,4.2,4.5,4.8,5], mood:[2,2.5,2.8,3,3.5,3.8,4,4.2,4.5,4.8,5,5], days:90  },
-  '1Y':  { iman:[1.5,2,2.5,3,3.5,3.8,4,4.2,4.5,4.8,4.9,5], mood:[1.5,2,2.5,2.8,3.2,3.5,3.8,4,4.2,4.5,4.8,5], days:365 },
+// ════ VISION ════
+let currentPeriod='30D';
+const HISTORY={
+  '7D':{iman:[3,3.5,4,3,4.5,4,3.8],mood:[3,3.2,3.8,3.5,4,3.7,3.5],days:7},
+  '30D':{iman:[2.5,3,3.2,3.5,3.8,3.5,4,3.8,4.2,4,4.5,4.2,4.5,4.8,4.5,4.2,4.6,4.8,5,4.8,4.5,4.8,5,4.8,5,4.8,5,5,4.8,5],mood:[2,2.5,3,3.2,3.5,3.2,3.8,3.5,4,3.8,4.2,4,4.2,4.5,4.2,4,4.4,4.6,4.8,4.6,4.4,4.6,4.8,4.6,4.8,4.6,4.8,5,4.8,5],days:30},
+  '3M':{iman:[2,2.5,3,3.2,3.5,3.8,4,3.8,4.2,4.5,4.8,5],mood:[2,2.5,2.8,3,3.5,3.8,4,4.2,4.5,4.8,5,5],days:90},
+  '1Y':{iman:[1.5,2,2.5,3,3.5,3.8,4,4.2,4.5,4.8,4.9,5],mood:[1.5,2,2.5,2.8,3.2,3.5,3.8,4,4.2,4.5,4.8,5],days:365}
 };
 
-function selectPeriod(el, period){
-  currentPeriod = period;
+function selectPeriod(el,period){
+  currentPeriod=period;
   document.querySelectorAll('.period-btn').forEach(b=>{ b.style.background='transparent'; b.style.color='rgba(255,255,255,.5)'; });
   el.style.background='var(--gold)'; el.style.color='var(--deep-green)';
   drawChart(period);
-  document.getElementById('chart-period-label').textContent =
-    {7:'Last 7 days',30:'Last 30 days',90:'Last 3 months',365:'Last year'}[HISTORY[period].days] || period;
+  document.getElementById('chart-period-label').textContent={7:'Last 7 days',30:'Last 30 days',90:'Last 3 months',365:'Last year'}[HISTORY[period].days]||period;
 }
 
 function drawChart(period){
-  const d = HISTORY[period];
-  if(!d) return;
-  const W=320, H=120, PAD=32, BOTTOM=110;
-  const maxScore=5, pts=d.iman.length;
+  const d=HISTORY[period]; if(!d) return;
+  const W=320,PAD=32,BOTTOM=110,maxScore=5,pts=d.iman.length;
   const xStep=(W-PAD)/(pts-1);
-  const yScale=v => BOTTOM - ((v/maxScore)*(BOTTOM-16));
-
-  const iPoints = d.iman.map((v,i)=>[(PAD+i*xStep).toFixed(1), yScale(v).toFixed(1)]);
-  const mPoints = d.mood.map((v,i)=>[(PAD+i*xStep).toFixed(1), yScale(v).toFixed(1)]);
-
-  const pathStr = pts => {
-    let d='M'+pts[0][0]+','+pts[0][1];
+  const yScale=v=>BOTTOM-((v/maxScore)*(BOTTOM-16));
+  const iPoints=d.iman.map((v,i)=>[(PAD+i*xStep).toFixed(1),yScale(v).toFixed(1)]);
+  const mPoints=d.mood.map((v,i)=>[(PAD+i*xStep).toFixed(1),yScale(v).toFixed(1)]);
+  const pathStr=pts=>{
+    let s='M'+pts[0][0]+','+pts[0][1];
     for(let i=1;i<pts.length;i++){
       const cp1x=(parseFloat(pts[i-1][0])+parseFloat(pts[i][0]))/2;
-      d+=` C${cp1x},${pts[i-1][1]} ${cp1x},${pts[i][1]} ${pts[i][0]},${pts[i][1]}`;
+      s+=` C${cp1x},${pts[i-1][1]} ${cp1x},${pts[i][1]} ${pts[i][0]},${pts[i][1]}`;
     }
-    return d;
+    return s;
   };
-
-  const iPath = pathStr(iPoints);
-  const mPath = pathStr(mPoints);
-  const last  = iPoints[iPoints.length-1];
-
-  const il = document.getElementById('iman-line');
-  const ip = document.getElementById('iman-path');
-  const ml = document.getElementById('mood-line');
-  const mp = document.getElementById('mood-path');
-  const dot= document.getElementById('iman-dot');
-
-  if(il) il.setAttribute('d', iPath);
-  if(ip) ip.setAttribute('d', iPath+` L${W},${BOTTOM} L${PAD},${BOTTOM} Z`);
-  if(ml) ml.setAttribute('d', mPath);
-  if(mp) mp.setAttribute('d', mPath+` L${W},${BOTTOM} L${PAD},${BOTTOM} Z`);
+  const iPath=pathStr(iPoints), mPath=pathStr(mPoints), last=iPoints[iPoints.length-1];
+  const il=document.getElementById('iman-line'), ip=document.getElementById('iman-path');
+  const ml=document.getElementById('mood-line'), mp=document.getElementById('mood-path');
+  const dot=document.getElementById('iman-dot');
+  if(il) il.setAttribute('d',iPath);
+  if(ip) ip.setAttribute('d',iPath+` L${W},${BOTTOM} L${PAD},${BOTTOM} Z`);
+  if(ml) ml.setAttribute('d',mPath);
+  if(mp) mp.setAttribute('d',mPath+` L${W},${BOTTOM} L${PAD},${BOTTOM} Z`);
   if(dot){ dot.setAttribute('cx',last[0]); dot.setAttribute('cy',last[1]); }
 }
 
 function initVision(){
-  const p = userProfile;
-  // Update stats from real profile data
-  const se=document.getElementById('v-streak');   if(se) se.textContent=p.streak||0;
-  const te=document.getElementById('v-total');    if(te) te.textContent=p.totalPrayers||0;
-  const ie=document.getElementById('v-iman');     if(ie) ie.textContent=(p.spiritualScore||3).toFixed(1);
-  const il=document.getElementById('v-iman-label');if(il) il.textContent=p.spiritualLabel;
-  const me=document.getElementById('v-mood');     if(me) me.textContent=(p.emotionalScore||3).toFixed(1);
-  const ml=document.getElementById('v-mood-label');if(ml) ml.textContent=p.emotionalLabel;
-
-  // Draw chart
-  setTimeout(()=>drawChart(currentPeriod), 100);
-
-  // Build 90-day grid
+  const p=userProfile;
+  const se=document.getElementById('v-streak'); if(se) se.textContent=p.streak||0;
+  const te=document.getElementById('v-total'); if(te) te.textContent=p.totalPrayers||0;
+  const ie=document.getElementById('v-iman'); if(ie) ie.textContent=(p.spiritualScore||3).toFixed(1);
+  const il=document.getElementById('v-iman-label'); if(il) il.textContent=p.spiritualLabel;
+  const me=document.getElementById('v-mood'); if(me) me.textContent=(p.emotionalScore||3).toFixed(1);
+  const ml=document.getElementById('v-mood-label'); if(ml) ml.textContent=p.emotionalLabel;
+  setTimeout(()=>drawChart(currentPeriod),100);
   initVisionGrid();
 }
 
 function initVisionGrid(){
   const grid=document.getElementById('vision-grid'); if(!grid) return;
   grid.innerHTML='';
-  const done = userProfile.streak||0;
-  const pct  = Math.round((done/90)*100);
-  const pg = document.getElementById('grid-pct');
+  const done=userProfile.streak||0;
+  const pct=Math.round((done/90)*100);
+  const pg=document.getElementById('grid-pct');
   if(pg) pg.textContent=`${pct}% complete · day ${done} of 90`;
   for(let i=0;i<90;i++){
     const c=document.createElement('div');
@@ -1540,52 +1374,42 @@ function initVisionGrid(){
   }
 }
 
-// ════════════════════════════════════════
-// LOCK LIST
-// ════════════════════════════════════════
-let selectedCats = new Set(JSON.parse(localStorage.getItem('sjoodLockedCats')||'[]'));
+// ════ LOCK LIST ════
+let selectedCats=new Set(JSON.parse(localStorage.getItem('sjoodLockedCats')||'[]'));
 
 function toggleCat(row){
-  const name = row.id.replace('cat-','').replace(/_/g,' ');
-  const check= row.querySelector('.cat-check');
-  const on   = selectedCats.has(name);
-  if(on){ selectedCats.delete(name); }
-  else  { selectedCats.add(name); }
-  updateCatUI(row, !on);
+  const name=row.id.replace('cat-','').replace(/_/g,' ');
+  const on=selectedCats.has(name);
+  if(on) selectedCats.delete(name); else selectedCats.add(name);
+  updateCatUI(row,!on);
   updateLockCount();
 }
 
-function updateCatUI(row, selected){
-  const check = row.querySelector('.cat-check');
-  check.style.background   = selected ? 'var(--gold)' : '';
-  check.style.borderColor  = selected ? 'var(--gold)' : '#d1d5db';
-  check.innerHTML = selected
-    ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20,6 9,17 4,12"/></svg>'
-    : '';
-  row.style.background = selected ? 'rgba(212,168,67,.04)' : '';
+function updateCatUI(row,selected){
+  const check=row.querySelector('.cat-check');
+  check.style.background=selected?'var(--gold)':'';
+  check.style.borderColor=selected?'var(--gold)':'#d1d5db';
+  check.innerHTML=selected?'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20,6 9,17 4,12"/></svg>':'';
+  row.style.background=selected?'rgba(212,168,67,.04)':'';
 }
 
 function updateLockCount(){
-  const n = selectedCats.size;
-  const el = document.getElementById('lock-count');
-  const lb = document.getElementById('lock-save-label');
-  if(el) el.textContent = n===0 ? 'none selected' : `${n} selected`;
-  if(lb) lb.textContent = n===0 ? 'No apps selected' : `${n} categor${n===1?'y':'ies'} will be locked`;
+  const n=selectedCats.size;
+  const el=document.getElementById('lock-count');
+  const lb=document.getElementById('lock-save-label');
+  if(el) el.textContent=n===0?'none selected':`${n} selected`;
+  if(lb) lb.textContent=n===0?'No apps selected':`${n} categor${n===1?'y':'ies'} will be locked`;
 }
 
 function selectAllCats(){
-  const rows = document.querySelectorAll('#cat-list .category-row');
-  const allSelected = selectedCats.size === rows.length;
+  const rows=document.querySelectorAll('#cat-list .category-row');
+  const allSelected=selectedCats.size===rows.length;
   if(allSelected){
     selectedCats.clear();
-    rows.forEach(r=>updateCatUI(r, false));
+    rows.forEach(r=>updateCatUI(r,false));
     document.getElementById('select-all-btn').textContent='Select all';
   } else {
-    rows.forEach(r=>{
-      const name=r.id.replace('cat-','').replace(/_/g,' ');
-      selectedCats.add(name);
-      updateCatUI(r, true);
-    });
+    rows.forEach(r=>{ const name=r.id.replace('cat-','').replace(/_/g,' '); selectedCats.add(name); updateCatUI(r,true); });
     document.getElementById('select-all-btn').textContent='Deselect all';
   }
   updateLockCount();
@@ -1594,46 +1418,37 @@ function selectAllCats(){
 function filterCats(query){
   const q=query.toLowerCase();
   document.querySelectorAll('#cat-list .category-row').forEach(r=>{
-    const text=r.textContent.toLowerCase();
-    r.style.display=text.includes(q)?'':'none';
+    r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';
   });
 }
 
 function saveLockList(){
-  localStorage.setItem('sjoodLockedCats', JSON.stringify([...selectedCats]));
+  localStorage.setItem('sjoodLockedCats',JSON.stringify([...selectedCats]));
   userProfile.lockedCategories=[...selectedCats]; saveProfile();
-  // Show confirmation toast
-  showPrayerToast({name:'Lock list saved ✅',arabic:'',icon:'🔒',time:''},  'reminder');
-  setTimeout(()=>dismissToast(),2500);
 }
 
 function initLockList(){
-  // Restore saved selections
-  selectedCats = new Set(JSON.parse(localStorage.getItem('sjoodLockedCats')||'[]'));
+  selectedCats=new Set(JSON.parse(localStorage.getItem('sjoodLockedCats')||'[]'));
   document.querySelectorAll('#cat-list .category-row').forEach(r=>{
     const name=r.id.replace('cat-','').replace(/_/g,' ');
-    if(selectedCats.has(name)) updateCatUI(r, true);
+    if(selectedCats.has(name)) updateCatUI(r,true);
   });
   updateLockCount();
 }
 
-// ════════════════════════════════════════
-// SETTINGS
-// ════════════════════════════════════════
+// ════ SETTINGS ════
 const PRAYER_NAMES=['Fajr','Dhuhr','Asr','Maghrib','Isha'];
-let prayerTimes = JSON.parse(localStorage.getItem('sjoodPrayerTimes')||'null') || {
-  Fajr:'05:12', Dhuhr:'12:34', Asr:'15:47', Maghrib:'18:22', Isha:'19:55'
-};
+let prayerTimes=JSON.parse(localStorage.getItem('sjoodPrayerTimes')||'null')||{Fajr:'05:12',Dhuhr:'12:34',Asr:'15:47',Maghrib:'18:22',Isha:'19:55'};
 const METHODS=['Muslim World League (MWL)','Islamic Society of North America (ISNA)','Egyptian General Authority','Umm Al-Qura (Makkah)','University of Islamic Sciences Karachi'];
-const MADHHABS=['Shafi\'i / Maliki / Hanbali','Hanafi'];
-let calcMethod=0, calcMadhab=0;
+const MADHHABS=["Shafi'i / Maliki / Hanbali",'Hanafi'];
+let calcMethod=0,calcMadhab=0;
 
 function initSettings(){
   const p=userProfile;
-  const sn=document.getElementById('settings-name');    if(sn) sn.textContent=p.name||'Beloved';
-  const ss=document.getElementById('settings-streak');  if(ss) ss.textContent=p.streak||0;
+  const sn=document.getElementById('settings-name'); if(sn) sn.textContent=p.name||'Beloved';
+  const ss=document.getElementById('settings-streak'); if(ss) ss.textContent=p.streak||0;
   const sp=document.getElementById('settings-prayers'); if(sp) sp.textContent=p.totalPrayers||0;
-  const sf=document.getElementById('settings-pfreq');   if(sf) sf.textContent=`${p.prayerFreq||0}/5`;
+  const sf=document.getElementById('settings-pfreq'); if(sf) sf.textContent=`${p.prayerFreq||0}/5`;
   const sj=document.getElementById('settings-join');
   if(sj){ const d=new Date(p.joinDate||Date.now()); sj.textContent='Member since '+d.toLocaleDateString('en-GB',{month:'long',year:'numeric'}); }
   renderPrayerList();
@@ -1642,7 +1457,7 @@ function initSettings(){
 
 function renderPrayerList(){
   const list=document.getElementById('settings-prayer-list'); if(!list) return;
-  list.innerHTML = PRAYER_NAMES.map((name,i)=>`
+  list.innerHTML=PRAYER_NAMES.map((name,i)=>`
     <div class="toggle-wrap" style="padding:12px 16px;${i<4?'border-bottom:1px solid #f0ebe0;':''}">
       <div>
         <p style="font-size:14px;font-weight:500;color:var(--text-primary);">${name} — ${formatTime(prayerTimes[name]||'00:00')}</p>
@@ -1664,9 +1479,7 @@ function editPrayerTimes(){
   list.innerHTML=PRAYER_NAMES.map(name=>`
     <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f0ebe0;">
       <p style="font-size:15px;font-weight:600;color:var(--text-primary);">${name}</p>
-      <input type="time" value="${prayerTimes[name]||'00:00'}" id="pt-${name}"
-        style="border:2px solid var(--cream-dark);border-radius:10px;padding:8px 12px;font-family:Poppins;font-size:15px;outline:none;color:var(--text-primary);"
-        onchange="this.style.borderColor='var(--gold)'"/>
+      <input type="time" value="${prayerTimes[name]||'00:00'}" id="pt-${name}" style="border:2px solid var(--cream-dark);border-radius:10px;padding:8px 12px;font-family:Poppins;font-size:15px;outline:none;color:var(--text-primary);"/>
     </div>`).join('');
   modal.style.display='flex';
 }
@@ -1674,12 +1487,8 @@ function editPrayerTimes(){
 function closePrayerModal(){ document.getElementById('prayer-time-modal').style.display='none'; }
 
 function savePrayerTimes(){
-  PRAYER_NAMES.forEach(name=>{
-    const input=document.getElementById('pt-'+name);
-    if(input) prayerTimes[name]=input.value;
-  });
-  localStorage.setItem('sjoodPrayerTimes', JSON.stringify(prayerTimes));
-  // Update the global PRAYERS array used for notifications
+  PRAYER_NAMES.forEach(name=>{ const input=document.getElementById('pt-'+name); if(input) prayerTimes[name]=input.value; });
+  localStorage.setItem('sjoodPrayerTimes',JSON.stringify(prayerTimes));
   PRAYERS.forEach(p=>{ if(prayerTimes[p.name]) p.time=prayerTimes[p.name]; });
   renderPrayerList();
   closePrayerModal();
@@ -1695,25 +1504,15 @@ function closeProfileModal(){ document.getElementById('profile-modal').style.dis
 function saveProfile2(){
   const name=document.getElementById('profile-name-input').value.trim();
   const st=parseInt(document.getElementById('profile-screentime-input').value)||4;
-  if(name){ userProfile.name=name; }
+  if(name) userProfile.name=name;
   userProfile.screenTime=st;
-  saveProfile();
-  initSettings(); initHome();
+  saveProfile(); initSettings(); initHome();
   closeProfileModal();
 }
 
-function showMethodPicker(){
-  const curr=document.getElementById('calc-method');
-  calcMethod=(calcMethod+1)%METHODS.length;
-  if(curr) curr.textContent=METHODS[calcMethod];
-}
-function showMadhhabPicker(){
-  const curr=document.getElementById('calc-madhab');
-  calcMadhab=(calcMadhab+1)%MADHHABS.length;
-  if(curr) curr.textContent=MADHHABS[calcMadhab];
-}
-
-function setTheme(t){ /* future: swap CSS vars */ }
+function showMethodPicker(){ const curr=document.getElementById('calc-method'); calcMethod=(calcMethod+1)%METHODS.length; if(curr) curr.textContent=METHODS[calcMethod]; }
+function showMadhhabPicker(){ const curr=document.getElementById('calc-madhab'); calcMadhab=(calcMadhab+1)%MADHHABS.length; if(curr) curr.textContent=MADHHABS[calcMadhab]; }
+function setTheme(t){}
 
 function refreshLocation(){
   const city=document.getElementById('location-city');
@@ -1723,7 +1522,7 @@ function refreshLocation(){
     city.textContent='Detecting...';
     navigator.geolocation.getCurrentPosition(pos=>{
       const {latitude:lat,longitude:lng}=pos.coords;
-      city.textContent='Lusaka, Zambia'; // default for prototype
+      city.textContent='Lusaka, Zambia';
       if(coords) coords.textContent=`${lat.toFixed(2)}°N ${lng.toFixed(2)}°E · GPS`;
     },()=>{
       city.textContent='Lusaka, Zambia';
@@ -1735,8 +1534,7 @@ function refreshLocation(){
   }
 }
 
-
-// ── Reality check ──
+// ════ REALITY CHECK ════
 function initReality(){
   const h=userProfile.screenTime; const yearly=h*365; const days=Math.round(yearly/24); const quran=Math.round(yearly/30);
   document.getElementById('reality-content').innerHTML=`
@@ -1753,11 +1551,9 @@ function initReality(){
     </div>`;
 }
 
-// ── Prayer frequency ──
 const pfreqLabels=['Never 😔','Fajr only 🌅','Fajr + Dhuhr','Fajr, Dhuhr + Asr','4 prayers 🌙','All 5 prayers 🤲'];
 function updatePFreq(v){ document.getElementById('pfreq-num').textContent=v; document.getElementById('pfreq-label').textContent=pfreqLabels[v]||''; event.target.style.setProperty('--pct',(v/5*100)+'%'); userProfile.prayerFreq=parseInt(v); }
 
-// ── Check-in sliders ──
 const spEmojis=['😞','😔','😐','🙂','😊','🌟']; const spLabels=['Struggling','Distant','Neutral','Growing','Good','Close, alhamdulillah'];
 function updateSpiritual(v){ document.getElementById('sp-emoji').textContent=spEmojis[v]; document.getElementById('sp-label').textContent=spLabels[v]; event.target.style.setProperty('--pct',(v/5*100)+'%'); userProfile.spiritualScore=parseInt(v); }
 function saveSpiritual(){ userProfile.spiritualScore=parseInt(document.querySelector('#s-checkin-spiritual input')?.value||3); saveProfile(); }
@@ -1766,36 +1562,19 @@ const emEmojis=['😭','😔','😐','🙂','😊','✨']; const emLabels=['Real
 function updateEmotional(v){ document.getElementById('em-emoji').textContent=emEmojis[v]; document.getElementById('em-label').textContent=emLabels[v]; event.target.style.setProperty('--pct',(v/5*100)+'%'); userProfile.emotionalScore=parseInt(v); }
 function saveEmotional(){ userProfile.emotionalScore=parseInt(document.querySelector('#s-checkin-emotional input')?.value||3); saveProfile(); }
 
-// ── Pray screen ──
 function initPrayScreen(){
   const name=userProfile.name;
   const title=document.getElementById('lets-pray-title');
   if(title&&name) title.textContent=`let's pray, ${name} 🤲`;
-  const duaEl=document.getElementById('dua-text');
-  const arabicEl=document.getElementById('dua-arabic');
-  const loadEl=document.getElementById('dua-loading');
-  const btnEl=document.getElementById('prayed-btn');
-  const timerEl=document.getElementById('pray-timer');
-  if(duaEl)   duaEl.style.display='none';
-  if(arabicEl) arabicEl.style.display='none';
-  if(loadEl)  loadEl.style.display='flex';
-  if(btnEl)   { btnEl.style.opacity='.4'; btnEl.style.pointerEvents='none'; }
-  if(timerEl) timerEl.textContent='loading your personalised dua...';
   generateDua();
 }
 
-// ── After prayer ──
-function completePrayer(){
-  userProfile.streak++; userProfile.totalPrayers++; saveProfile();
-  go('s-verse-day');
-}
+function completePrayer(){ userProfile.streak++; userProfile.totalPrayers++; saveProfile(); go('s-verse-day'); }
 
-// ── Generating screen ──
 function startGenerating(){
   const circle=document.getElementById('gen-circle'); const pctEl=document.getElementById('gen-pct');
   const label=document.getElementById('gen-label'); const dots=document.querySelectorAll('.gdot');
-  const labels=[`analysing your answers...`,`personalising duas for ${userProfile.genderLabel}...`,
-    `calibrating for ${userProfile.prayerFreq}/5 prayers...`,'building your 90-day journey...','almost ready...'];
+  const labels=[`analysing your answers...`,`personalising duas for ${userProfile.genderLabel}...`,`calibrating for ${userProfile.prayerFreq}/5 prayers...`,'building your 90-day journey...','almost ready...'];
   let pct=0,dotIdx=0; circle.style.strokeDashoffset=502;
   const iv=setInterval(()=>{
     pct+=Math.random()*16+5; if(pct>100) pct=100;
@@ -1809,17 +1588,15 @@ function startGenerating(){
   },260);
 }
 
-// ── Thank you ──
 function initThankyou(){ const n=userProfile.name; if(n) document.getElementById('thankyou-name').textContent=`Jazakallah khair, ${n}.`; }
 
-// ── Home ──
 function initHome(){
   const p=userProfile; const name=p.name||'Beloved';
-  const hn=document.getElementById('home-name');       if(hn) hn.textContent=name;
-  const sn=document.getElementById('settings-name');   if(sn) sn.textContent=name;
-  const hs=document.getElementById('home-streak');     if(hs) hs.textContent=p.streak||0;
+  const hn=document.getElementById('home-name'); if(hn) hn.textContent=name;
+  const sn=document.getElementById('settings-name'); if(sn) sn.textContent=name;
+  const hs=document.getElementById('home-streak'); if(hs) hs.textContent=p.streak||0;
   const hl=document.getElementById('home-streak-label');
-  if(hl){ hl.textContent = p.streak>30?'MashaAllah! 🌟':p.streak>7?'Keep it up! 🔥':p.streak>0?'Great start!':'Begin today 🌙'; }
+  if(hl){ hl.textContent=p.streak>30?'MashaAllah! 🌟':p.streak>7?'Keep it up! 🔥':p.streak>0?'Great start!':'Begin today 🌙'; }
   const h=new Date().getHours();
   const hg=document.getElementById('home-greeting');
   if(hg) hg.textContent=h<5?'Assalamu Alaikum':h<12?'Good morning':h<17?'Good afternoon':'Good evening';
@@ -1830,33 +1607,28 @@ function initHome(){
   updateNextPrayerBanner();
 }
 
-
-// ── Congrats ──
 function initCongrats(){
   const d=document.getElementById('congrats-date');
   if(d) d.textContent=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short'});
   const theme=localStorage.getItem('sjoodLastDuaTheme')||getDuaTheme();
-  const t=document.getElementById('congrats-theme');
-  if(t) t.textContent=theme;
+  const t=document.getElementById('congrats-theme'); if(t) t.textContent=theme;
   const lastDua=localStorage.getItem('sjoodLastDua')||'';
   const snip=document.getElementById('congrats-snippet');
   if(snip&&lastDua) snip.textContent=lastDua.replace(/Bismillah.*?\n/,'').replace(/<[^>]*>/g,'').substring(0,120)+'...';
 }
 
-// ── Streak ──
 function initStreak(){
   const sn=document.getElementById('streak-num'); if(sn) sn.textContent=userProfile.streak||1;
   const today=new Date().getDay(); const wrap=document.getElementById('week-dots'); if(!wrap) return; wrap.innerHTML='';
   for(let i=0;i<7;i++){
     const d=document.createElement('div'); d.style.cssText='width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;';
-    if(i===today){d.style.background='var(--gold)';d.style.color='var(--deep-green)';}
-    else{d.style.background='rgba(255,255,255,.1)';d.style.color='rgba(255,255,255,.35)';}
+    if(i===today){ d.style.background='var(--gold)'; d.style.color='var(--deep-green)'; }
+    else { d.style.background='rgba(255,255,255,.1)'; d.style.color='rgba(255,255,255,.35)'; }
     const dd=new Date(); dd.setDate(dd.getDate()+(i-today)); d.textContent=dd.getDate(); wrap.appendChild(d);
   }
 }
 
-
-// ── Signature pad ──
+// ════ SIGNATURE PAD ════
 const canvas=document.getElementById('sigCanvas');
 if(canvas){
   const ctx=canvas.getContext('2d'); canvas.width=canvas.offsetWidth||340; canvas.height=140;
@@ -1871,331 +1643,70 @@ if(canvas){
 }
 function clearSig(){ const c=document.getElementById('sigCanvas'); c.getContext('2d').clearRect(0,0,c.width,c.height); }
 
-// ════════════════════════════════════════
-// SPLASH SCREEN — Fixed overlay approach
-// ════════════════════════════════════════
-
-
-const PRAYERS = [
-  { name:'Fajr',    time:'05:12', arabic:'الفجر',    icon:'🌙' },
-  { name:'Dhuhr',   time:'12:34', arabic:'الظهر',   icon:'☀️' },
-  { name:'Asr',     time:'15:47', arabic:'العصر',    icon:'🌤️' },
-  { name:'Maghrib', time:'18:22', arabic:'المغرب',  icon:'🌅' },
-  { name:'Isha',    time:'19:55', arabic:'العشاء',   icon:'🌙' },
+// ════ PRAYER NOTIFICATIONS ════
+const PRAYERS=[
+  {name:'Fajr',time:'05:12',arabic:'الفجر',icon:'🌙'},
+  {name:'Dhuhr',time:'12:34',arabic:'الظهر',icon:'☀️'},
+  {name:'Asr',time:'15:47',arabic:'العصر',icon:'🌤️'},
+  {name:'Maghrib',time:'18:22',arabic:'المغرب',icon:'🌅'},
+  {name:'Isha',time:'19:55',arabic:'العشاء',icon:'🌙'}
 ];
 
-// Convert "HH:MM" to today's Date object
-function prayerToDate(timeStr) {
-  const [h, m] = timeStr.split(':').map(Number);
-  const d = new Date();
-  d.setHours(h, m, 0, 0);
-  return d;
-}
+function prayerToDate(timeStr){ const [h,m]=timeStr.split(':').map(Number); const d=new Date(); d.setHours(h,m,0,0); return d; }
 
-// Get next upcoming prayer
-function getNextPrayer() {
-  const now = new Date();
-  for (const p of PRAYERS) {
-    const t = prayerToDate(p.time);
-    if (t > now) return { ...p, date: t, minutesAway: Math.round((t - now) / 60000) };
+function getNextPrayer(){
+  const now=new Date();
+  for(const p of PRAYERS){
+    const t=prayerToDate(p.time);
+    if(t>now) return {...p,date:t,minutesAway:Math.round((t-now)/60000)};
   }
-  // After Isha — next is tomorrow's Fajr
-  const fajr = prayerToDate(PRAYERS[0].time);
-  fajr.setDate(fajr.getDate() + 1);
-  return { ...PRAYERS[0], date: fajr, minutesAway: Math.round((fajr - now) / 60000) };
+  const fajr=prayerToDate(PRAYERS[0].time); fajr.setDate(fajr.getDate()+1);
+  return {...PRAYERS[0],date:fajr,minutesAway:Math.round((fajr-now)/60000)};
 }
 
-// Get current / active prayer (within 30 min window)
-function getActivePrayer() {
-  const now = new Date();
-  for (const p of PRAYERS) {
-    const t = prayerToDate(p.time);
-    const diff = (now - t) / 60000; // minutes since prayer time
-    if (diff >= 0 && diff <= 30) return { ...p, date: t, minutesSince: Math.round(diff) };
+function getActivePrayer(){
+  const now=new Date();
+  for(const p of PRAYERS){
+    const t=prayerToDate(p.time); const diff=(now-t)/60000;
+    if(diff>=0&&diff<=30) return {...p,date:t,minutesSince:Math.round(diff)};
   }
   return null;
 }
 
-// ── In-app toast notification ──
-function showPrayerToast(prayer, type = 'reminder') {
-  const existing = document.getElementById('prayer-toast');
-  if (existing) existing.remove();
-
-  const isNow      = type === 'now';
-  const isReminder = type === 'reminder';
-  const name       = userProfile.name || '';
-  const greeting   = name ? `${name}, ` : '';
-  const honorific  = userProfile.gender.includes('Sister') ? 'Sister' : userProfile.gender.includes('Brother') ? 'Brother' : '';
-  const fullName   = honorific && name ? `${honorific} ${name}` : name;
-
-  // Personalised message lines based on type + profile
-  const reminderMsg = (() => {
-    if (prayer.minutesAway <= 5) {
-      if (userProfile.spiritualScore >= 4) return `${greeting}it's almost ${prayer.name} time — your streak is waiting 🌙`;
-      if (userProfile.streak > 0)          return `${greeting}don't break your ${userProfile.streak}-day streak — ${prayer.name} soon`;
-      return `${greeting}${prayer.name} is in ${prayer.minutesAway} min — wrap up and prepare`;
-    }
-    if (userProfile.goals.includes('🤲 put Allah first, before my phone'))
-      return `${greeting}put Allah first — ${prayer.name} in ${prayer.minutesAway} min`;
-    if (userProfile.obstacles.includes('📱 phone & social media distraction'))
-      return `${greeting}put the phone down — ${prayer.name} in ${prayer.minutesAway} min`;
-    return `${greeting}${prayer.name} prayer in ${prayer.minutesAway} minutes`;
-  })();
-
-  const nowMsg = (() => {
-    if (userProfile.streak > 7)   return `${fullName || greeting.replace(', ','')} — ${userProfile.streak} days strong. Don't stop now.`;
-    if (userProfile.streak === 1) return `${greeting}you started yesterday. Keep going — ${prayer.name} is now.`;
-    if (userProfile.spiritualScore <= 2) return `${greeting}Allah is waiting for you. ${prayer.name} time.`;
-    return `${greeting}${prayer.name} time — your apps are locking`;
-  })();
-
-  const subMsg = (() => {
-    if (isNow) {
-      if (userProfile.goals.length) return `Goal: ${userProfile.goals[0]?.slice(2,40) || 'grow closer to Allah'} · tap to pray`;
-      return 'Tap to begin your dua & unlock apps';
-    }
-    if (prayer.minutesAway <= 5) return 'Almost time — close your apps and make wudu';
-    return `${prayer.time} · ${prayer.arabic} · tap to prepare`;
-  })();
-
-  const toast = document.createElement('div');
-  toast.id = 'prayer-toast';
-  toast.style.cssText = `
-    position:fixed; top:16px; left:50%;
-    transform:translateX(-50%) translateY(-140px);
-    width:calc(100% - 32px); max-width:388px;
-    z-index:9999; border-radius:20px; overflow:hidden;
-    box-shadow:0 16px 48px rgba(0,0,0,0.3);
-    transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
-    cursor:pointer;
-  `;
-
-  toast.innerHTML = `
-    <div style="
-      background:${isNow
-        ? 'linear-gradient(135deg,#1a3a2a,#2d5a3f)'
-        : 'linear-gradient(135deg,#0f2218,#1a3a2a)'};
-      padding:16px 18px; display:flex; align-items:center; gap:14px;">
-
-      <!-- Icon -->
-      <div style="
-        width:50px; height:50px; border-radius:14px; flex-shrink:0;
-        background:${isNow ? 'rgba(212,168,67,.18)' : 'rgba(255,255,255,.07)'};
-        border:1px solid ${isNow ? 'rgba(212,168,67,.45)' : 'rgba(255,255,255,.1)'};
-        display:flex; align-items:center; justify-content:center; font-size:24px;
-        ${isNow ? 'animation:toastIconPulse 1.5s ease-in-out infinite;' : ''}
-      ">${prayer.icon}</div>
-
-      <!-- Text -->
-      <div style="flex:1; min-width:0; overflow:hidden;">
-        <div style="display:flex; align-items:center; gap:6px; margin-bottom:3px; flex-wrap:wrap;">
-          <p style="font-size:13px; font-weight:700; color:white; line-height:1.3;">
-            ${isNow ? nowMsg : reminderMsg}
-          </p>
-          ${isNow
-            ? `<span style="font-size:10px;background:rgba(212,168,67,.25);color:#d4a843;padding:2px 8px;border-radius:20px;font-weight:700;white-space:nowrap;">NOW</span>`
-            : prayer.minutesAway <= 5
-              ? `<span style="font-size:10px;background:rgba(255,100,100,.2);color:#ff8080;padding:2px 8px;border-radius:20px;font-weight:700;white-space:nowrap;">SOON</span>`
-              : ''}
-        </div>
-        <p style="font-size:11px; color:rgba(255,255,255,.42); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-          ${subMsg}
-        </p>
-        ${userProfile.streak > 0 && !isNow ? `
-        <div style="display:flex;align-items:center;gap:4px;margin-top:5px;">
-          <div style="height:3px;flex:1;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;">
-            <div style="height:100%;width:${Math.min((userProfile.streak/90)*100,100)}%;background:linear-gradient(90deg,#d4a843,#f0d78c);border-radius:2px;"></div>
-          </div>
-          <span style="font-size:10px;color:rgba(212,168,67,.7);font-weight:600;white-space:nowrap;">${userProfile.streak}/90 days</span>
-        </div>` : ''}
-      </div>
-
-      <!-- CTA button -->
-      <div style="
-        background:${isNow ? 'var(--gold)' : 'rgba(255,255,255,.09)'};
-        border:1px solid ${isNow ? 'transparent' : 'rgba(255,255,255,.12)'};
-        border-radius:10px; padding:9px 13px;
-        font-size:12px; font-weight:700;
-        color:${isNow ? '#1a3a2a' : 'rgba(255,255,255,.65)'};
-        white-space:nowrap; flex-shrink:0;
-      ">${isNow ? 'Pray →' : 'Got it'}</div>
-    </div>
-
-    <!-- Bottom bar: progress to prayer time -->
-    ${!isNow && prayer.minutesAway <= 15 ? `
-    <div style="height:3px;background:rgba(255,255,255,.06);">
-      <div style="height:100%;width:${Math.round((1-prayer.minutesAway/15)*100)}%;
-        background:linear-gradient(90deg,#d4a843,#f0d78c);
-        border-radius:0 2px 2px 0;" id="toast-progress">
-      </div>
-    </div>` : ''}
-
-    <!-- Dismiss hint -->
-    <div style="background:rgba(0,0,0,.15);padding:4px 18px;text-align:right;">
-      <span style="font-size:10px;color:rgba(255,255,255,.2);">swipe up to dismiss</span>
-    </div>
-  `;
-
-  // Swipe up to dismiss
-  let startY = 0;
-  toast.addEventListener('touchstart', e => { startY = e.touches[0].clientY; });
-  toast.addEventListener('touchend',   e => { if (startY - e.changedTouches[0].clientY > 40) dismissToast(); });
-
-  toast.addEventListener('click', () => { dismissToast(); if (isNow) go('s-checkin-spiritual'); });
-  document.getElementById('app').appendChild(toast);
-
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    toast.style.transform = 'translateX(-50%) translateY(0)';
-  }));
-
-  setTimeout(dismissToast, isNow ? 14000 : 7000);
+function updateNextPrayerBanner(){
+  const next=getNextPrayer(); const active=getActivePrayer();
+  const np=document.getElementById('home-next-prayer');
+  const sub=document.getElementById('home-lock-sub');
+  if(!np) return;
+  if(active){ np.textContent=`🔒 ${active.name} prayer — now`; if(sub) sub.textContent='Apps locked · tap to pray & unlock'; }
+  else if(next&&next.minutesAway<=60){ np.textContent=`${next.icon} ${next.name} in ${next.minutesAway} min`; if(sub) sub.textContent=`${next.time} · tap to prepare`; }
+  else if(next){ np.textContent=`${next.icon} Next: ${next.name}`; if(sub) sub.textContent=`${next.time} · tap to pray & unlock your apps`; }
 }
 
-function dismissToast() {
-  const toast = document.getElementById('prayer-toast');
-  if (!toast) return;
-  toast.style.transform = 'translateX(-50%) translateY(-120px)';
-  setTimeout(() => toast.remove(), 500);
+async function requestNotificationPermission(){
+  if(!('Notification' in window)) return false;
+  if(Notification.permission==='granted') return true;
+  if(Notification.permission==='denied') return false;
+  const perm=await Notification.requestPermission();
+  return perm==='granted';
 }
 
-// ── Web Notifications API ──
-async function requestNotificationPermission() {
-  if (!('Notification' in window)) return false;
-  if (Notification.permission === 'granted') return true;
-  if (Notification.permission === 'denied') return false;
-  const perm = await Notification.requestPermission();
-  return perm === 'granted';
-}
-
-function sendSystemNotification(prayer, type) {
-  if (!('Notification' in window) || Notification.permission !== 'granted') return;
-  const isNow  = type === 'now';
-  const name   = userProfile.name ? `${userProfile.name}, ` : '';
-  const streak = userProfile.streak;
-
-  const title = isNow
-    ? `🔒 ${name}time for ${prayer.name}`
-    : `⏰ ${name}${prayer.name} in ${prayer.minutesAway} minutes`;
-
-  const body = isNow
-    ? streak > 0
-      ? `You're on a ${streak}-day streak — don't break it. Tap to pray & unlock your apps.`
-      : `Your apps are locking. Tap to open Sjood and begin your prayer.`
-    : prayer.minutesAway <= 5
-      ? `Almost time — close your apps, make wudu, and prepare for ${prayer.arabic}.`
-      : `Prepare for ${prayer.name} · ${prayer.arabic} · ${prayer.time}`;
-
-  new Notification(title, {
-    body,
-    icon: '/favicon.ico',
-    badge: '/favicon.ico',
-    tag: `sjood-${prayer.name}-${type}`,
-    requireInteraction: isNow,
-  });
-}
-
-// ── Notification scheduler ──
-let notifCheckInterval = null;
-const notifiedPrayers = new Set(); // track which prayers we've notified for today
-
-function startPrayerNotifications() {
-  if (notifCheckInterval) clearInterval(notifCheckInterval);
-
-  const check = () => {
-    const now      = new Date();
-    const todayKey = now.toDateString();
-
-    for (const prayer of PRAYERS) {
-      const prayerTime = prayerToDate(prayer.time);
-      const diffMin    = (prayerTime - now) / 60000; // positive = in the future
-
-      // Keys prevent double-firing on the same prayer same day
-      const key15 = `${todayKey}-${prayer.name}-15`;
-      const key5  = `${todayKey}-${prayer.name}-5`;
-      const key0  = `${todayKey}-${prayer.name}-0`;
-
-      // Exactly 15 min before (14:00 – 15:00 min window)
-      if (diffMin >= 14 && diffMin < 15 && !notifiedPrayers.has(key15)) {
-        notifiedPrayers.add(key15);
-        showPrayerToast({ ...prayer, minutesAway: 15 }, 'reminder');
-        sendSystemNotification({ ...prayer, minutesAway: 15 }, 'reminder');
-      }
-
-      // Exactly 5 min before (4:00 – 5:00 min window)
-      if (diffMin >= 4 && diffMin < 5 && !notifiedPrayers.has(key5)) {
-        notifiedPrayers.add(key5);
-        showPrayerToast({ ...prayer, minutesAway: 5 }, 'reminder');
-        sendSystemNotification({ ...prayer, minutesAway: 5 }, 'reminder');
-      }
-
-      // Prayer time now (0:00 – 1:00 min window)
-      if (diffMin >= 0 && diffMin < 1 && !notifiedPrayers.has(key0)) {
-        notifiedPrayers.add(key0);
-        showPrayerToast({ ...prayer, minutesAway: 0 }, 'now');
-        sendSystemNotification({ ...prayer, minutesAway: 0 }, 'now');
-      }
-    }
-  };
-
-  // Check every 30 seconds — precise enough without being wasteful
-  notifCheckInterval = setInterval(check, 30000);
-  // Do NOT run check() immediately on load — wait for the first interval
-}
-
-// ── Update home screen with next prayer info ──
-function updateNextPrayerBanner() {
-  const next   = getNextPrayer();
-  const active = getActivePrayer();
-  const np     = document.getElementById('home-next-prayer');
-  const sub    = document.getElementById('home-lock-sub');
-  if (!np) return;
-  if (active) {
-    np.textContent  = `🔒 ${active.name} prayer — now`;
-    if(sub) sub.textContent = 'Apps locked · tap to pray & unlock';
-  } else if (next && next.minutesAway <= 60) {
-    np.textContent  = `${next.icon} ${next.name} in ${next.minutesAway} min`;
-    if(sub) sub.textContent = `${next.time} · tap to prepare`;
-  } else if (next) {
-    np.textContent  = `${next.icon} Next: ${next.name}`;
-    if(sub) sub.textContent = `${next.time} · tap to pray & unlock your apps`;
-  }
-}
-
-// ── Add toast animation keyframe ──
-const toastStyle = document.createElement('style');
-toastStyle.textContent = `
-  @keyframes toastIconPulse {
-    0%,100% { box-shadow: 0 0 0 0 rgba(212,168,67,.4); }
-    50%      { box-shadow: 0 0 0 10px rgba(212,168,67,0); }
-  }
-`;
-document.head.appendChild(toastStyle);
-
-// ── Init ──
-// Check if user has completed onboarding
-const hasOnboarded = localStorage.getItem('sjood_onboarded') === 'true';
-
-if (hasOnboarded) {
-  // Recurring user — skip entire onboarding flow, go directly to home
-  const screens = document.querySelectorAll('.screen');
-  screens.forEach(s => s.classList.remove('active'));
+// ════ INIT ════
+const hasOnboarded=localStorage.getItem('sjood_onboarded')==='true';
+if(hasOnboarded){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('s-home')?.classList.add('active');
 } else {
-  // First-time user — show onboarding flow (s-reality is already active by default)
   document.getElementById('s-reality')?.classList.add('active');
 }
 
-// Mark onboarding as complete when user finishes (call this after last onboarding screen)
-function completeOnboarding() {
-  localStorage.setItem('sjood_onboarded', 'true');
-}
+function completeOnboarding(){ localStorage.setItem('sjood_onboarded','true'); }
 
 initHome();
 initReality();
 updateNextPrayerBanner();
-startPrayerNotifications();
 requestNotificationPermission();
 </script>
-</div><!-- /#app -->
+</div>
 </body>
 </html>
