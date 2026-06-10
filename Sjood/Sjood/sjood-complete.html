@@ -54,7 +54,7 @@ input,select,textarea{font-family:inherit;}
 [data-theme="sand"]{--bg:#EDE2C6;--bg-soft:#F0E8D0;--surface:#F8F1DE;--surface-soft:#F4EAD0;--ink:#3D2210;--ink-muted:#7A5E3A;--ink-sub:#9E7A50;--accent:#C9651A;--accent-soft:rgba(201,101,26,0.14);--gold:#9A6820;--gold-s:#C09040;--success:#4E7A4C;--border:rgba(61,34,16,0.12);--border-strong:rgba(61,34,16,0.22);--header-bg:#3D2210;--header-ink:#F5E8CC;--header-muted:#B09060;}
 #app{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#1C3A2D;font-family:var(--font-ui);}
 #phone{position:relative;width:100%;max-width:430px;height:100%;background:var(--bg);overflow:hidden;}
-.screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;transform:translateX(100%);opacity:0;transition:transform .32s cubic-bezier(.4,0,.2,1),opacity .28s ease;will-change:transform,opacity;pointer-events:none;}
+.screen{position:absolute;inset:0;overflow:hidden;transform:translateX(100%);opacity:0;transition:transform .32s cubic-bezier(.4,0,.2,1),opacity .28s ease;will-change:transform,opacity;pointer-events:none;}
 .screen.active{transform:translateX(0);opacity:1;pointer-events:all;}
 .screen.from-left{transform:translateX(-30%);opacity:0;}
 .screen::-webkit-scrollbar{display:none;}
@@ -221,7 +221,7 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
 </div>
 </div>
 
-<div class="screen" id="s-permissions" style="background:radial-gradient(ellipse at 50% 0%,#2A1810 0%,#15090A 55%,#0B0606 100%);overflow-y:auto;color:#F5E2C8;">
+<div class="screen" id="s-permissions" style="background:radial-gradient(ellipse at 50% 0%,#2A1810 0%,#15090A 55%,#0B0606 100%);color:#F5E2C8;">
 <div style="position:absolute;top:-40px;right:-40px;opacity:.06;pointer-events:none;"><svg width="220" height="220" viewBox="0 0 24 24" fill="none"><mask id="crsauto1"><rect width="24" height="24" fill="#fff"/><circle cx="15.5" cy="10.5" r="8" fill="#000"/></mask><circle cx="12" cy="12" r="8.5" fill="#D4A55E" mask="url(#crsauto1)"/></svg></div>
 <div style="position:absolute;bottom:60px;left:-30px;opacity:.05;pointer-events:none;"><svg width="160" height="160" viewBox="0 0 24 24" fill="none"><mask id="crsauto2"><rect width="24" height="24" fill="#fff"/><circle cx="15.5" cy="10.5" r="8" fill="#000"/></mask><circle cx="12" cy="12" r="8.5" fill="#D4A55E" mask="url(#crsauto2)"/></svg></div>
 
@@ -292,7 +292,7 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
   <button onclick="go('s-goals')" style="width:100%;height:44px;margin-top:6px;background:transparent;color:rgba(245,226,200,.45);border:none;font-size:13px;font-weight:500;cursor:pointer;">I'll set this up later</button>
 </div>
 </div>
-<div class="screen" id="s-goals" style="background:var(--bg);overflow-y:auto;display:flex;flex-direction:column;">
+<div class="screen" id="s-goals" style="background:var(--bg);display:flex;flex-direction:column;">
 <div style="position:absolute;bottom:-44px;right:-44px;opacity:.05;pointer-events:none;z-index:0;"><svg width="230" height="230" viewBox="0 0 24 24" fill="none"><mask id="crsq1"><rect width="24" height="24" fill="#fff"/><circle cx="15.5" cy="10.5" r="8" fill="#000"/></mask><circle cx="12" cy="12" r="8.5" fill="var(--gold)" mask="url(#crsq1)"/></svg></div>
 <div style="padding:max(52px,calc(env(safe-area-inset-top,0px) + 12px)) 20px calc(22px + env(safe-area-inset-bottom,0px));flex:1;display:flex;flex-direction:column;min-height:0;position:relative;z-index:1;">
   <div style="display:flex;align-items:center;gap:6px;margin-bottom:22px;">
@@ -323,7 +323,7 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
 </div>
 </div>
 
-<div class="screen" id="s-prayer-freq" style="background:var(--bg);overflow-y:auto;display:flex;flex-direction:column;">
+<div class="screen" id="s-prayer-freq" style="background:var(--bg);display:flex;flex-direction:column;">
 <div style="position:absolute;bottom:-44px;right:-44px;opacity:.05;pointer-events:none;z-index:0;"><svg width="230" height="230" viewBox="0 0 24 24" fill="none"><mask id="crsq2"><rect width="24" height="24" fill="#fff"/><circle cx="15.5" cy="10.5" r="8" fill="#000"/></mask><circle cx="12" cy="12" r="8.5" fill="var(--gold)" mask="url(#crsq2)"/></svg></div>
 <div style="padding:max(52px,calc(env(safe-area-inset-top,0px) + 12px)) 20px calc(22px + env(safe-area-inset-bottom,0px));flex:1;display:flex;flex-direction:column;min-height:0;position:relative;z-index:1;">
   <div style="display:flex;align-items:center;gap:6px;margin-bottom:22px;">
@@ -347,7 +347,7 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
 </div>
 </div>
 
-<div class="screen" id="s-commitment" style="background:var(--bg);overflow-y:auto;display:flex;flex-direction:column;">
+<div class="screen" id="s-commitment" style="background:var(--bg);display:flex;flex-direction:column;">
 <div style="position:absolute;bottom:-44px;right:-44px;opacity:.05;pointer-events:none;z-index:0;"><svg width="230" height="230" viewBox="0 0 24 24" fill="none"><mask id="crsq3"><rect width="24" height="24" fill="#fff"/><circle cx="15.5" cy="10.5" r="8" fill="#000"/></mask><circle cx="12" cy="12" r="8.5" fill="var(--gold)" mask="url(#crsq3)"/></svg></div>
 <div style="padding:max(52px,calc(env(safe-area-inset-top,0px) + 12px)) 20px calc(22px + env(safe-area-inset-bottom,0px));flex:1;display:flex;flex-direction:column;min-height:0;position:relative;z-index:1;">
   <div style="display:flex;align-items:center;gap:6px;margin-bottom:22px;">
@@ -405,7 +405,7 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
 </div>
 </div>
 
-<div class="screen" id="s-plan" style="background:var(--bg);overflow-y:auto;display:flex;flex-direction:column;">
+<div class="screen" id="s-plan" style="background:var(--bg);display:flex;flex-direction:column;">
 <div style="position:absolute;top:0;right:-20px;opacity:.09;pointer-events:none;"><svg width="220" height="220" viewBox="0 0 24 24" fill="none"><mask id="crsauto6"><rect width="24" height="24" fill="#fff"/><circle cx="15.5" cy="10.5" r="8" fill="#000"/></mask><circle cx="12" cy="12" r="8.5" fill="var(--gold)" mask="url(#crsauto6)"/></svg></div>
 <div style="padding:max(48px,calc(env(safe-area-inset-top,0px) + 12px)) 20px calc(18px + env(safe-area-inset-bottom,0px));position:relative;flex:1;display:flex;flex-direction:column;">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
@@ -445,7 +445,7 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
 </div>
 </div>
 
-<div class="screen" id="s-home" style="background:var(--bg);overflow-y:auto;padding-bottom:74px;display:flex;flex-direction:column;">
+<div class="screen" id="s-home" style="background:var(--bg);padding-bottom:74px;display:flex;flex-direction:column;">
 <div style="background:var(--header-bg);color:var(--header-ink);padding:max(58px, calc(env(safe-area-inset-top,0px) + 16px)) 18px 14px;border-bottom-left-radius:24px;border-bottom-right-radius:24px;position:relative;overflow:hidden;flex-shrink:0;">
   <div style="position:absolute;top:-20px;right:-20px;opacity:.08;pointer-events:none;"><svg width="180" height="180" viewBox="0 0 24 24" fill="none"><mask id="crsauto7"><rect width="24" height="24" fill="#fff"/><circle cx="15.5" cy="10.5" r="8" fill="#000"/></mask><circle cx="12" cy="12" r="8.5" fill="var(--gold-s)" mask="url(#crsauto7)"/></svg></div>
   <div style="display:flex;justify-content:space-between;align-items:flex-start;">
@@ -503,7 +503,7 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
       </div>
       <div style="min-width:0;">
         <div style="font-size:13px;font-weight:700;color:var(--ink);">Qibla</div>
-        <div style="font-size:10.5px;color:var(--ink-muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Face Makkah</div>
+        <div style="font-size:10.5px;color:var(--ink-muted);margin-top:1px;line-height:1.15;">Find Qibla</div>
       </div>
     </div>
   </div>
@@ -555,7 +555,7 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
 </div>
 </div>
 
-<div class="screen" id="s-checkin-spiritual" style="background:var(--bg);overflow-y:auto;display:flex;flex-direction:column;">
+<div class="screen" id="s-checkin-spiritual" style="background:var(--bg);display:flex;flex-direction:column;">
 <div style="padding:max(52px,calc(env(safe-area-inset-top,0px) + 12px)) 20px calc(20px + env(safe-area-inset-bottom,0px));flex:1;display:flex;flex-direction:column;">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
     <button onclick="go('s-home')" style="width:32px;height:32px;border-radius:16px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
@@ -600,7 +600,7 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
 </div>
 </div>
 
-<div class="screen" id="s-lets-pray" style="background:var(--bg);overflow-y:auto;padding-bottom:80px;">
+<div class="screen" id="s-lets-pray" style="background:var(--bg);padding-bottom:80px;">
 
 <!-- Header -->
 <div style="background:var(--header-bg);padding:calc(env(safe-area-inset-top,44px) + 8px) 20px 16px;position:sticky;top:0;z-index:10;">
@@ -659,7 +659,7 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
 
 </div>
 </div>
-<div class="screen" id="s-streak" style="background:var(--bg);overflow-y:auto;padding-bottom:80px;">
+<div class="screen" id="s-streak" style="background:var(--bg);padding-bottom:80px;">
 <div style="padding:calc(env(safe-area-inset-top,44px) + 8px) 20px 0;">
 
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
@@ -788,7 +788,7 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
 </div>
 </div>
 
-<div class="screen" id="s-settings" style="background:var(--bg);overflow-y:auto;padding-bottom:74px;">
+<div class="screen" id="s-settings" style="background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:74px;">
 <div style="padding:max(54px,calc(env(safe-area-inset-top,0px) + 12px)) 20px 0;">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
     <button onclick="go('s-home')" style="min-width:44px;min-height:44px;width:44px;height:44px;border-radius:22px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
@@ -945,15 +945,23 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
 
 
 <div id="shared-nav">
-  <button class="nav-item active" id="nav-streak" onclick="switchTab('streak')">
-    <svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 17a2.5 2.5 0 0 0 2.5-2.5c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-    <span>Streaks</span>
+  <button class="nav-item active" id="nav-home" onclick="switchTab('home')">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+    <span>Home</span>
+  </button>
+  <button class="nav-item" id="nav-lock" onclick="switchTab('lock')">
+    <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+    <span>Lock</span>
+  </button>
+  <button class="nav-item" id="nav-settings" onclick="switchTab('settings')">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+    <span>Settings</span>
   </button>
 </div>
 
 
 <!-- ── PRIVACY POLICY ──────────────────────────────────────────────── -->
-<div class="screen" id="s-privacy" style="background:var(--bg);overflow-y:auto;padding-bottom:60px;">
+<div class="screen" id="s-privacy" style="background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:60px;">
 <div style="padding:calc(env(safe-area-inset-top,44px) + 8px) 20px 0;">
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
     <button onclick="goBack('s-settings')" style="width:32px;height:32px;border-radius:16px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
@@ -998,7 +1006,7 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
   </div>
 </div>
 </div>
-<div class="screen" id="s-terms" style="background:var(--bg);overflow-y:auto;padding-bottom:60px;">
+<div class="screen" id="s-terms" style="background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:60px;">
 <div style="padding:calc(env(safe-area-inset-top,44px) + 8px) 20px 0;">
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
     <button onclick="goBack('s-settings')" style="width:32px;height:32px;border-radius:16px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
@@ -1212,8 +1220,8 @@ function getFallbackDua(){ const p=userProfile; const n=p.name?`, ${p.name}`:'';
 // ════════════════════════════════════════
 // NAVIGATION — with shared nav management
 // ════════════════════════════════════════
-const MAIN_SCREENS = ['s-home','s-streak','s-settings'];
-const TAB_MAP = {'s-home':'streak','s-streak':'streak','s-settings':'streak'};
+const MAIN_SCREENS = ['s-home','s-settings'];
+const TAB_MAP = {'s-home':'home','s-settings':'settings'};
 
 function go(id) {
   window._prevScreen = window._currentScreen || null;
@@ -1233,7 +1241,7 @@ function go(id) {
   // Update active nav item
   if(isMain){
     const activeTab = TAB_MAP[id];
-    ['streak'].forEach(t=>{
+    ['home','lock','settings'].forEach(t=>{
       const navEl=document.getElementById('nav-'+t);
       if(navEl) navEl.classList.toggle('active', t===activeTab);
     });
@@ -1496,7 +1504,7 @@ const prayerTimes = (function(){
 })();
 
 // ── Prayer Engine ──
-function haptic(t){try{window.webkit.messageHandlers.haptic.postMessage(t);}catch(e){}}
+function haptic(t){ setTimeout(function(){ try{window.webkit.messageHandlers.haptic.postMessage(t);}catch(e){} }, 0); }
 
 (function(){
   try{window.webkit.messageHandlers.location.postMessage('request');}catch(e){}
@@ -1604,9 +1612,9 @@ function updateNextPrayerBanner(){
 
 // ── Haptic on gold buttons ──
 document.addEventListener('touchstart', e => {
-  if(e.target.closest('.btn-gold') || e.target.closest('.btn-white')) haptic('medium');
-  if(e.target.closest('.option-card')) haptic('light');
-  if(e.target.closest('.nav-item')) haptic('light');
+  var t=e.target;
+  if(t.closest('.btn-gold') || t.closest('.btn-white')) haptic('medium');
+  else if(t.closest('.opt-card') || t.closest('.option-card') || t.closest('.app-chip') || t.closest('.nav-item') || t.closest('button') || t.closest('[onclick]')) haptic('light');
 }, {passive:true});
 
 // ─── Init ───
