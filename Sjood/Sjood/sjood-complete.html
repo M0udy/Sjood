@@ -457,7 +457,7 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
         <div style="margin-top:4px;font-size:10.5px;color:var(--header-muted);" id="home-date"></div>
       </div>
     </div>
-    <button onclick="openNotificationSettings()" style="width:44px;height:44px;border-radius:22px;background:transparent;border:none;display:flex;align-items:center;justify-content:center;color:var(--header-ink);position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;flex-shrink:0;">
+    <button onclick="openNotifications()" style="width:44px;height:44px;border-radius:22px;background:transparent;border:none;display:flex;align-items:center;justify-content:center;color:var(--header-ink);position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;flex-shrink:0;">
       <div style="width:34px;height:34px;border-radius:17px;background:rgba(255,255,255,.08);border:1px solid rgba(245,226,200,.12);display:flex;align-items:center;justify-content:center;pointer-events:none;">
       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8.5a6 6 0 10-12 0c0 5.6-2.2 7.4-2.2 7.4h16.4s-2.2-1.8-2.2-7.4z"/><path d="M10.1 19.4a2 2 0 003.8 0"/></svg>
       </div>
@@ -488,15 +488,6 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
         <div style="font-size:10.5px;color:var(--ink-muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Adhkar</div>
       </div>
     </div>
-    <div onclick="go('s-lock')" style="flex:1;min-width:0;background:var(--surface);border-radius:16px;border:1.5px solid var(--border-strong);padding:12px;display:flex;align-items:center;gap:11px;cursor:pointer;box-shadow:0 2px 10px rgba(44,26,14,.07);">
-      <div style="width:42px;height:42px;border-radius:12px;background:var(--header-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(21,61,36,.20);">
-        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="var(--gold-s)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10" width="15" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
-      </div>
-      <div style="min-width:0;">
-        <div style="font-size:13px;font-weight:700;color:var(--ink);">Lock</div>
-        <div style="font-size:10.5px;color:var(--ink-muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Apps</div>
-      </div>
-    </div>
     <div onclick="go('s-lets-pray-qibla')" style="flex:1;min-width:0;background:var(--surface);border-radius:16px;border:1.5px solid var(--border-strong);padding:12px;display:flex;align-items:center;gap:11px;cursor:pointer;box-shadow:0 2px 10px rgba(44,26,14,.07);">
       <div style="width:42px;height:42px;border-radius:12px;background:var(--header-bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(21,61,36,.20);">
         <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="var(--gold-s)" stroke-width="1.5" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 5.2l2.3 7.2-2.3-1.7-2.3 1.7z" fill="var(--gold-s)" stroke="none"/><path d="M12 18.8l-2.3-7.2 2.3 1.7 2.3-1.7z" fill="var(--gold-s)" opacity="0.4" stroke="none"/></svg>
@@ -518,15 +509,6 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
   <div class="card" style="padding:10px 14px;display:flex;align-items:center;gap:12px;flex-shrink:0;">
     <div style="flex-shrink:0;"><div class="eyebrow">Streak</div><div style="display:flex;align-items:baseline;gap:5px;margin-top:2px;"><div class="cinzel" style="font-size:26px;color:var(--ink);font-weight:500;line-height:1;" id="home-streak">0</div><div style="font-size:11px;color:var(--ink-muted);">days</div></div><div style="font-size:11px;color:var(--accent);font-weight:600;margin-top:2px;" id="home-streak-label">Begin today 🌙</div></div>
     <div style="flex:1;display:flex;justify-content:flex-end;gap:5px;"><div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><div id="streak-dot-0" style="width:14px;height:14px;border-radius:14px;background:transparent;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;"></div><div style="font-size:9px;color:var(--ink-sub);">M</div></div><div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><div id="streak-dot-1" style="width:14px;height:14px;border-radius:14px;background:transparent;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;"></div><div style="font-size:9px;color:var(--ink-sub);">T</div></div><div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><div id="streak-dot-2" style="width:14px;height:14px;border-radius:14px;background:transparent;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;"></div><div style="font-size:9px;color:var(--ink-sub);">W</div></div><div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><div id="streak-dot-3" style="width:14px;height:14px;border-radius:14px;background:transparent;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;"></div><div style="font-size:9px;color:var(--ink-sub);">T</div></div><div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><div id="streak-dot-4" style="width:14px;height:14px;border-radius:14px;background:transparent;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;"></div><div style="font-size:9px;color:var(--ink-sub);">F</div></div><div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><div id="streak-dot-5" style="width:14px;height:14px;border-radius:14px;background:transparent;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;"></div><div style="font-size:9px;color:var(--ink-sub);">S</div></div><div style="display:flex;flex-direction:column;align-items:center;gap:3px;"><div id="streak-dot-6" style="width:14px;height:14px;border-radius:14px;background:transparent;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;"></div><div style="font-size:9px;color:var(--ink-sub);">S</div></div></div>
-  </div>
-
-  <!-- Compact ayat ribbon — tap to go to Duas -->
-  <div onclick="go('s-lets-pray')" style="flex-shrink:0;padding-bottom:4px;cursor:pointer;">
-    <div style="background:var(--header-bg);border-radius:12px;padding:9px 14px;display:flex;align-items:center;gap:10px;">
-      <div style="width:6px;height:6px;border-radius:3px;background:var(--gold);flex-shrink:0;"></div>
-      <div class="arabic" style="font-size:14px;color:var(--gold-s);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.6;" id="home-vod-arabic">وَأَقِمِ الصَّلَاةَ لِذِكْرِي</div>
-      <div style="font-size:9px;color:var(--header-muted);flex-shrink:0;" id="home-vod-source">Ta-Ha 20:14</div>
-    </div>
   </div>
 
 </div>
@@ -957,6 +939,17 @@ button[style*="width:28px;height:28px;border-radius:14px"]::before,
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
     <span>Settings</span>
   </button>
+</div>
+
+<!-- ── NOTIFICATIONS SHEET (bottom modal) ──────────────────────────── -->
+<div class="modal-overlay" id="notif-modal" onclick="if(event.target===this)closeNotifications()">
+  <div class="modal-sheet">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+      <div class="cinzel" style="font-size:20px;color:var(--ink);">Notifications</div>
+      <button id="notif-clear-all" onclick="clearAllNotifs()" style="background:none;border:none;color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;padding:6px 4px;">Clear all</button>
+    </div>
+    <div id="notif-list"></div>
+  </div>
 </div>
 
 
@@ -1619,6 +1612,7 @@ document.addEventListener('touchstart', e => {
 
 // ─── Init ───
 initHome();
+updateBellDot();
 initReality();
 updateNextPrayerBanner();
 startPrayerNotifications();
@@ -2607,6 +2601,43 @@ function openNotificationSettings(){
     }
   },420);
 }
+
+// ════════════════════════════════════════
+// NOTIFICATIONS PANEL — bottom sheet
+// Scheduled prayer reminders; dismissable; reset per day
+// ════════════════════════════════════════
+function _notifDismissKey(){ return 'sjoodNotifDismissed-'+new Date().toDateString(); }
+function _getDismissedNotifs(){ try{ return JSON.parse(localStorage.getItem(_notifDismissKey())||'[]'); }catch(e){ return []; } }
+function _setDismissedNotifs(a){ try{ localStorage.setItem(_notifDismissKey(), JSON.stringify(a)); }catch(e){} }
+function buildNotifications(){
+  var d=_getDismissedNotifs();
+  return PRAYERS.filter(function(p){ return d.indexOf(p.name)<0; }).map(function(p){
+    var t=(typeof prayerTimes!=='undefined' && prayerTimes && prayerTimes[p.name]) ? prayerTimes[p.name] : p.time;
+    return { id:p.name, icon:p.icon, title:p.name+' prayer', body:'Reminder at '+(typeof formatTime==='function'?formatTime(t):t)+' · pray & unlock apps' };
+  });
+}
+function updateBellDot(){ var dot=document.getElementById('bell-dot'); if(dot) dot.style.display = buildNotifications().length ? 'block' : 'none'; }
+function renderNotifications(){
+  var list=document.getElementById('notif-list'); if(!list) return;
+  var items=buildNotifications();
+  var clr=document.getElementById('notif-clear-all'); if(clr) clr.style.display = items.length ? 'block' : 'none';
+  if(!items.length){
+    list.innerHTML='<div style="text-align:center;padding:44px 0 30px;color:var(--ink-sub);"><div style="font-size:30px;opacity:.45;margin-bottom:10px;">🔕</div><div style="font-size:14px;font-weight:500;">No notifications</div></div>';
+    return;
+  }
+  list.innerHTML=items.map(function(n){
+    return '<div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--border);">'+
+      '<div style="width:40px;height:40px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">'+(n.icon||'🔔')+'</div>'+
+      '<div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:600;color:var(--ink);">'+n.title+'</div>'+
+      '<div style="font-size:12px;color:var(--ink-muted);margin-top:1px;">'+n.body+'</div></div>'+
+      '<button onclick="deleteNotif(\''+n.id+'\')" aria-label="Dismiss" style="width:32px;height:32px;border-radius:16px;background:transparent;border:none;color:var(--ink-sub);font-size:20px;line-height:1;cursor:pointer;flex-shrink:0;">×</button>'+
+    '</div>';
+  }).join('');
+}
+function openNotifications(){ try{ haptic('light'); }catch(e){} renderNotifications(); var m=document.getElementById('notif-modal'); if(m) m.classList.add('open'); }
+function closeNotifications(){ var m=document.getElementById('notif-modal'); if(m) m.classList.remove('open'); }
+function deleteNotif(id){ try{ haptic('light'); }catch(e){} var d=_getDismissedNotifs(); if(d.indexOf(id)<0) d.push(id); _setDismissedNotifs(d); renderNotifications(); updateBellDot(); }
+function clearAllNotifs(){ try{ haptic('medium'); }catch(e){} _setDismissedNotifs(PRAYERS.map(function(p){ return p.name; })); renderNotifications(); updateBellDot(); }
 
 // App Lock — persist the selected apps and confirm (Save footer button)
 function saveLockApps(){
